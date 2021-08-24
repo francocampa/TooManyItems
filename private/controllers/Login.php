@@ -2,6 +2,8 @@
     class Login extends Controller {
         public function __construct(){
             require_once '../private/models/Cuenta.php';
+        }
+        public function login(){
             $data = [
                 'error' => ""
             ];

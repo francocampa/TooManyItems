@@ -8,7 +8,7 @@ require_once APPROOT . '\views\includes/head.php';
         <input type="password" class="input" name="pass" placeholder="Contraseña">
         <input type="submit" value="Ingresar" class="btnIngresar" name="submit">
     </form>
-    <p class="error"><?php echo $data['error'];?></p>
+    <p class="error"> <?php echo $data['error']; ?> </p>
 </div>
 <div class="logoLogin">
     <img src="<?php echo URLROOT; ?>/public/img/logos/Logotipo.svg" class="logoLogin">

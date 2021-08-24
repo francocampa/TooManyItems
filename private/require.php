@@ -1,4 +1,6 @@
 <?php
+    require_once 'helpers/sessionManager.php';
+
     require_once 'libraries/Core.php';
     require_once 'libraries/Controller.php';
     require_once 'libraries/Database.php';

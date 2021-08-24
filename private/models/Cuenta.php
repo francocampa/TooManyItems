@@ -1,11 +1,11 @@
 <?php
     class Cuenta{
-        private $ci;
+        public $ci;
         private $nombre;
         private $apellido;
         private $telefono;
         private $email;
-        private $contrasenia;
+        public $contrasenia;
         private $sectores;
         private $permisos;
 
