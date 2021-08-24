@@ -1,12 +1,8 @@
 <?php 
     class db{
-        private $dbHost = DB_HOST;
-        private $dbUser = DB_USER;
-        private $dbPass = DB_PASS;
-        private $dbName = DB_NAME;
 
-        public function conectar(){
-            $conexion = new mysqli($this->dbHost, $this->dbUser, $this->dbPass, $this->dbName);
+        public static function conectar(){
+            $conexion = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
             if ($conexion->connect_errno) {
                 die('Ocurrio un error');
             } else {

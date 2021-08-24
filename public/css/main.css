@@ -1,0 +1,29 @@
+:root{
+    --color-bg: #dcdbdb;
+    --color-lightbg: #eeeeee;
+    --color-orange: #ff7c37;
+    --color-red: #FF4C37;
+    --color-mediumbg: #545454;
+    --color-darkbg: #1c1d20;
+    --color-gray: #757575;
+}
+*{
+    font-family: "Roboto";
+    font-weight: normal;
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+body{
+    background-color: #dcdbdb;
+}
+h1{
+    font-family: 'Exo';
+    color: var(--color-orange);
+    font-weight: 900;
+}
+h2{
+    margin-bottom: 0.5rem;
+    color: #54545481;
+    font-weight: lighter;
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="807" height="765" viewBox="0 0 807 765">
+  <defs>
+    <clipPath id="clip-Logotipo">
+      <rect width="807" height="765"/>
+    </clipPath>
+  </defs>
+  <g id="Logotipo" clip-path="url(#clip-Logotipo)">
+    <g id="Group_220" data-name="Group 220" transform="translate(-1058 -224.5)">
+      <g id="Component_16_3" data-name="Component 16 – 3" transform="translate(1101.557 287)">
+        <g id="Group_19" data-name="Group 19">
+          <g id="Polygon_14" data-name="Polygon 14" transform="translate(0 207.846) rotate(-30)" fill="#707070">
+            <path d="M 139.4812927246094 380.5230102539062 L 57.82975387573242 240.0178680419922 L 139.4812927246094 99.51271820068359 L 221.1329040527344 240.0178680419922 L 139.4812927246094 380.5230102539062 Z" stroke="none"/>
+            <path d="M 139.4812774658203 199.0253601074219 L 115.6593475341797 240.0178680419922 L 139.4812774658203 281.0103759765625 L 163.30322265625 240.0178680419922 L 139.4812774658203 199.0253601074219 M 139.4812774658203 3.0517578125e-05 L 278.9626159667969 240.0178680419922 L 139.4812774658203 480.0357055664062 L -6.103515625e-05 240.0178680419922 L 139.4812774658203 3.0517578125e-05 Z" stroke="none" fill="#707070"/>
+          </g>
+          <g id="Polygon_15" data-name="Polygon 15" transform="translate(479.975 68.365) rotate(30)" fill="#5e5e5e">
+            <path d="M 139.4813079833984 380.5230407714844 L 57.82968521118164 240.0178680419922 L 139.4813079833984 99.51268768310547 L 221.1329345703125 240.0178680419922 L 139.4813079833984 380.5230407714844 Z" stroke="none"/>
+            <path d="M 139.4813079833984 199.0253601074219 L 115.6593780517578 240.0178680419922 L 139.4813079833984 281.0103759765625 L 163.3032531738281 240.0178680419922 L 139.4813079833984 199.0253601074219 M 139.4813079833984 3.0517578125e-05 L 278.962646484375 240.0178680419922 L 139.4813079833984 480.0357055664062 L -3.0517578125e-05 240.0178680419922 L 139.4813079833984 3.0517578125e-05 Z" stroke="none" fill="#5e5e5e"/>
+          </g>
+          <g id="Polygon_16" data-name="Polygon 16" transform="translate(601.042 0) rotate(90)" fill="#dcdbdb">
+            <path d="M 139.4812927246094 380.5230102539062 L 57.82975387573242 240.0178680419922 L 139.4812927246094 99.51271820068359 L 221.1329040527344 240.0178680419922 L 139.4812927246094 380.5230102539062 Z" stroke="none"/>
+            <path d="M 139.4812774658203 199.0253601074219 L 115.6593475341797 240.0178680419922 L 139.4812774658203 281.0103759765625 L 163.30322265625 240.0178680419922 L 139.4812774658203 199.0253601074219 M 139.4812774658203 3.0517578125e-05 L 278.9626159667969 240.0178680419922 L 139.4812774658203 480.0357055664062 L -6.103515625e-05 240.0178680419922 L 139.4812774658203 3.0517578125e-05 Z" stroke="none" fill="#8f8c8c"/>
+          </g>
+        </g>
+        <g id="Group_20" data-name="Group 20" transform="translate(139.693 67.307)">
+          <path id="Polygon_14-2" data-name="Polygon 14" d="M85.47,0l85.47,147.076L85.47,294.151,0,147.076Z" transform="translate(442.152 254.742) rotate(150)" fill="#707070"/>
+          <path id="Polygon_15-2" data-name="Polygon 15" d="M85.47,0l85.47,147.076L85.47,294.151,0,147.076Z" transform="translate(148.038 340.212) rotate(-150)" fill="#5e5e5e"/>
+          <path id="Polygon_16-2" data-name="Polygon 16" d="M85.47,0l85.47,147.076L85.47,294.151,0,147.076Z" transform="translate(73.852 382.104) rotate(-90)" fill="#8f8c8c"/>
+        </g>
+        <g id="Group_18" data-name="Group 18" transform="translate(235.178 182.521)">
+          <path id="Polygon_11" data-name="Polygon 11" d="M48.542,0,97.083,83.53,48.542,167.06,0,83.53Z" transform="translate(0 72.334) rotate(-30)" fill="#ff7c37"/>
+          <path id="Polygon_12" data-name="Polygon 12" d="M48.542,0,97.083,83.53,48.542,167.06,0,83.53Z" transform="translate(166.891 23.792) rotate(30)" fill="#ce6229"/>
+          <path id="Polygon_13" data-name="Polygon 13" d="M48.542,0,97.083,83.53,48.542,167.06,0,83.53Z" transform="translate(209.172 0) rotate(90)" fill="#ff9760"/>
+        </g>
+      </g>
+      <text id="TooManyItems" transform="translate(1203.838 908)" fill="#8f8c8c" font-size="77" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Too</tspan><tspan y="0" fill="#ff7c37">Many</tspan><tspan y="0" fill="#5e5e5e">Items</tspan></text>
+    </g>
+  </g>
+</svg>
