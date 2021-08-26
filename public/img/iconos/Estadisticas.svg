@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="67" height="62" viewBox="0 0 67 62">
+  <defs>
+    <clipPath id="clip-Estadisticas">
+      <rect width="67" height="62"/>
+    </clipPath>
+  </defs>
+  <g id="Estadisticas" clip-path="url(#clip-Estadisticas)">
+    <g id="Component_17_31" data-name="Component 17 – 31" transform="translate(0 0)">
+      <rect id="Rectangle_57" data-name="Rectangle 57" width="17" height="36" rx="5" transform="translate(0 26)" fill="#eee"/>
+      <rect id="Rectangle_58" data-name="Rectangle 58" width="17" height="62" rx="5" transform="translate(25)" fill="#eee"/>
+      <rect id="Rectangle_59" data-name="Rectangle 59" width="17" height="51" rx="5" transform="translate(50 11)" fill="#eee"/>
+    </g>
+  </g>
+</svg>

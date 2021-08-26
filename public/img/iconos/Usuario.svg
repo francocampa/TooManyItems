@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
+  <defs>
+    <clipPath id="clip-Usuario">
+      <rect width="34" height="34"/>
+    </clipPath>
+  </defs>
+  <g id="Usuario" clip-path="url(#clip-Usuario)">
+    <path id="Icon_awesome-user-alt" data-name="Icon awesome-user-alt" d="M17.019,19.146A9.573,9.573,0,1,0,7.446,9.573,9.576,9.576,0,0,0,17.019,19.146Zm8.509,2.127H21.865a11.572,11.572,0,0,1-9.693,0H8.509A8.509,8.509,0,0,0,0,29.783v1.064a3.192,3.192,0,0,0,3.191,3.191H30.847a3.192,3.192,0,0,0,3.191-3.191V29.783A8.509,8.509,0,0,0,25.528,21.274Z" transform="translate(0 -0.038)" fill="#eee"/>
+  </g>
+</svg>

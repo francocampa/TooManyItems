@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="67" height="62" viewBox="0 0 67 62">
+  <defs>
+    <clipPath id="clip-Informatica">
+      <rect width="67" height="62"/>
+    </clipPath>
+  </defs>
+  <g id="Informatica" clip-path="url(#clip-Informatica)">
+    <g id="Component_19_31" data-name="Component 19 – 31" transform="translate(4 5)">
+      <g id="Icon_feather-monitor" data-name="Icon feather-monitor">
+        <path id="Path_13" data-name="Path 13" d="M8.829,4.5H55.462a5.829,5.829,0,0,1,5.829,5.829V39.475A5.829,5.829,0,0,1,55.462,45.3H8.829A5.829,5.829,0,0,1,3,39.475V10.329A5.829,5.829,0,0,1,8.829,4.5Z" transform="translate(-3 -4.5)" fill="none" stroke="#eee" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+        <path id="Path_14" data-name="Path 14" d="M12,31.5H35.316" transform="translate(5.487 20.962)" fill="none" stroke="#eee" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+        <path id="Path_15" data-name="Path 15" d="M18,25.5V37.158" transform="translate(11.146 15.304)" fill="none" stroke="#eee" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+      </g>
+    </g>
+  </g>
+</svg>
