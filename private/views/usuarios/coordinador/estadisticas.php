@@ -1,7 +1,7 @@
 <?php
 $css = [
     'estructura' => true,
-    'tablas' => true
+    'estadisticas' => true
 ];
 require_once APPROOT . '\views\includes/head.php';
 ?>

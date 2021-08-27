@@ -15,12 +15,13 @@
     padding:0;
 }
 body{
-    background-color: #dcdbdb;
+    background-color: var(--color-bg);
 }
 h1{
     font-family: 'Exo';
     color: var(--color-orange);
-    font-weight: 900;
+    font-weight: 600;
+    font-size: 42px;
 }
 h2{
     margin-bottom: 0.5rem;

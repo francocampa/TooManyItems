@@ -1,7 +1,8 @@
 <?php
 $css = [
     'estructura' => true,
-    'tablas' => true
+    'tablas' => true,
+    'filtros' => true
 ];
 require_once APPROOT . '\views\includes/head.php';
 ?>

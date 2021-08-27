@@ -18,6 +18,12 @@
         if (isset($css['form'])) {
             echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/form.css\">";
         }
+        if (isset($css['filtros'])) {
+            echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/filtros.css\">";
+        }
+        if (isset($css['estadisticas'])) {
+            echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/estadisticas.css\">";
+        }
         // if($css['']){
         // }
     ?>
