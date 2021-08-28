@@ -22,6 +22,14 @@
             // $this->sectores=$sectores;
             // $this->permisos=$permisos;
         }
+        public function login(){
+            $db = db::conectar();
+            $callString = "CALL loginProvisorio(" . $this->ci . ", \"" . $this->contrasenia . "\", @validacion)";
+            $consulta = $db->query($callString);
+            $consulta = $db->query("SELECT @validacion");
+            $respuesta = $consulta->fetch_array()["@validacion"];
+            return $respuesta;
+        }
 
         public function getCuentaByCi($ci){
             $db= db::conectar();

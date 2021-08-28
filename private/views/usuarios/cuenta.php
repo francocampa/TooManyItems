@@ -11,7 +11,10 @@ require_once APPROOT . '\views\includes/head.php';
     <!-- <?php require_once APPROOT . '\views\includes/filters.php'; ?> -->
 
     <div class="contenido">
-
+        <?php
+            var_dump($_SESSION);
+        ?>
+        <a href="<?php echo URLROOT ?>/Cuenta/logOut">Salir</a>
     </div>
 </div>
 <?php

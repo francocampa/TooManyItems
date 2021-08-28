@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+    if(!isLoggedIn() && $data['titulo']!="login"){ //comprueba si estamos logeados o si nos estamos intentnado logear, nos reenvia al login si no hay una cuenta iniciada
+        header('location: '.URLROOT.'/Login');
+    }else if($data['titulo'] != "login"){  //si estamos en un login no hay que comprobar permisos, comprueba si el usuario tiene permiso para entrar a la p[agina
+        $pase = false;    // Este ser[a el encargado de definir si se tienen los permisos necesarios para acceder, con solo coincidir en uno de los permisos se tiene acceso
+        if (isset($data['permisos']['admin']) && $_SESSION['permisos']['admin']) {
+            $pase = true;
+        }
+        if (isset($data['permisos']['coord']) && $_SESSION['permisos']['coord']) {
+            $pase = true;
+        }
+        if (isset($data['permisos']['panio']) && $_SESSION['permisos']['panio']) {
+            $pase = true;
+        }
+        if (isset($data['permisos']['docente']) && $_SESSION['permisos']['docente']) {
+            $pase = true;
+        }
+        if (!$pase) {
+            header('location: ' . URLROOT . '/ErrorController/permisos');
+        }
+    }
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
