@@ -30,12 +30,22 @@ navbar{
 a + a {
     margin-top: 1rem;
 }
+a{
+    text-decoration: none;
+}
+.navbarIcons > a, navbar > a{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
 .navbarIcon{
+    margin: auto;
     width: 2.5rem;
     height: 2.5rem;
     transition: all 0.4s ease;
 }
 .navbarIconCuenta{
+    margin: 0 auto;
     width: 2rem;
     height: 2rem;
     transition: all 0.4s ease;
@@ -46,10 +56,20 @@ a + a {
 .navbarIcon:hover, .navbarIconCuenta:hover{
     transform: translateY(-15px);
 }
+.navbarIcon:hover + p, .navbarIconCuenta:hover + p{
+    color: var(--color-lightbg);
+}
 .titulo{
     grid-area: tituloPestania;
     margin: 1rem;
     margin-bottom: 1rem;
+}
+.subtitulo{
+    text-decoration: none;
+    color: var(--color-darkbg);
+    font-size: 12px;
+    font-weight: bold;
+    transition: color 0.4s ease;
 }
 .filtros{
     grid-area: barraAcciones;

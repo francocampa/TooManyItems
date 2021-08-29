@@ -11,33 +11,31 @@ require_once APPROOT . '\views\includes/head.php';
     <!-- <?php require_once APPROOT . '\views\includes/filters.php'; ?> -->
 
     <div class="contenido">
-        <form action="">
+        <form action="" method="POST">
             <div class="col">
                 <p>Tipo e imagen</p>
                 <hr>
                 <input type="image">
-                <select>
-                    <option value="">Material</option>
-                    <option value="">Herramienta</option>
-                    <option value="">Maquinaria</option>
-                    <option value="">Informatico</option>
+                <select name="categoria" id="categoria">
+                    <option value="material">Material</option>
+                    <option value="herramienta">Herramienta</option>
+                    <option value="maquinaria">Maquinaria</option>
+                    <option value="informatico">Informatico</option>
                 </select>
             </div>
             <div class="col">
                 <p>Características generales</p>
                 <hr>
                 <input type="text" name="nombre" placeholder="nombre">
-                <select>
-                    <option value="">Material</option>
-                    <option value="">Herramienta</option>
-                    <option value="">Maquinaria</option>
-                    <option value="">Informatico</option>
+                <select name="tipo" id="tipo">
                 </select>
-                <select>
-                    <option value="">Material</option>
-                    <option value="">Herramienta</option>
-                    <option value="">Maquinaria</option>
-                    <option value="">Informatico</option>
+                <select name="marca">
+                    <option value="-1">Sin marca</option>
+                    <?php
+                        foreach ($data['marcas'] as $marca) {
+                            echo '<option value="'.$marca['nombre'].'">'.$marca['nombre'].'</option>';
+                        }
+                    ?>
                 </select>
                 <input type="text" name="modelo" placeholder="modelo">
                 <input type="text" name="stockMinimo" placeholder="stock minimo">
@@ -51,9 +49,11 @@ require_once APPROOT . '\views\includes/head.php';
                 </div>
                 <button id="agregarCaracteristica" type="button">+</button>
             </div>
+            <input type="submit" name="submit">
         </form>
     </div>
 </div>
+<script src="<?php echo URLROOT ?>/public/js/formularioInsumo.js"></script>
 <?php
 require_once APPROOT . '\views\includes/footer.php';
 ?>

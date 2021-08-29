@@ -8,5 +8,5 @@
         <option value="MI"></option>
         <option value="MA"></option>
     </select>
-    <a href="<?php echo URLROOT; ?>/Formulario/insumo" class="btnOrange">Agregar</a>
+    <a href="<?php echo URLROOT; ?>/Formulario/insumo/<?php if(isset($data['origen'])){echo $data['origen'];}?>" class="btnOrange">Agregar</a>
 </div>

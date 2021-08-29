@@ -10,7 +10,7 @@
     function logIn($cuenta){
         $_SESSION['ciCuenta']=$cuenta->ci;
         $_SESSION['contraseniaCuenta']=$cuenta->contrasenia;
-        $permisosAdmin=true;
+        $permisosAdmin= true;
         $permisosCoord=false;
         $permisosPanio=false;
         $permisosDocente=false;

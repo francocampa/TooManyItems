@@ -5,6 +5,10 @@
             require_once '../private/models/Insumo.php';
         }
         public function materiales(){
+            require_once APPROOT . '/Models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'material');
+            $insumos_json=json_encode($insumos);
             $permisos = [
                 'admin' => true,
                 'coord' => true,
@@ -13,11 +17,17 @@
             ];
             $data=[
                 'titulo' => 'Inventario de Materiales',
-                'permisos' => $permisos
+                'permisos' => $permisos,
+                'insumos_json' => $insumos_json,
+                'origen' => 'materiales'
             ];
             $this->view("inventarios/insumos",$data);
         }
         public function herramientas(){
+            require_once APPROOT . '/Models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'herramienta');
+            $insumos_json = json_encode($insumos);
             $permisos = [
                 'admin' => true,
                 'coord' => true,
@@ -26,11 +36,18 @@
             ];
             $data = [
                 'titulo' => 'Inventario de Herramientas',
-                'permisos' => $permisos
+                'permisos' => $permisos,
+                'insumos_json' => $insumos_json,
+                'origen' => 'materiales'
+
             ];
             $this->view("inventarios/insumos", $data);
         }
         public function maquinaria(){
+            require_once APPROOT . '/Models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'maquinaria');
+            $insumos_json = json_encode($insumos);
             $permisos = [
                 'admin' => true,
                 'coord' => true,
@@ -39,11 +56,17 @@
             ];
             $data = [
                 'titulo' => 'Inventario de Maquinarias',
-                'permisos' => $permisos
+                'permisos' => $permisos,
+                'insumos_json' => $insumos_json,
+                'origen' => 'materiales'
             ];
             $this->view("inventarios/insumos", $data);
         }
         public function informatico(){
+            require_once APPROOT . '/Models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'informatico');
+            $insumos_json = json_encode($insumos);
             $permisos = [
                 'admin' => true,
                 'coord' => true,
@@ -52,7 +75,9 @@
             ];
             $data = [
                 'titulo' => 'Inventario de Equipamiento Informatico',
-                'permisos' => $permisos
+                'permisos' => $permisos,
+                'insumos_json' => $insumos_json,
+                'origen' => 'materiales'
             ];
             $this->view("inventarios/insumos", $data);
         }

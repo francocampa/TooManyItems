@@ -3,46 +3,56 @@
     <div class="navbarIcons">
         <?php
         if ($_SESSION['permisos']['admin'] || $_SESSION['permisos']['coord']) {
-            echo    '<a href="' . URLROOT . '/Estadisticas">
+            echo    '<a href="' . URLROOT . '/Estadisticas" id="Estadisticas">
                             <img src="' . URLROOT . '/public/img/iconos/Estadisticas.svg" alt="" class="navbarIcon">
+                            <p class="subtitulo">Estadisticas</p>
                         </a>';
         }
         ?>
         <?php
         if ($_SESSION['permisos']['admin'] || $_SESSION['permisos']['panio']) {
-            echo    '<a href="' . URLROOT . '/Paniol">
-                            <img src="'.URLROOT.'/public/img/iconos/Paniol.svg" alt="" class="navbarIcon">
+            echo    '<a href="' . URLROOT . '/Paniol" id="Pañol">
+                            <img src="' . URLROOT . '/public/img/iconos/Paniol.svg" alt="" class="navbarIcon">
+                            <p class="subtitulo">Pañol</p>
                         </a>';
         }
         ?>
         <?php
         if ($_SESSION['permisos']['admin'] || $_SESSION['permisos']['docente']) {
-            echo    '<a href="' . URLROOT . '/Clases">
+            echo    '<a href="' . URLROOT . '/Clases" id="Clases">
                             <img src="' . URLROOT . '/public/img/iconos/Clases.svg" alt="" class="navbarIcon">
+                            <p class="subtitulo">Clases</p>
                         </a>';
         }
         ?>
-        <a href="<?php echo URLROOT; ?>/Inventario/herramientas">
+        <a href="<?php echo URLROOT; ?>/Inventario/herramientas" id='Herramientas'>
             <img src="<?php echo URLROOT; ?>/public/img/iconos/Herramientas.svg" alt="" class="navbarIcon">
+            <p class="subtitulo">Herramientas</p>
         </a>
-        <a href="<?php echo URLROOT; ?>/Inventario/materiales">
+        <a href="<?php echo URLROOT; ?>/Inventario/materiales" id="Materiales">
             <img src="<?php echo URLROOT; ?>/public/img/iconos/Materiales.svg" alt="" class="navbarIcon">
+            <p class="subtitulo">Materiales</p>
         </a>
-        <a href="<?php echo URLROOT; ?>/Inventario/maquinaria">
+        <a href="<?php echo URLROOT; ?>/Inventario/maquinaria" id="Maquinaria">
             <img src="<?php echo URLROOT; ?>/public/img/iconos/Maquinaria.svg" alt="" class="navbarIcon">
+            <p class="subtitulo">Maquinaria</p>
         </a>
-        <a href="<?php echo URLROOT; ?>/Inventario/informatico">
+        <a href="<?php echo URLROOT; ?>/Inventario/informatico" id="Informatica">
             <img src="<?php echo URLROOT; ?>/public/img/iconos/Informatica.svg" alt="" class="navbarIcon">
+            <p class="subtitulo">Informatico</p>
         </a>
         <?php
-            if ($_SESSION['permisos']['admin']) {
-                echo    '<a href="' . URLROOT . '/Empleados">
+        if ($_SESSION['permisos']['admin']) {
+            echo    '<a href="' . URLROOT . '/Empleados" id="Empleados">
                                 <img src="' . URLROOT . '/public/img/iconos/Empleados.svg" alt="" class="navbarIcon">
+                                <p class="subtitulo">Empleados</p>
                             </a>';
-            }
+        }
         ?>
     </div>
-    <a href="<?php echo URLROOT; ?>/Cuenta/ver">
+    <a href="<?php echo URLROOT; ?>/Cuenta/ver" id="Mi cuenta">
         <img src="<?php echo URLROOT; ?>/public/img/iconos/Usuario.svg" alt="" class="navbarIconCuenta">
+        <p class="subtitulo">Mi cuenta</p>
     </a>
+    <!-- <script src="<?php echo URLROOT ?>/public/js/navbar.js"></script> -->
 </navbar>
