@@ -54,5 +54,4 @@
         <img src="<?php echo URLROOT; ?>/public/img/iconos/Usuario.svg" alt="" class="navbarIconCuenta">
         <p class="subtitulo">Mi cuenta</p>
     </a>
-    <!-- <script src="<?php echo URLROOT ?>/public/js/navbar.js"></script> -->
 </navbar>

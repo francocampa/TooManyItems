@@ -1,6 +1,10 @@
 form{
+    display: grid;
+}
+.containerInputs{
     padding: 3rem;
     display: grid;
+    height: 80vh;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
     border-top: 10px solid var(--color-mediumbg);
@@ -9,9 +13,9 @@ form{
 }
 .col{
     width: 100%;
-    height: 40vh;
 }
 p{
+    font-family: 'Exo';
     font-size: 24px;
     font-weight: 300;
     color: var(--color-mediumbg);
@@ -25,14 +29,18 @@ input, select{
     height: 2.5rem;
     font-size: 20px;
     border: none;
-    border-bottom: 3px solid var(--color-mediumbg);
+    border-bottom: 2px solid var(--color-mediumbg);
     background-color: transparent;
-    margin-top: 1rem;
-    transition: all 0.4 ease-in;
+    transition: all 0.1s ease-in;
 }
 input:focus{
     background-color: var(--color-bg);
     outline: none;
+}
+h3{
+    margin-top: 2rem;
+    font-family: 'Exo';
+    opacity: 80%;
 }
 .col > input, select{
     display: block;
@@ -65,4 +73,41 @@ input:focus{
     transform-origin: center;
     transform: scale(1.1);
     opacity: 60%;
+}
+.instancia{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    overflow-x: hidden;
+}
+.instancia > input, .instancia > select{
+    width: 100%;
+}
+
+.indicacionesTresSubtitulos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+}
+.indicacionesDosSubtitulos{
+    padding-left: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+.indicacionesTresSubtitulos > h3, .indicacionesDosSubtitulos > h3{
+    font-size: 16px;
+}
+.tituloCheckbox{
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+}
+input[type='checkbox']{
+    width: 40%;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    border: solid 2px var(--color-mediumbg);
+}
+input:disabled, select:disabled{
+    background-color: var(--color-bg);
 }

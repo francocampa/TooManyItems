@@ -46,13 +46,16 @@ if (!isLoggedIn() && $data['titulo'] != "login") { //comprueba si estamos logead
     if (isset($css['estadisticas'])) {
         echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/estadisticas.css\">";
     }
+    if (isset($css['insumo'])) {
+        echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/insumoSideBar.css\">";
+    }
     // if($css['']){
     // }
     ?>
     <link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <title><?php SITENAME ?></title>
+    <title><?php echo SITENAME; ?></title>
 </head>
 
 <body>

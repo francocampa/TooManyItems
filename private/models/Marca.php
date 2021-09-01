@@ -3,21 +3,15 @@
         public function __construct(){
             
         }
-        public function getMarcasPorSector()
-        {
-            $marca=[
-                'codMarca' => 1,
-                'nombre' => 'marca1'
-            ];
-            $marca1 = [
-                'codMarca' => 2,
-                'nombre' => 'marca2'
-            ];
-            $marca2 = [
-                'codMarca' => 3,
-                'nombre' => 'marca3'
-            ];
-            return [$marca,$marca1,$marca2];
+        public function getMarcasPorSector($codSector){
+            $marcas=[];
+            $db = db::conectar();
+            $callString= 'SELECT m.codMarca, nombre FROM sectormarca sm RIGHT JOIN marca m on sm.codMarca=m.codMarca WHERE sm.codSector="'.$codSector.'"';
+            $consulta = $db->query($callString);
+            while ($filas = $consulta->fetch_assoc()) {
+                $marcas[] = $filas;
+            }
+            return $marcas;
         }
     }
     

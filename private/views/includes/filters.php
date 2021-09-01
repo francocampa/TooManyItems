@@ -8,5 +8,12 @@
         <option value="MI"></option>
         <option value="MA"></option>
     </select>
-    <a href="<?php echo URLROOT; ?>/Formulario/insumo/<?php if(isset($data['origen'])){echo $data['origen'];}?>" class="btnOrange">Agregar</a>
+    <?php
+        if($data['titulo']=="Inventario de "){
+            echo '<a href="'.URLROOT.'/Formulario/compra" class="btnOrange">Agregar</a>';
+        } else if (isset($data['origen'])) {
+            echo '<a href="' . URLROOT . '/Formulario/insumo/' . $data['origen'] . '" class="btnOrange">Agregar</a>';
+        }
+        
+    ?>
 </div>

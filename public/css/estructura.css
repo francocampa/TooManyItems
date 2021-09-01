@@ -21,6 +21,9 @@ navbar{
     justify-content: center;
     align-items: center;
 }
+navbar > img{
+    margin: auto;
+}
 .navbarIcons{
     display: flex;
     flex-direction: column;
@@ -59,7 +62,7 @@ a{
 .navbarIcon:hover + p, .navbarIconCuenta:hover + p{
     color: var(--color-lightbg);
 }
-.titulo{
+navbar + .titulo{
     grid-area: tituloPestania;
     margin: 1rem;
     margin-bottom: 1rem;

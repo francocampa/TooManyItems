@@ -4,6 +4,7 @@ tabla.removeChild(document.getElementsByClassName("item insumos")[0]);
 function llenarTabla(insumos) {
     insumos.forEach(insumo => {
         insumoTabla=itemTabla.cloneNode(true);
+        insumoTabla.href=insumoTabla.href+"/Inventario/instancias/"+insumo.codInsumo;
         insumoTabla.childNodes[3].innerHTML=insumo.nombre;
         insumoTabla.childNodes[5].innerHTML=insumo.categoria;
         if(insumo.marca == null){
@@ -13,11 +14,9 @@ function llenarTabla(insumos) {
             insumoTabla.childNodes[7].innerHTML=insumo.marca;
         }
         insumoTabla.childNodes[9].innerHTML=insumo.modelo;
-        insumoTabla.childNodes[11].innerHTML=insumo.stockActual;
+        insumoTabla.childNodes[11].innerHTML=insumo.stockActual+"/"+insumo.stockMinimo;
 
         console.log();
         tabla.appendChild(insumoTabla);
     });
-    for (let index = 0; index < 4; index++) {
-    }
 }

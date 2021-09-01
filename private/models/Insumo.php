@@ -7,8 +7,8 @@
             $db = db::conectar();
             $callString = 'CALL insertInsumo("'.$insumo['codSector'].'","'.$insumo['nombre']. '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ',' . $insumo['codMarca'] . ',@codInsumo)';
             $consulta = $db->query($callString);
-            $consulta = $db->query('SELECT @codInsumo');
-            $codInsumo = $consulta->fetch_array()['@codInsumo'];
+            $consulta = $db->query('SELECT codInsumo FROM insumo order by codInsumo desc limit 1');
+            $codInsumo = $consulta->fetch_assoc()['codInsumo'];
             foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
                 $callString = 'CALL insertCaracteristicaT('.$codInsumo.',"'.$insumo['codSector'].'","'.$caracteristicaT['nombre'].'","'.$caracteristicaT['valor'].'")';
                 $consulta = $db->query($callString);
@@ -19,7 +19,6 @@
             $db = db::conectar();
             $callString= "SELECT * FROM insumo WHERE insumo.codSector='" . $codSector . "' AND insumo.categoria='" . $categoria . "'";
             $consulta=$db->query($callString);
-        //$insumos=$consulta->fetch_array();
             while ($filas = $consulta->fetch_assoc()) {
                 $insumos[] = $filas;
             }
@@ -28,6 +27,15 @@
                 $consulta = $db->query($callString);
                 $marca = $consulta->fetch_array()['nombre'];
                 $insumos[$i]['marca']=$marca;
+
+                $caracteristicasT=[];
+                $callString = "SELECT c.codCaracteristicaTecnica, nombre, valor FROM caracteristicainsumo ci join caracteristicatecnica c on ci.codCaracteristicatecnica=c.codCaracteristicatecnica where codInsumo=" . $insumos[$i]['codInsumo'] . " AND ci.codSector='".$codSector."';
+";
+                $consulta = $db->query($callString);
+                while ($filas = $consulta->fetch_assoc()) {
+                    $caracteristicasT[] = $filas;
+                }
+                $insumos[$i]['caracteristicasT']=$caracteristicasT;
             }
             return $insumos;
         }

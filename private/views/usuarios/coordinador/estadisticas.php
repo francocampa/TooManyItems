@@ -11,7 +11,7 @@ require_once APPROOT . '\views\includes/head.php';
     <!-- <?php require_once APPROOT . '\views\includes/filters.php'; ?> -->
 
     <div class="contenido">
-        
+        <div class="hola"></div>
     </div>
 </div>
 <?php

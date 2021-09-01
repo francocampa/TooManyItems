@@ -4,6 +4,8 @@
     width: 90%;
 }
 .cabecera{
+    padding: 1rem;
+    padding-left: 0.3rem;
     width: 100%;
 }
 .cabecera > p {
@@ -17,8 +19,26 @@ hr{
 .items{
     width: 100%;
 }
-
 .insumos{
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 2fr 3fr 1fr;
+}
+.instancias{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.item{
+    margin: 0.2rem 0 0 0;
+    padding: 1rem;
+    padding-left: 0.3rem;
+    font-size: 20px;
+    border-left: solid 0.4rem var(--color-orange);
+    transition: all 0.4s;
+}
+.item:hover{
+    background-color: var(--color-lightbg);
+    border-radius: 0 2rem 2rem 0;
+}
+a > p{
+    color: var(--color-darkbg);
 }

@@ -7,7 +7,7 @@
                 'admin' => true,
                 'coord' => true
             ];
-            $marcas= $marcaModel->getMarcasPorSector();
+            $marcas= $marcaModel->getMarcasPorSector('IN');
             $data = [
                 'titulo' => 'Agregar un nuevo insumo',
                 'permisos' => $permisos,
@@ -52,19 +52,28 @@
                     'caraceristicasT' => $caracteristicas,
                 ];
                 $insumoModel->insertInsumo($insumo);
-                header('location:' . URLROOT . '/Inventario/'.$origen);
+                //header('location:' . URLROOT . '/Inventario/'.$origen);
             }
 
             $this->view("forms/insumo", $data);
         }
         public function compra(){
+            require_once APPROOT . '/Models/Instancia/Proveedor.php';
+            $proveedorModel=new Proveedor();
+            $proveedores=$proveedorModel->getProveedoresPorSector('IN');
+
+            require_once APPROOT . '/Models/Instancia/Ubicacion.php';
+            $ubicacionModel=new Ubicacion();
+            $ubicaciones= $ubicacionModel->getUbicacionesPorSector('IN');
             $permisos = [
                 'admin' => true,
                 'coord' => true
             ];
             $data = [
                 'titulo' => 'Agregar una nueva compra',
-                'permisos' => $permisos
+                'permisos' => $permisos,
+                'proveedores' => $proveedores,
+                'ubicaciones' => $ubicaciones
             ];
             $this->view("forms/instancia", $data);
             
