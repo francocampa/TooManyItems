@@ -2,6 +2,7 @@
     margin: 2rem auto;
     display: grid;
     width: 90%;
+    grid-auto-rows: minmax(min-content, max-content);
 }
 .cabecera{
     padding: 1rem;

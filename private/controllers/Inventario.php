@@ -125,6 +125,7 @@
             $data = [
                 'titulo' => 'Inventario de ',
                 'permisos' => $permisos,
+                'codInsumo' => $codInsumo,
                 'insumo' => $insumo_json,
                 'instancias_json' => $instancias_json,
                 'marcas' => $marcas,

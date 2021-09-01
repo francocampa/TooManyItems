@@ -6,7 +6,8 @@ $css = [
 require_once APPROOT . '\views\includes/head.php';
 ?>
 <div class="estructura">
-    <?php require_once APPROOT . '\views\includes/navbar.php'; ?>
+    <?php require_once APPROOT . '\views\includes/navbar.php'; 
+    ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
 
     <div class="contenido">
@@ -15,20 +16,21 @@ require_once APPROOT . '\views\includes/head.php';
                 <div class="col">
                     <div class="tituloCheckbox">
                         <p>Información de compra</p>
-                        <input type="checkbox" id="cboxInfoCompra" checked="true">
+                        <input type="checkbox" id="cboxInfoCompra" name="cboxInfoCompra" checked="true">
                     </div>
                     <hr>
                     <h3>Costo</h3>
-                    <input type="text" name="costo" id="costo">
+                    <input type="text" name="costo" id="costo" maxlength="11">
                     <h3>Tipo</h3>
                     <select name="tipo" id="tipo">
-                        <option value="material">Orden de compra</option>
-                        <option value="herramienta">Licitación</option>
-                        <option value="maquinaria">Donación</option>
-                        <option value="informatico">Otra</option>
+                        <option value="ordenDeCompra">Orden de compra</option>
+                        <option value="licitacion">Licitación</option>
+                        <option value="donacion">Donación</option>
+                        <option value="otra">Otra</option>
                     </select>
                     <h3>Proveedor</h3>
                     <select name="proveedor" id="proveedor">
+                        <option value="-1">Sin proveedor</option>
                         <?php
                         foreach ($data['proveedores'] as $proveedor) {
                             echo '<option value="' . $proveedor['codProveedor'] . '">' . $proveedor['nombre'] . '</option>';
@@ -38,25 +40,25 @@ require_once APPROOT . '\views\includes/head.php';
                     <h3>Cantidad</h3>
                     <input type="number" name="cantidad" min="1" id="cantidad" value="1">
                     <h3>Fecha de compra</h3>
-                    <input type="text" name="fechaCompra" id="fechaCompra">
+                    <input type="date" name="fechaCompra" id="fechaCompra">
                 </div>
                 <div class="col">
                     <div class="tituloCheckbox">
                         <p>Garantía</p>
-                        <input type="checkbox" id="cboxGarantia" checked="true">
+                        <input type="checkbox" id="cboxGarantia" name="cboxGarantia" checked="true">
                     </div>
                     <hr>
                     <h3>Tipo</h3>
-                    <input type="text" name="tipoGarantia" id="tipoGarantia">
+                    <input type="text" name="tipoGarantia" id="tipoGarantia" maxlength="20">
                     <h3>Fecha de inicio</h3>
-                    <input type="text" name="fechaInicioGarantia" id="fechaInicioGarantia">
+                    <input type="date" name="fechaInicioGarantia" id="fechaInicioGarantia">
                     <h3>Fecha límite</h3>
-                    <input type="text" name="fechaLimiteGarantia" id="fechaLimiteGarantia">
+                    <input type="date" name="fechaLimiteGarantia" id="fechaLimiteGarantia">
                 </div>
                 <div class="col overflow">
                     <div class="tituloCheckbox">
                         <p>Herramientas individuales</p>
-                        <input type="checkbox" id="cboxInstancias" checked="true">
+                        <input type="checkbox" id="cboxInstancias" name="cboxInstancias" checked="true">
                     </div>
                     <hr>
                     <div class="indicacionesTresSubtitulos">
@@ -66,7 +68,7 @@ require_once APPROOT . '\views\includes/head.php';
                     </div>
                     <hr>
                     <div class="instancia" id="containerInstancias">
-                        <input type="text" name="identificador0" id="identificador0">
+                        <input type="text" name="identificador0" id="identificador0" maxlength="15">
                         <select name="estado0" id="estado0">
                             <option value="stock">Stock</option>
                             <option value="mantenimiento">Mantenimiento</option>

@@ -10,7 +10,7 @@
     </select>
     <?php
         if($data['titulo']=="Inventario de "){
-            echo '<a href="'.URLROOT.'/Formulario/compra" class="btnOrange">Agregar</a>';
+            echo '<a href="'.URLROOT.'/Formulario/compra/'.$data['codInsumo'].'" class="btnOrange">Agregar</a>';
         } else if (isset($data['origen'])) {
             echo '<a href="' . URLROOT . '/Formulario/insumo/' . $data['origen'] . '" class="btnOrange">Agregar</a>';
         }

@@ -1,6 +1,8 @@
 .estructura{
     display: grid;
-    grid-template-columns: 1fr 24fr;
+    grid-template-columns: 0.16fr 4fr;
+    /* grid-template-rows: 1fr 1fr 9fr; */
+    grid-auto-rows: minmax(min-content, max-content);
     grid-template-areas: "navbar tituloPestania"
                          "navbar barraAcciones"
                          "navbar contenidoPestania";
@@ -9,10 +11,15 @@
     grid-area: contenidoPestania;
     display: grid;
 }
-navbar{
+.containerNavbar{
     grid-area: navbar;
+    height: 10rem;
+    width: 100%;
+}
+navbar{
     position: fixed;
-    width: 4.8rem;
+    top: 0;
+    left: 0;
     background-color: var(--color-darkbg);
     height: 100vh;
     display: grid;
@@ -62,7 +69,7 @@ a{
 .navbarIcon:hover + p, .navbarIconCuenta:hover + p{
     color: var(--color-lightbg);
 }
-navbar + .titulo{
+.containerNavbar + .titulo{
     grid-area: tituloPestania;
     margin: 1rem;
     margin-bottom: 1rem;
@@ -73,9 +80,12 @@ navbar + .titulo{
     font-size: 12px;
     font-weight: bold;
     transition: color 0.4s ease;
+    text-align: center;
 }
 .filtros{
     grid-area: barraAcciones;
+    width: 100%;
+    margin: 0;
     height: 7vh;
     display: grid;
     align-items: center;
