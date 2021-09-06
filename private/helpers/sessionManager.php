@@ -2,14 +2,14 @@
     session_start();
 
     function isLoggedIn(){
-        if(isset($_SESSION['ciCuenta'])){
+        if(isset($_SESSION['cuenta'])){
             return true;
         }
         return false;
     }
     function logIn($cuenta){
-        $_SESSION['ciCuenta']=$cuenta->ci;
-        $_SESSION['contraseniaCuenta']=$cuenta->contrasenia;
+        $_SESSION['cuenta']=$cuenta;
+        $_SESSION['sectores']=['IN','MI'];
         $permisosAdmin= true;
         $permisosCoord=false;
         $permisosPanio=false;
@@ -21,6 +21,7 @@
             'docente' => $permisosDocente
         ];
         $_SESSION['permisos']= $permisos;
+        var_dump($_SESSION);
         if($_SESSION['permisos']['admin'] || $_SESSION['permisos']['coord']){
             header('location: ' . URLROOT . '/Estadisticas');
         }

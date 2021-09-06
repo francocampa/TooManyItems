@@ -14,7 +14,7 @@
 .containerNavbar{
     grid-area: navbar;
     height: 10rem;
-    width: 100%;
+    width: inherit;
 }
 navbar{
     position: fixed;

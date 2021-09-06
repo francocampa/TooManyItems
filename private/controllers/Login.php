@@ -9,9 +9,12 @@
             if (isset($_POST['submit'])) {
                 $ci = (int)$_POST['ci'];
                 $pass = $_POST['pass'];
-                $usuario = new Cuenta($ci, $pass);
-                
-                if ($usuario->login()) {
+                $usuarioModel = new Cuenta();
+                $tokenLogin= $usuarioModel->login($ci, $pass);
+                if ( $tokenLogin != 'false') {
+                    $usuario=$usuarioModel->getCuentaPorCi($ci);
+                    $usuario['token']=$tokenLogin;
+                    //var_dump($usuario);
                     logIn($usuario);
                 }else{
                     $data = [

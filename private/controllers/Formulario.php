@@ -55,7 +55,7 @@
                     'caraceristicasT' => $caracteristicas,
                 ];
                 $insumoModel->insertInsumo($insumo);
-                //header('location:' . URLROOT . '/Inventario/'.$origen);
+                header('location:' . URLROOT . '/Inventario/'.$origen);
             }
 
             $this->view("forms/insumo", $data);
@@ -118,6 +118,7 @@
                     $instancias=-1;
                 }
                 $instanciaModel->insertInstancias($codInsumo, 'IN',$instancias, $infoCompra, $garantia);
+                header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo);
             }
             $this->view("forms/instancia", $data);
             

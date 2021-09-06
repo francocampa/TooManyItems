@@ -28,13 +28,19 @@ hr{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
+.prestamos{
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr 2fr;
+}
 .item{
     margin: 0.2rem 0 0 0;
-    padding: 1rem;
-    padding-left: 0.3rem;
     font-size: 20px;
     border-left: solid 0.4rem var(--color-orange);
     transition: all 0.4s;
+}
+.headerItem{
+    padding: 1rem;
+    padding-left: 0.3rem;
 }
 .item:hover{
     background-color: var(--color-lightbg);
@@ -42,4 +48,37 @@ hr{
 }
 a > p{
     color: var(--color-darkbg);
+}
+
+.tripleCol{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem; 
+}
+.instanciaCard{
+    margin-top: 2rem;
+    display: grid;
+    grid-template-areas: 'instancia instancia'
+                         'infoCompra garantia';
+    gap: 1rem; 
+    justify-items: center;
+}
+.infoInstancia{
+    width: 70%;
+    grid-area: instancia;
+}
+.infoCompra{
+    width: 90%;
+    grid-area: infoCompra;
+}
+.infoGarantia{
+    width: 90%;
+    grid-area: garantia;
+}
+.instanciaCard  input, .instanciaCard  select{
+    color: var(--color-mediumbg);
+    font-size: 16px;
+}
+.instanciaCard  input:focus, .instanciaCard  select:focus, .instanciaCard  option{
+    background-color: var(--color-bg);
 }

@@ -6,7 +6,7 @@ function llenarTabla(insumos) {
         insumoTabla=itemTabla.cloneNode(true);
         insumoTabla.href=insumoTabla.href+"/Inventario/instancias/"+insumo.codInsumo;
         insumoTabla.childNodes[3].innerHTML=insumo.nombre;
-        insumoTabla.childNodes[5].innerHTML=insumo.categoria;
+        insumoTabla.childNodes[5].innerHTML=insumo.tipo;
         if(insumo.marca == null){
             insumoTabla.childNodes[7].innerHTML="Sin marca";
         }else{ 

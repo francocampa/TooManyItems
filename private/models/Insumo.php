@@ -5,12 +5,12 @@
         }
         public function insertInsumo($insumo){
             $db = db::conectar();
-            $callString = 'CALL insertInsumo("'.$insumo['codSector'].'","'.$insumo['nombre']. '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ',' . $insumo['codMarca'] . ',@codInsumo)';
+            $callString = 'CALL insertInsumo('.$_SESSION['cuenta']['ci'].',"'. $_SESSION['cuenta']['token'].'","'.$insumo['codSector'].'","'.$insumo['nombre']. '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ',' . $insumo['codMarca'] . ',@codInsumo)';
             $consulta = $db->query($callString);
             $consulta = $db->query('SELECT codInsumo FROM insumo order by codInsumo desc limit 1');
             $codInsumo = $consulta->fetch_assoc()['codInsumo'];
             foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
-                $callString = 'CALL insertCaracteristicaT('.$codInsumo.',"'.$insumo['codSector'].'","'.$caracteristicaT['nombre'].'","'.$caracteristicaT['valor'].'")';
+                $callString = 'CALL insertCaracteristicaT(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codInsumo.',"'.$insumo['codSector'].'","'.$caracteristicaT['nombre'].'","'.$caracteristicaT['valor'].'")';
                 $consulta = $db->query($callString);
             }
         }

@@ -1,14 +1,14 @@
-        {
-            console.log($('.containerNavbar').width())
-        let width=$('.containerNavbar').width();
-        $('navbar').width(width);  
-        }
-// $('document').ready(function(){
-//     $(window).on('resize', function (e) {
-//         console.log($('.containerNavbar').width())
-//         let width=$('.containerNavbar').width();
-//         $('navbar').width(width);  
-//     })
-// })
+           
+$('document').ready(function(){
+    console.log($('.containerNavbar'))
+    let width=$('.containerNavbar').width();
+    $('navbar').width(width); 
+    // $(window).on('resize', function (e) {
+    //     console.log($('.containerNavbar').width())
+    //     console.log('hola');
+    //     let width=$('.containerNavbar').width();
+    //     $('navbar').width(width);  
+    // })
+})
 
     
