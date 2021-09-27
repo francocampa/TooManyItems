@@ -14,22 +14,37 @@
                 $consulta = $db->query($callString);
             }
         }
+        public function updateInsumo($insumo){
+            $db= db::conectar();
+            $callString= 'CALL updateInsumo(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","' . $insumo['codSector'] . '", '. $insumo['codInsumo'] .' ,"' . $insumo['nombre'] . '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ', '.$insumo['stockActual'].' ,' . $insumo['codMarca'].')';
+            $consulta= $db->query($callString);
+            foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
+                $callString = 'CALL updateCaracteristicaT(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '" , "separaciom", ' . $caracteristicaT['codCaracteristicaT'] . ' ,"' . $caracteristicaT['valor'] . '")';
+                $consulta = $db->query($callString);
+            }
+        }
+        public function deleteInsumo($codInsumo, $codSector){
+            $db= db::conectar();
+            $callString= 'CALL deleteInsumo(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '" , "'.$codSector.'", '.$codInsumo.')';
+            echo $callString;
+            $consulta=$db->query($callString);
+        }
         public function getInsumoPorCategoria($codSector, $categoria){
             $insumos=[];
             $db = db::conectar();
-            $callString= "SELECT * FROM insumo WHERE insumo.codSector='" . $codSector . "' AND insumo.categoria='" . $categoria . "'";
+            $callString= "SELECT * FROM insumos WHERE codSector='" . $codSector . "' AND categoria='" . $categoria . "'";
             $consulta=$db->query($callString);
             while ($filas = $consulta->fetch_assoc()) {
                 $insumos[] = $filas;
             }
             for($i=0 ; $i < count($insumos) ; $i++) {
-                $callString = 'SELECT nombre FROM marcainsumo mi RIGHT JOIN marca m ON mi.codMarca=m.codMarca WHERE mi.codInsumo=' . $insumos[$i]['codInsumo'];
+                $callString = 'SELECT codMarca, nombre FROM marcaPorInsumo WHERE codInsumo=' . $insumos[$i]['codInsumo'].' AND codSector="'.$codSector.'"';
                 $consulta = $db->query($callString);
-                $marca = $consulta->fetch_array()['nombre'];
+                $marca = $consulta->fetch_assoc();
                 $insumos[$i]['marca']=$marca;
 
                 $caracteristicasT=[];
-                $callString = "SELECT c.codCaracteristicaTecnica, nombre, valor FROM caracteristicainsumo ci join caracteristicatecnica c on ci.codCaracteristicatecnica=c.codCaracteristicatecnica where codInsumo=" . $insumos[$i]['codInsumo'] . " AND ci.codSector='".$codSector."';
+                $callString = "SELECT codCaracteristicaTecnica, nombre, valor FROM caracteristicaTPorInsumo where codInsumo=" . $insumos[$i]['codInsumo'] . " AND codSector='".$codSector."';
 ";
                 $consulta = $db->query($callString);
                 while ($filas = $consulta->fetch_assoc()) {

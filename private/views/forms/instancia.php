@@ -29,7 +29,7 @@ require_once APPROOT . '\views\includes/head.php';
                         <option value="otra">Otra</option>
                     </select>
                     <h3>Proveedor</h3>
-                    <select name="proveedor" id="proveedor">
+                    <select name="proveedor" id="proveedorInput">
                         <option value="-1">Sin proveedor</option>
                         <?php
                         foreach ($data['proveedores'] as $proveedor) {

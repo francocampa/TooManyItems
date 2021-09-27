@@ -8,9 +8,11 @@
                 'panio' => true,
                 'docente' => true
             ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Mi cuenta',
-                'permisos' => $permisos
+                'permisos' => $permisos,
+                'rutaAnterior' => $rutaAnterior
             ];
             $this->view("usuarios/cuenta", $data);
         }

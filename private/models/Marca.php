@@ -3,10 +3,15 @@
         public function __construct(){
             
         }
+        public function insertMarca($marca, $codSector){
+            $db=db::conectar();
+            $callString= 'CALL insertMarca(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","'.$marca['nombre'].'","'.$codSector.'")';
+            $consulta=$db->query($callString);
+        }
         public function getMarcasPorSector($codSector){
             $marcas=[];
             $db = db::conectar();
-            $callString= 'SELECT m.codMarca, nombre FROM sectormarca sm RIGHT JOIN marca m on sm.codMarca=m.codMarca WHERE sm.codSector="'.$codSector.'"';
+            $callString= 'SELECT codMarca, nombre FROM marcaPorSector WHERE codSector="'.$codSector.'"';
             $consulta = $db->query($callString);
             while ($filas = $consulta->fetch_assoc()) {
                 $marcas[] = $filas;

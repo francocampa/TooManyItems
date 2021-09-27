@@ -6,42 +6,50 @@
         public function getComprasPorInsumo($codInsumo, $codSector){
             $compras=[];
             $db= db::conectar();
-            $callString='SELECT * FROM Compra c WHERE c.codInsumo='.$codInsumo.' AND c.codSector="'.$codSector.'"';
+            $callString= 'SELECT * FROM comprasPorInsumo c WHERE c.codInsumo='.$codInsumo.' AND c.codSector="'.$codSector.'"';
             $consulta= $db->query($callString);
             while($filas = $consulta->fetch_assoc()){
                 $compras[]=$filas;
             }
             for ($i=0;$i<count($compras); $i++) {
-                $callString='SELECT g.codGarantia,tipo,fechaInicio,fechaTerminacion FROM garantiacompra gc JOIN garantia g ON gc.codGarantia=g.codGarantia WHERE gc.codInsumo='.$compras[$i]['codInsumo']. ' AND gc.codSector="'.$compras[$i]['codSector'].'"';
+                $callString= 'SELECT codGarantia,tipo,fechaInicio,fechaTerminacion FROM garantiaPorCompra WHERE codInsumo='.$compras[$i]['codInsumo']. ' AND codSector="'.$compras[$i]['codSector']. '" AND codCompra=' . $compras[$i]['codCompra'];
                 $consulta=$db->query($callString);
                 $garantia= $consulta->fetch_assoc();
                 $compras[$i]['garantia']=$garantia;
-
-                $callString = 'SELECT ic.codInfoCompra,costo,tipo,cantidad,fechaAdquisicion FROM infoCompracompra icc JOIN infoCompra ic ON icc.codInfoCompra=ic.codInfoCompra WHERE icc.codInsumo=' . $compras[$i]['codInsumo'] . ' AND icc.codSector="' . $compras[$i]['codSector'] . '"';
+            
+                $callString = 'SELECT codInfoCompra,costo,tipo,fechaAdquisicion FROM infoCompraPorCompra WHERE codInsumo=' . $compras[$i]['codInsumo'] . ' AND codSector="' . $compras[$i]['codSector'] . '" AND codCompra=' . $compras[$i]['codCompra'];
                 $consulta = $db->query($callString);
                 $infoCompra = $consulta->fetch_assoc();
-                    $callString='SELECT p.* from proveedorinfocompra pic JOIN proveedor p ON pic.codProveedor=p.codProveedor WHERE pic.codInfoCompra='.$infoCompra['codInfoCompra'];
+                if($infoCompra !=null){
+                    $callString = 'SELECT codProveedor,nombre,telefono from proveedorPorInfoCompra WHERE codInfoCompra=' . $infoCompra['codInfoCompra'];
                     $consulta = $db->query($callString);
                     $proveedor = $consulta->fetch_assoc();
-                    $infoCompra['proveedor']=$proveedor;
+                    $infoCompra['proveedor'] = $proveedor;
+                }
                 $compras[$i]['infoCompra'] = $infoCompra;
 
-                $callString = 'SELECT ic.codInstancia,identificador FROM instanciacompra ic JOIN instancia i ON ic.codInstancia=i.codInstancia WHERE ic.codInsumo=' . $compras[$i]['codInsumo'] . ' AND ic.codSector="' . $compras[$i]['codSector'] . '"';
+                $callString = 'SELECT codInstancia,identificador FROM instanciasPorCompra WHERE codInsumo=' . $compras[$i]['codInsumo'] . ' AND codSector="' . $compras[$i]['codSector'] . '" AND codCompra='.$compras[$i]['codCompra'];
                 $consulta = $db->query($callString);
                 $instancias=[];
                 $j=0;
                 while ($filas = $consulta->fetch_assoc()) { //Las instancias tienen su informaci[on dividida por lo que se requieren m[as consultas
                     $instancias[] = $filas;
 
-                    $callString= 'SELECT estado FROM estadoinstancia ei WHERE ei.codInstancia='.$instancias[$j]['codInstancia']. ' AND ei.fecha=(SELECT max(fecha) FROM estadoInstancia ei WHERE ei.codInstancia=' . $instancias[$j]['codInstancia'] . ')';
+                    $callString= 'SELECT estado FROM estadoPorinstancia WHERE codInstancia='.$instancias[$j]['codInstancia'];
                     $subConsulta=$db->query($callString);
-                    $estado=$subConsulta->fetch_assoc()['estado'];
-                    $instancias[$j]['estado']=$estado;
+                    $estado=[];
+                    while($subFilas= $subConsulta->fetch_assoc()['estado']){
+                        $estado[]=$subFilas;
+                    }
+                    $instancias[$j]['estado']=end($estado);
 
-                    $callString = 'SELECT u.* FROM ubicacioninstancia ui JOIN ubicacion u ON ui.codUbicacion=u.codUbicacion WHERE ui.codInstancia=' . $instancias[$j]['codInstancia'] . ' AND ui.fecha=(SELECT max(fecha) FROM ubicacioninstancia ui WHERE ui.codInstancia=' . $instancias[$j]['codInstancia'] . ')';
+                    $callString = 'SELECT codUbicacion,nombre,tipo FROM ubicacionPorInstancia WHERE codInstancia=' . $instancias[$j]['codInstancia'];
                     $subConsulta = $db->query($callString);
-                    $ubicacion = $subConsulta->fetch_assoc();
-                    $instancias[$j]['ubicacion'] = $ubicacion;
+                    $ubicacion = [];
+                    while ($subFilas = $subConsulta->fetch_assoc()) {
+                        $ubicacion[] = $subFilas;
+                    }
+                    $instancias[$j]['ubicacion'] = end($ubicacion);
 
                     $j++;
                 }
@@ -49,18 +57,17 @@
             }
             return $compras;
         }
-        public function insertInstancias($codInsumo, $codSector, $instancias, $infoCompra, $garantia){
+        public function insertInstancias($codInsumo, $codSector, $instancias, $infoCompra, $garantia, $cantidad){
             $db= db::conectar();
 
             //Ingresar info de compra
-            $callString= 'CALL insertCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codInsumo.',"'.$codSector.'")';
+            $callString= 'CALL insertCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codInsumo.',"'.$codSector. '",' . $cantidad . ')';
             $consulta = $db->query($callString);
             $consulta = $db->query("SELECT max(codCompra) FROM Compra");
             $codCompra = $consulta->fetch_assoc()['max(codCompra)'];
             if($infoCompra != -1){
-                $callString= 'CALL insertInfoCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codCompra.','.$codInsumo.',"'.$codSector.'",'.$infoCompra['costo'].',"'.$infoCompra['tipo'].'",'.$infoCompra['cantidad'].',"'.$infoCompra['fechaCompra'].'",'.$infoCompra['codProveedor'].')';
+                $callString= 'CALL insertInfoCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codCompra.','.$codInsumo.',"'.$codSector.'",'.$infoCompra['costo'].',"'.$infoCompra['tipo'].'","'.$infoCompra['fechaCompra'].'",'.$infoCompra['codProveedor'].')';
                 $consulta=$db->query($callString);
-                var_dump($db);
             }
             if($garantia != -1){
                 $callString= 'CALL insertGarantia(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codCompra . ',' . $codInsumo . ',"' . $codSector . '","'.$garantia['tipo'].'","'.$garantia['fechaInicio'].'","'.$garantia['fechaLimite'].'")';
@@ -76,5 +83,35 @@
 
             //Ingresar instancias
 
+        }
+        public function updateCompra($compra, $instancia, $infoCompra, $garantia){
+            $db=db::conectar();
+            $token= ' "'.$_SESSION['cuenta']['token'].'"';
+            if($instancia != -1){
+                $callString = 'CALL updateInstancia(' . $_SESSION['cuenta']['ci'] . ',' . $token . ',"' . $compra['codSector'] . '",' . $compra['codInsumo'] . ',' . $compra['codCompra'] . ', "' . $instancia['identificador'] . '" , "' . $instancia['estado'] . '", ' . $instancia['ubicacion'] . ', '.$instancia['codInstancia'].')';
+                $consulta=$db->query($callString);
+            }
+            if ($infoCompra != -1) {
+                $callString = 'CALL updateInfoCompra(' . $_SESSION['cuenta']['ci'] . ',' . $token . ',"' . $compra['codSector'] . '",' . $compra['codInsumo'] . ',' . $compra['codCompra'] . ',' . $infoCompra['costo'] . ',"' . $infoCompra['tipo'] . '","' . $infoCompra['fechaCompra'] . '",' . $infoCompra['proveedor'] . ', '.$infoCompra['codInfoCompra'].')';
+                $consulta = $db->query($callString);
+            }
+            if($garantia != -1){
+                $callString = 'CALL updateGarantia(' . $_SESSION['cuenta']['ci'] . ',' . $token . ',"' . $compra['codSector'] . '",' . $compra['codInsumo'] . ',' . $compra['codCompra'] . ',"' . $garantia['tipo'] . '","' . $garantia['fechaInicio'] . '","' . $garantia['fechaLimite'] . '", '. $garantia['codGarantia'].')';
+                $consulta = $db->query($callString);
+            }
+           
+        }
+
+        public function deleteInstancia($codInstancia){
+            $db = db::conectar();
+            $callString= 'CALL deleteInstancia(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '", '.$codInstancia.')';
+            $consulta=$db->query($callString);
+            var_dump($db);
+        }
+        public function deleteCompra($codCompra, $codInsumo, $codSector){
+            $db = db::conectar();
+            $callString = 'CALL deleteCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '", "' . $codSector . '",' . $codInsumo . ',' . $codCompra . ' )';
+            $consulta = $db->query($callString);
+            var_dump($db);
         }
     }

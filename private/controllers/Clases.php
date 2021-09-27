@@ -7,9 +7,11 @@ class Clases extends Controller
             'admin' => true,
             'docente' => true
         ];
+        $rutaAnterior = '/' . rtrim($_GET['url'], '/');
         $data = [
             'titulo' => 'Clases',
-            'permisos' => $permisos
+            'permisos' => $permisos,
+            'rutaAnterior' => $rutaAnterior
         ];
         $this->view('usuarios/docente/clases', $data);
     }

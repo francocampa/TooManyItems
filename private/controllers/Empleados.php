@@ -6,9 +6,11 @@ class Empleados extends Controller
         $permisos = [
             'admin' => true
         ];
+        $rutaAnterior = '/' . rtrim($_GET['url'], '/');
         $data = [
             'titulo' => 'Empleados',
-            'permisos' => $permisos
+            'permisos' => $permisos,
+            'rutaAnterior' => $rutaAnterior
         ];
         $this->view('usuarios/administrador/empleados', $data);
     }

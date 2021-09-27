@@ -22,11 +22,15 @@ hr{
 }
 .insumos{
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr 3fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 3fr 1fr 0.3fr;
 }
-.instancias{
+.instancias, .compras{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.2fr;
+}
+.marcas{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 .prestamos{
     display: grid;
@@ -37,6 +41,24 @@ hr{
     font-size: 20px;
     border-left: solid 0.4rem var(--color-orange);
     transition: all 0.4s;
+}
+.btnEliminar{
+    background-color: var(--color-red);
+    border-radius: 0.4rem;
+    border: none;
+    outline: none;
+    color: var(--color-lightbg);
+    font-weight: bolder;
+    height: 2rem;
+    width: 2rem;
+}
+.existo{
+    width: 2rem;
+}
+.unBoton{
+    display: grid;
+    grid-template-columns: 1fr 0.01fr;
+    align-items: center;
 }
 .headerItem{
     padding: 1rem;
@@ -60,8 +82,22 @@ a > p{
     display: grid;
     grid-template-areas: 'instancia instancia'
                          'infoCompra garantia';
+                         /* 'btn btn'; */
     gap: 1rem; 
     justify-items: center;
+}
+.compraCard{
+    margin-top: 2rem;
+    display: grid;
+    grid-template-areas: 'infoCompra garantia';
+                         /* 'btn btn'; */
+    gap: 1rem; 
+    justify-items: center;
+}
+.compraCard .btnModificar, .instanciaCard .btnModificar{
+    margin: 0;
+    float: right;
+    /* grid-area: btn; */
 }
 .infoInstancia{
     width: 70%;
@@ -82,3 +118,17 @@ a > p{
 .instanciaCard  input:focus, .instanciaCard  select:focus, .instanciaCard  option{
     background-color: var(--color-bg);
 }
+.division5050{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.informacion{
+    margin: 2rem auto;
+    padding: 1rem;
+    width: 80%;
+    height: 75vh;
+    background-color: var(--color-lightbg);
+    border-radius: 3rem;
+}
+
+

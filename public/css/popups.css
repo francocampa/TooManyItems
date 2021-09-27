@@ -1,0 +1,68 @@
+.popup{
+    padding: 1rem;
+    color: var(--color-mediumbg);
+    display: grid;
+    gap: 1rem;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-lightbg);
+    border-radius: 1.5rem;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.363);
+    z-index: 10;
+}
+.popupHead{
+    /* display: grid;
+    grid-template-columns: 6fr 1fr;
+    align-items: center;
+    justify-content: center; */
+    position: relative;
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+.popupHead > h1{
+    font-size: 36px;
+}
+/* #closePopup{
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bolder;
+} */
+.popup  hr{
+    border: 1px solid var(--color-darkbg);
+}
+.popupInputs{
+
+}
+.popupBtnConfirmar, .popupBtnCancelar{
+    background-color: var(--color-mediumbg);
+    color: var(--color-lightbg);
+    width: 50%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 0.5rem;
+    border-radius: 0.6rem;
+    transition: all 0.2s ease;
+}
+.popupBtnConfirmar:hover, .popupBtnCancelar:hover{
+    opacity: 80%;
+}
+.popupBtnCancelar{
+    background-color: var(--color-red);
+}
+.blurr{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-darkbg);
+    opacity: 30%;
+    z-index: 0;
+    transition: background-color 0.4s;
+}

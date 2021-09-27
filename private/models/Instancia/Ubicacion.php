@@ -1,12 +1,17 @@
 <?php 
-    class Ubicacion extends Controller{
+    class Ubicacion{
         public function __construct(){
             
+        }
+        public function insertUbicacion($ubicacion, $codSector){
+            $db = db::conectar();
+            $callString = 'CALL insertUbicacion(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","' . $ubicacion['nombre'] . '","' . $ubicacion['tipo'] . '","' . $codSector . '")';
+            $consulta = $db->query($callString);
         }
         public function getUbicacionesPorSector($codSector){
             $ubicaciones = [];
             $db = db::conectar();
-            $callString = 'SELECT u.codUbicacion, nombre FROM ubicacionsector us RIGHT JOIN ubicacion u on us.codUbicacion=u.codUbicacion WHERE us.codSector="' . $codSector . '"';
+            $callString = 'SELECT codUbicacion, nombre, tipo FROM ubicacionesPorSector WHERE codSector="' . $codSector . '"';
             $consulta = $db->query($callString);
             while ($filas = $consulta->fetch_assoc()) {
                 $ubicaciones[] = $filas;

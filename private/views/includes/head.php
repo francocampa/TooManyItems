@@ -26,6 +26,7 @@ if (!isLoggedIn() && $data['titulo'] != "login") { //comprueba si estamos logead
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cache-content" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
     if (isset($css['estructura'])) {
@@ -49,12 +50,16 @@ if (!isLoggedIn() && $data['titulo'] != "login") { //comprueba si estamos logead
     if (isset($css['insumo'])) {
         echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/insumoSideBar.css\">";
     }
+    if (isset($css['popup'])) {
+        echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/popups.css\">";
+    }
     // if($css['']){
     // }
     ?>
     <link rel="stylesheet" href="<?php echo URLROOT ?>/public/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="<?php echo URLROOT?>/img/logos/Logo.svg" type="image/x-icon">
     <title><?php echo SITENAME; ?></title>
 </head>
 

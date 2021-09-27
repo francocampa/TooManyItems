@@ -1,9 +1,11 @@
 <?php
     class Login extends Controller {
         public function __construct(){
+            //$rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' =>'login',
-                'error' => ""
+                'error' => ""//,
+                //'rutaAnterior', $rutaAnterior
             ];
             require_once '../private/models/Cuenta.php';
             if (isset($_POST['submit'])) {

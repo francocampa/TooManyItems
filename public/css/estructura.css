@@ -82,15 +82,3 @@ a{
     transition: color 0.4s ease;
     text-align: center;
 }
-.filtros{
-    grid-area: barraAcciones;
-    width: 100%;
-    margin: 0;
-    height: 7vh;
-    display: grid;
-    align-items: center;
-    padding-left: 3rem;
-    background-color: var(--color-mediumbg);
-    display: flex;
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3); 
-}

@@ -9,18 +9,11 @@
     }
     function logIn($cuenta){
         $_SESSION['cuenta']=$cuenta;
-        $_SESSION['sectores']=['IN','MI'];
-        $permisosAdmin= true;
-        $permisosCoord=false;
-        $permisosPanio=false;
-        $permisosDocente=false;
-        $permisos=[
-            'admin' => $permisosAdmin,
-            'coord' => $permisosCoord,
-            'panio' => $permisosPanio,
-            'docente' => $permisosDocente
-        ];
-        $_SESSION['permisos']= $permisos;
+        $_SESSION['sectores'] = [];
+        foreach ($cuenta['sectores'] as $sector) {
+            array_push($_SESSION['sectores'],$sector['codSector']);
+        }
+        $_SESSION['permisos']= $cuenta['permisos'];
         var_dump($_SESSION);
         if($_SESSION['permisos']['admin'] || $_SESSION['permisos']['coord']){
             header('location: ' . URLROOT . '/Estadisticas');

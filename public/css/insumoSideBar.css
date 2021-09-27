@@ -1,6 +1,13 @@
+.estructuraSideBar{
+    display: grid;
+    grid-template-columns: 1.1fr 4fr;
+    grid-auto-rows: minmax(min-content, max-content);
+    grid-template-areas: "navbar tituloPestania"
+                         "navbar barraAcciones"
+                         "navbar contenidoPestania";
+}
 .insumoSidebar{
-    grid-area: navbar;
-    width: 25rem;
+    /* grid-area: navbar; */
     height: 100vh;
     position: fixed;
     top: 0;
@@ -25,7 +32,7 @@ h3, h4{
 h3{
     margin-left: 1rem;
 }
-form + h1{
+/* form + h1{
     grid-area: tituloPestania;
     margin: 1rem 0 1rem 21rem;
 }
@@ -34,7 +41,7 @@ h1 + .filtros{
 }
 .filtros + .contenido{
     margin-left: 20.2rem;
-}
+} */
 .input{
     height: 4rem;
 }
@@ -73,4 +80,36 @@ input:focus{
     height: 250px;
     background-color: gray;
     border-radius: 1rem;
+}
+.btnModificar{
+    margin: 2rem auto ;
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    border-radius: 1.5rem;
+    color: var(--color-lightbg);
+    background-color: var(--color-mediumbg);
+    transition: all 0.2s ease;
+}
+.btnModificar:hover{
+    opacity: 80%;
+}
+.stockMinActual{
+    display: grid;
+    grid-template-areas: 'titulo titulo'
+                         'input1 input2';
+}
+.stockMinActual h4{
+    grid-area: titulo;
+}
+.stockMinActual input{
+    width: 80%;
+}
+.stockMinActual input:first-of-type{
+    grid-area: input1;
+}
+.stockMinActual input:last-of-type{
+    grid-area: input2;
 }

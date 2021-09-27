@@ -15,11 +15,13 @@
                 'panio' => true,
                 'docente' => true
             ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data=[
                 'titulo' => 'Inventario de Materiales',
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
-                'origen' => 'materiales'
+                'origen' => 'materiales',
+                'rutaAnterior' => $rutaAnterior
             ];
             $this->view("inventarios/insumos",$data);
         }
@@ -34,11 +36,13 @@
                 'panio' => true,
                 'docente' => true
             ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Inventario de Herramientas',
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
-                'origen' => 'herramientas'
+                'origen' => 'herramientas',
+                'rutaAnterior' => $rutaAnterior
 
             ];
             $this->view("inventarios/insumos", $data);
@@ -54,11 +58,13 @@
                 'panio' => true,
                 'docente' => true
             ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Inventario de Maquinarias',
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
-                'origen' => 'maquinaria'
+                'origen' => 'maquinaria',
+                'rutaAnterior' => $rutaAnterior
             ];
             $this->view("inventarios/insumos", $data);
         }
@@ -73,11 +79,13 @@
                 'panio' => true,
                 'docente' => true
             ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Inventario de Equipamiento Informatico',
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
-                'origen' => 'informatico'
+                'origen' => 'informatico',
+                'rutaAnterior' => $rutaAnterior
             ];
             $this->view("inventarios/insumos", $data);
         }
@@ -144,6 +152,7 @@
                     # code...
                     break;
             }
+            $rutaAnterior ='/'.rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Inventario de ',
                 'permisos' => $permisos,
@@ -154,8 +163,78 @@
                 'estados' => $estados,
                 'ubicaciones' => $ubicaciones,
                 'proveedores' => $proveedores,
-                'origen' => $origen
+                'origen' => $origen,
+                'rutaAnterior' => $rutaAnterior
             ];
            $this->view('inventarios/instancias', $data);
+        }
+
+        public function marcas(){
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
+            
+            require_once APPROOT . '/Models/Marca.php';
+            $marcaModel = new Marca();
+            $marcas = $marcaModel->getMarcasPorSector('IN');   
+
+            $permisos = [
+                'admin' => true,
+                'coord' => true,
+                'panio' => false,
+                'docente' => false
+            ];
+            $data = [
+                'titulo' => 'Inventario de Marcas',
+                'permisos' => $permisos,
+                'marcas' => $marcas,
+                'marcas_json' => json_encode($marcas),
+                'rutaAnterior' => $rutaAnterior
+            ];
+            $this->view('inventarios/marcas', $data);
+        }
+        public function proveedores()
+        {
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
+
+            require_once APPROOT . '/Models/Instancia/Proveedor.php';
+            $proveedorModel = new Proveedor();
+            $proveedores = $proveedorModel->getProveedoresPorSector('IN');
+
+            $permisos = [
+                'admin' => true,
+                'coord' => true,
+                'panio' => false,
+                'docente' => false
+            ];
+            $data = [
+                'titulo' => 'Inventario de Marcas',
+                'permisos' => $permisos,
+                'proveedores' => $proveedores,
+                'proveedores_json' => json_encode($proveedores),
+                'rutaAnterior' => $rutaAnterior
+            ];
+            $this->view('inventarios/proveedores', $data);
+        }
+        public function ubicaciones()
+        {
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
+
+            require_once APPROOT . '/Models/Instancia/Ubicacion.php';
+            $ubicacionModel = new Ubicacion();
+            $ubicaciones = $ubicacionModel->getUbicacionesPorSector('IN');
+
+            $permisos = [
+                'admin' => true,
+                'coord' => true,
+                'panio' => false,
+                'docente' => false
+            ];
+            $data = [
+                'titulo' => 'Inventario de Marcas',
+                'permisos' => $permisos,
+                'ubicaciones' => $ubicaciones,
+                'ubicaciones_json' => json_encode($ubicaciones),
+                'rutaAnterior' => $rutaAnterior
+            ];
+            $this->view('inventarios/ubicaciones', $data);
         }
     }

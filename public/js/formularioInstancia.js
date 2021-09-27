@@ -34,41 +34,44 @@ $('#cboxInstancias').on('click', function (e){
     }
 });
 $('#cantidad').change(function (){
-    let ultimaInstancia= $('#containerInstancias input:last')[0] != undefined ? $('#containerInstancias input:last')[0].id.slice(-1) : 0;   //obtiene el numero de la [ultima instancia agregada
-    // if($('#containerInstancias input:last')[0] != undefined){
-    //     ultimaInstancia=$('#containerInstancias input:last')[0].id.slice(-1); //obtiene la id de la [ultima instancia
-    // }else{
-    //     ultimaInstancia=0;
-    // }
-    if(ultimaInstancia+1 > $(this).val()){      //Comprueba si debe quitar instancias
-        cantidadARemover= Number.parseInt(ultimaInstancia)+1 - Number.parseInt($(this).val());
-        for (let i = 0; i < cantidadARemover; i++) {
-            $('#containerInstancias input:last')[0].remove();
-            $('#containerInstancias select:last')[0].remove();
-            $('#containerInstancias select:last')[0].remove();
-        }
-    }else{  //Si no debe quitar agregar[a las necesarias
-        for (let i = 0; i < $(this).val(); i++) { //reitera el valor de la cantidad, que indica cuantas instancias se necesitan
-            let identificadorInstancia="#identificador"+i;
-            let estadoInstancia="#estado"+i;
-            let ubicacionInstancia="#ubicacion"+i;
-            if(!($(identificadorInstancia).length)){    //Si no est[a colocado en el DOM lo crear[a y lo incluir[a 
-                const identificador=instanciaTablaBase.childNodes[1].cloneNode(true);
-                identificador.name="identificador"+i;
-                identificador.id="identificador"+i;
+    if($('#cboxInstancias').prop('checked')){
+        let ultimaInstancia= $('#containerInstancias input:last')[0] != undefined ? $('#containerInstancias input:last')[0].id.slice(-1) : 0;   //obtiene el numero de la [ultima instancia agregada
+        // if($('#containerInstancias input:last')[0] != undefined){
+        //     ultimaInstancia=$('#containerInstancias input:last')[0].id.slice(-1); //obtiene la id de la [ultima instancia
+        // }else{
+        //     ultimaInstancia=0;
+        // }
+        if(ultimaInstancia+1 > $(this).val()){      //Comprueba si debe quitar instancias
+            cantidadARemover= Number.parseInt(ultimaInstancia)+1 - Number.parseInt($(this).val());
+            for (let i = 0; i < cantidadARemover; i++) {
+                $('#containerInstancias input:last')[0].remove();
+                $('#containerInstancias select:last')[0].remove();
+                $('#containerInstancias select:last')[0].remove();
+            }
+        }else{  //Si no debe quitar agregar[a las necesarias
+            for (let i = 0; i < $(this).val(); i++) { //reitera el valor de la cantidad, que indica cuantas instancias se necesitan
+                let identificadorInstancia="#identificador"+i;
+                let estadoInstancia="#estado"+i;
+                let ubicacionInstancia="#ubicacion"+i;
+                if(!($(identificadorInstancia).length)){    //Si no est[a colocado en el DOM lo crear[a y lo incluir[a 
+                    const identificador=instanciaTablaBase.childNodes[1].cloneNode(true);
+                    identificador.name="identificador"+i;
+                    identificador.id="identificador"+i;
 
-                const estado=instanciaTablaBase.childNodes[3].cloneNode(true);
-                estado.name="estado"+i;
-                estado.id="estado"+i;
+                    const estado=instanciaTablaBase.childNodes[3].cloneNode(true);
+                    estado.name="estado"+i;
+                    estado.id="estado"+i;
 
-                const ubicacion=instanciaTablaBase.childNodes[5].cloneNode(true);
-                ubicacion.name="ubicacion"+i;
-                ubicacion.id="ubicacion"+i;
-                $('.instancia').append(identificador);
-                $('.instancia').append(estado);
-                $('.instancia').append(ubicacion);
+                    const ubicacion=instanciaTablaBase.childNodes[5].cloneNode(true);
+                    ubicacion.name="ubicacion"+i;
+                    ubicacion.id="ubicacion"+i;
+                    $('.instancia').append(identificador);
+                    $('.instancia').append(estado);
+                    $('.instancia').append(ubicacion);
+                }
             }
         }
     }
+    
    
 });

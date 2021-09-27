@@ -6,9 +6,11 @@
                 'admin' => true,
                 'coord' => true
             ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Estadísticas',
-                'permisos' => $permisos
+                'permisos' => $permisos,
+                'rutaAnterior' => $rutaAnterior
             ];
             $this->view("usuarios/coordinador/estadisticas", $data);
            

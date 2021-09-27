@@ -8,10 +8,12 @@
                 'coord' => true
             ];
             $marcas= $marcaModel->getMarcasPorSector('IN');
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Agregar un nuevo insumo',
                 'permisos' => $permisos,
-                'marcas' => $marcas
+                'marcas' => $marcas,
+                'rutaAnterior' => $rutaAnterior
             ];
 
             if (isset($_POST['submit'])) {
@@ -73,11 +75,13 @@
                 'admin' => true,
                 'coord' => true
             ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Agregar una nueva compra',
                 'permisos' => $permisos,
                 'proveedores' => $proveedores,
-                'ubicaciones' => $ubicaciones
+                'ubicaciones' => $ubicaciones,
+                'rutaAnterior' => $rutaAnterior
             ];
             if(isset($_POST['submit'])){
                 require_once APPROOT . '/Models/Instancia.php';
@@ -87,7 +91,6 @@
                         'costo' => $_POST['costo'],
                         'tipo' => $_POST['tipo'],
                         'codProveedor' => $_POST['proveedor'],
-                        'cantidad' => $_POST['cantidad'],
                         'fechaCompra' => $_POST['fechaCompra']
                     ];
                 }else{
@@ -117,7 +120,7 @@
                 }else{
                     $instancias=-1;
                 }
-                $instanciaModel->insertInstancias($codInsumo, 'IN',$instancias, $infoCompra, $garantia);
+                $instanciaModel->insertInstancias($codInsumo, 'IN',$instancias, $infoCompra, $garantia, $_POST['cantidad']);
                 header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo);
             }
             $this->view("forms/instancia", $data);
