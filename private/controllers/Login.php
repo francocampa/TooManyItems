@@ -1,23 +1,26 @@
 <?php
     class Login extends Controller {
         public function __construct(){
+            //$rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
-                'error' => ""
+                'titulo' =>'login',
+                'error' => ""//,
+                //'rutaAnterior', $rutaAnterior
             ];
             require_once '../private/models/Cuenta.php';
             if (isset($_POST['submit'])) {
                 $ci = (int)$_POST['ci'];
                 $pass = $_POST['pass'];
-                $db = db::conectar();
-                $callString = "CALL loginProvisorio(" . $ci . ", \"" . $pass . "\", @validacion)";
-                $consulta = $db->query($callString);
-                $consulta = $db->query("SELECT @validacion");
-                $respuesta = $consulta->fetch_array()["@validacion"];
-                if ($respuesta) {
-                    $usuario = new Cuenta($ci, $pass);
+                $usuarioModel = new Usuario();
+                $tokenLogin= $usuarioModel->login($ci, $pass);
+                if ( $tokenLogin != 'false') {
+                    $usuario=$usuarioModel->getCuentaPorCi($ci);
+                    $usuario['token']=$tokenLogin;
+                    //var_dump($usuario);
                     logIn($usuario);
                 }else{
                     $data = [
+                        'titulo' => 'login',
                         'error' => "Cuenta no encontrada"
                     ];
                 }

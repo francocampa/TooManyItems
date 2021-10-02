@@ -1,0 +1,114 @@
+.seccion{
+    padding: 2rem;
+   
+}
+.tarjetas{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.graficas{
+    display: grid;
+}
+.containerTarjetas{
+    width: 20%;
+    margin-left:2rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 1fr 4fr 1fr 4fr; */
+}
+.alertas{
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.info{
+    display: grid;
+    gap: 1rem;
+}
+
+.tarjeta{
+    height: auto;
+    width: 170px;
+    margin: 0;
+    padding: 2rem;
+    border-radius: 2rem;
+    box-shadow: 3px 3px 10px rgb(145, 144, 144);
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-rows: 1fr 1fr;
+    transition: all 0.5s ease;
+}
+.clara{
+    background-color: var(--color-lightbg);
+}
+.roja{
+    background-color: #f3c4c4;
+}
+.tarjeta:hover{
+    transform: scale(1.05);
+    box-shadow: 5px 5px 13px rgb(145, 144, 144);
+}
+.clara:hover{
+    background-color: var(--color-mediumbg);
+}
+.roja:hover{
+    background-color: #ff4b37a9;
+}
+.tarjeta:hover p{
+    color:var(--color-bg);
+}
+.clara:hover .numero{
+    color:var(--color-orange);
+}
+.roja:hover .numero{
+    color:var(--color-mediumbg);
+}
+.tarjeta  p{
+    font-size: 1.5rem;
+    display: inline;
+    text-align: center;
+}
+.tarjeta .numero{
+    color: var(--color-orange);
+    font-size: 2.5rem;
+}
+.b > p{
+    font-size: 20px;
+    display: inline;
+}
+
+.b{
+    height: 130px;
+    width: 400px;
+    background-color: #f3c4c4;
+    margin: 1rem;
+    padding: 18px 20px;
+    border-radius: 30px;
+    box-shadow: 1px 1px rgb(145, 144, 144);
+    align-items: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.btn{
+    width: 90px;
+    text-decoration: none;
+    color: var(--color-lightbg);
+    background-color: var(--color-mediumbg);
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.btng{
+    width: 120px;
+    text-decoration: none;
+    color: var(--color-lightbg);
+    background-color: var(--color-mediumbg);
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+}
+

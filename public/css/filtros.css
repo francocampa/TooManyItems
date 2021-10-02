@@ -1,0 +1,54 @@
+.filtros{
+    grid-area: barraAcciones;
+    width: 100%;
+    margin: 0;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    padding-left: 3rem;
+    background-color: var(--color-mediumbg);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3); 
+}
+
+#buscador, .filtros > select{
+    background-color: var(--color-bg);
+    padding: 0.5rem;
+    border: none;
+    border-radius: 1rem;
+    height: 4vh;
+    transition: all 0.4s ease-in-out;
+    margin-right: 1rem;
+}
+#buscador{
+    background-image: url("../img/iconos/search.svg");
+    background-repeat: no-repeat;
+    background-size: 3ch;
+    background-position: center;
+    width: 40ch;
+    outline: none;
+    color: var(--color-darkbg);
+    background-position: 35ch;
+}
+.btnOrange{
+    font-size: 1rem;
+    margin-top: 0;
+    color: var(--color-bg);
+    padding: 0.5rem 1rem;
+    background-color: var(--color-orange);
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+}
+.btnRed{
+    margin-top: 0;
+    color: var(--color-bg);
+    padding: 0.5rem 1rem;
+    background-color: var(--color-red);
+    border-radius: 1rem;
+}
+.btnOrange + .btnRed{
+    margin-left: 1rem;
+}
+.btnOrange:hover, .btnRed:hover{
+    opacity: 80%;
+}

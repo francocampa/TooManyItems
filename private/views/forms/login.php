@@ -17,5 +17,5 @@ require_once APPROOT . '\views\includes/head.php';
     <img src="<?php echo URLROOT; ?>/public/img/logos/Logotipo.svg" class="logoLogin">
 </div>
 <?php
-require_once APPROOT . '\views\includes/footer.php';
+//require_once APPROOT . '\views\includes/footer.php';
 ?>
