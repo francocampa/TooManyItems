@@ -38,7 +38,7 @@ require_once APPROOT . '\views\includes/head.php';
                         ?>
                     </select>
                     <h3>Cantidad</h3>
-                    <input type="number" name="cantidad" min="1" id="cantidad" value="1">
+                    <input type="number" name="cantidad"  min="1" id="cantidad" value="1">
                     <h3>Fecha de compra</h3>
                     <input type="date" name="fechaCompra" id="fechaCompra">
                 </div>

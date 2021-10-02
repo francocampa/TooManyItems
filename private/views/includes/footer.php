@@ -6,9 +6,10 @@
     <div class="popupInputs">
         <input type="text" style="display: none;" name="origen" value="<?php echo $data['rutaAnterior'] ?>">
     </div>
-    <button class="popupBtnConfirmar">Confirmar</button>
-    <button type="button" class="popupBtnCancelar" id="closePopup">Cancelar</button>
-
+    <div class="botonesPopup">
+        <button class="popupBtnConfirmar">Confirmar</button>
+        <button type="button" class="popupBtnCancelar" id="closePopup">Cancelar</button>
+    </div>
 </form>
 <div class="blurr"></div>
 <script src="<?php echo URLROOT; ?>/public/js/popups.js"></script>

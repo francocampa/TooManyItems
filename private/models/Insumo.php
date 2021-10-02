@@ -29,6 +29,29 @@
             echo $callString;
             $consulta=$db->query($callString);
         }
+        public function getInsumo($codInsumo, $codSector){
+            $insumo = [];
+            $db = db::conectar();
+            $callString = "SELECT * FROM insumos WHERE codSector='" . $codSector . "' AND codInsumo=" . $codInsumo . "";
+            $consulta = $db->query($callString);
+            $insumo= $consulta->fetch_assoc();
+            
+            $callString = 'SELECT codMarca, nombre FROM marcaPorInsumo WHERE codInsumo=' . $codInsumo . ' AND codSector="' . $codSector . '"';
+            $consulta = $db->query($callString);
+            $marca = $consulta->fetch_assoc();
+            $insumo['marca'] = $marca;
+
+            $caracteristicasT = [];
+            $callString = "SELECT codCaracteristicaTecnica, nombre, valor FROM caracteristicaTPorInsumo where codInsumo=" . $codInsumo . " AND codSector='" . $codSector . "';
+    ";
+            $consulta = $db->query($callString);
+            while ($filas = $consulta->fetch_assoc()) {
+                $caracteristicasT[] = $filas;
+            }
+            $insumo['caracteristicasT'] = $caracteristicasT;
+
+            return $insumo;
+        }
         public function getInsumoPorCategoria($codSector, $categoria){
             $insumos=[];
             $db = db::conectar();
@@ -52,6 +75,23 @@
                 }
                 $insumos[$i]['caracteristicasT']=$caracteristicasT;
             }
+            return $insumos;
+        }
+        public function countInsumoPorCategoria($codSector, $categoria)
+        {
+            $insumos = [];
+            $db = db::conectar();
+            $callString = "SELECT count(codInsumo) FROM insumos WHERE codSector='" . $codSector . "' AND categoria='" . $categoria . "'";
+            $consulta = $db->query($callString);
+            $insumos=$consulta->fetch_assoc()['count(codInsumo)'];
+            return $insumos;
+        }
+        public function countInsumosStockBajoPorSector($codSector){
+            $insumos = [];
+            $db = db::conectar();
+            $callString = "SELECT count(codInsumo) FROM insumos WHERE codSector='" . $codSector . "' AND stockMinimo>stockActual";
+            $consulta = $db->query($callString);
+            $insumos = $consulta->fetch_assoc()['count(codInsumo)'];
             return $insumos;
         }
     }

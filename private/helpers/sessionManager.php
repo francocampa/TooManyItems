@@ -2,7 +2,10 @@
     session_start();
 
     function isLoggedIn(){
-        if(isset($_SESSION['cuenta'])){
+        require_once '../private/models/Cuenta.php';
+        $cuentaModelToken= new Usuario();
+        $validacionCuenta= isset($_SESSION['cuenta']) ? $cuentaModelToken->validarToken() : false;
+        if($validacionCuenta['@output']){
             return true;
         }
         return false;

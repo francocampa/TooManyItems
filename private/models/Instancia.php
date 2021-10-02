@@ -51,11 +51,32 @@
                     }
                     $instancias[$j]['ubicacion'] = end($ubicacion);
 
+                    $callString = 'SELECT codFalla, nombre, observaciones,diagnostico,fechaInicio,fechaFinal FROM fallasPorInstancia WHERE codInstancia=' . $instancias[$j]['codInstancia'];
+                    $subConsulta = $db->query($callString);
+                    $falla = [];
+                    while ($subFilas = $subConsulta->fetch_assoc()) {
+                        $falla[] = $subFilas;
+                    }
+                    if(end($falla)['fechaFinal']==null){    //Si es null significa que no se solucion[o
+                        $instancias[$j]['falla'] = end($falla);
+                    }else{
+                        $instancias[$j]['falla'] = false;
+                    }
                     $j++;
                 }
                 $compras[$i]['instancias'] = $instancias;
             }
             return $compras;
+        }
+        public function getInstanciasPorInsumo($codInsumo, $codSector){
+            $db=db::conectar();
+            $callString='SELECT codInstancia, identificador FROM instanciasPorInsumo ipi WHERE ipi.codInsumo='.$codInsumo.' AND ipi.codSector="'.$codSector.'"';
+            $consulta=$db->query($callString);
+            $instancias = [];
+            while ($filas = $consulta->fetch_assoc()) {
+                $instancias[] = $filas;
+            }
+            return $instancias;
         }
         public function insertInstancias($codInsumo, $codSector, $instancias, $infoCompra, $garantia, $cantidad){
             $db= db::conectar();
@@ -102,9 +123,9 @@
            
         }
 
-        public function deleteInstancia($codInstancia){
+        public function deleteInstancia($codInstancia, $codSector, $codInsumo){
             $db = db::conectar();
-            $callString= 'CALL deleteInstancia(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '", '.$codInstancia.')';
+            $callString= 'CALL deleteInstancia(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '", '. $codInstancia . ', ' .$codInsumo.' ,"' . $codSector . '")';
             $consulta=$db->query($callString);
             var_dump($db);
         }
@@ -113,5 +134,28 @@
             $callString = 'CALL deleteCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '", "' . $codSector . '",' . $codInsumo . ',' . $codCompra . ' )';
             $consulta = $db->query($callString);
             var_dump($db);
+        }
+
+        public function insertFalla($codInstancia, $falla){
+            $db = db::conectar();
+            $callString = 'CALL insertFalla(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codInstancia . ',"' . $falla['nombre'] . '","' . $falla['observaciones'] . '", "'.$falla['diagnostico'].'" )';
+            echo $callString;
+            $consulta = $db->query($callString);
+            var_dump($db);
+        }
+        public function solucionarFalla($codInstancia, $codFalla){
+            $db = db::conectar();
+            $callString = 'CALL solucionarFalla(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codInstancia . ',' . $codFalla . ')';
+            echo $callString;
+            $consulta = $db->query($callString);
+            var_dump($db);
+        }
+
+        public function countInstanciasConFallasPorSector($codSector){
+            $db=db::conectar();
+            $callString= 'SELECT count(codInstancia) FROM insumosConFallasPorInstancia WHERE codSector="'.$codSector.'"';
+            $consulta=$db->query($callString);
+            $instanciasFalladas=$consulta->fetch_assoc()['count(codInstancia)'];
+            return $instanciasFalladas;
         }
     }

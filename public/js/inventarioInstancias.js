@@ -45,7 +45,6 @@ document.getElementsByClassName('tabla')[0].removeChild(document.getElementsByCl
 
 var tabla = document.getElementsByClassName("items")[0];
 tabla.removeChild(document.getElementsByClassName("item")[0]);
-var cuentaDeCambios= 0;
 
 function llenarTabla() {
     document.getElementsByClassName('tabla')[0].removeChild(document.getElementsByClassName("cabecera")[0]);
@@ -70,9 +69,20 @@ function llenarTabla() {
             itemCabeceraTabla.childNodes[1].innerHTML=instancia.identificador;
             itemCabeceraTabla.childNodes[3].innerHTML=instancia.estado;
             itemCabeceraTabla.childNodes[5].innerHTML=instancia.ubicacion.nombre;
-            itemCabeceraTabla.childNodes[7].innerHTML=compra.infoCompra.fechaAdquisicion;
-            itemCabeceraTabla.childNodes[9].innerHTML= compra.infoCompra.proveedor != null ? compra.infoCompra.proveedor.nombre : "Sin proveedor";
-            itemCabeceraTabla.childNodes[11].value='eliminarInstancia/'+instancia.codInstancia;
+            itemCabeceraTabla.childNodes[7].innerHTML=compra.infoCompra != null ? compra.infoCompra.fechaAdquisicion : '-';
+            itemCabeceraTabla.childNodes[9].innerHTML= compra.infoCompra != null ? compra.infoCompra.proveedor != null ? compra.infoCompra.proveedor.nombre : "Sin proveedor" : '-';
+            itemCabeceraTabla.childNodes[13].value='eliminarInstancia/'+instancia.codInstancia+'/'+compra.codSector+'/'+compra.codInsumo;
+            
+            if(!instancia.falla){
+                itemCabeceraTabla.childNodes[11].innerHTML='+';
+                itemCabeceraTabla.childNodes[11].className='btnFalla noActiva';
+                itemCabeceraTabla.childNodes[11].value='agregarFalla/'+instancia.codInstancia;
+            }else{
+                itemCabeceraTabla.childNodes[11].innerHTML='!';
+                itemCabeceraTabla.childNodes[11].className='btnFalla activa';
+                itemCabeceraTabla.childNodes[11].value='solucionarFalla/'+instancia.codInstancia+'/'+instancia.falla.codFalla;
+            }
+            
 
             tabla.appendChild(itemTabla);
             $(itemId).children().last().hide();
@@ -84,6 +94,7 @@ function llenarTabla() {
                     $(itemId).children().last().slideUp();
                 }
             });
+
             const instanciaForm=$(itemId).children().last().children()[0];  //Obtengo el container de los input y select de la instancia
             const infoCompraForm=$(itemId).children().last().children()[1];  //Obtengo el container de los input y select de la info de compra
             const garantiaForm=$(itemId).children().last().children()[2];  //Obtengo el container de los input y select de la garantia
@@ -129,7 +140,7 @@ function llenarTabla() {
             }else{
                 $(infoCompraForm).find('#proveedor').prop('disabled',true);
                 $(infoCompraForm).find('#tipoCompra').prop('disabled',true);
-                $(infoCompraForm).find('#costo').prop('disabled',true);
+                $(infoCompraForm).find('#proveedor').prop('disabled',true);
                 $(infoCompraForm).find('#costo').prop('disabled',true);
             }
 
@@ -168,6 +179,11 @@ function llenarTabla() {
                 itemCabeceraTabla.childNodes[3].innerHTML=compra.infoCompra.tipo;
                 itemCabeceraTabla.childNodes[7].innerHTML=compra.infoCompra.fechaAdquisicion;
                 itemCabeceraTabla.childNodes[9].innerHTML= compra.infoCompra.costo;
+            }else{
+                itemCabeceraTabla.childNodes[1].innerHTML='-';
+                itemCabeceraTabla.childNodes[3].innerHTML='-';
+                itemCabeceraTabla.childNodes[7].innerHTML='-';
+                itemCabeceraTabla.childNodes[9].innerHTML= '-';
             }
 
             tabla.appendChild(itemTabla);
@@ -225,75 +241,92 @@ function llenarTabla() {
             i++
         }
      });
-     //Esto es todo un problema, porque cuando recargo las listas se me va el evento que hace que aparezca el popup con el bot[o que corresponde, esta soluci[on no es buena
-     //y es medio fuerza bruta, el if evita que se agregue dos veces la primera vez que se abre la pestania.
-     if(cuentaDeCambios > 0){
-        $('.btnEliminar').on('click', function(e){
-            let texto='<h2>Está seguro de que desea eliminar este item?</h2>';
-            console.log(e.target);
-            $('.popup').find('h1').html('Eliminar');
-            $('.popup').prop('action', $('.popup').prop('action')+e.target.value);
-            $('.popupInputs').append(texto);
+    $('.btnEliminar').on('click', function(e){
+        let texto='<h2>Está seguro de que desea eliminar este item?</h2>';
+        $('.popup').find('h1').html('Eliminar');
+        $('.popup').prop('action', $('.popup').prop('action')+e.target.value);  //El value fue seteado a los par[ametros necesarios para eliminar una instancia
+        $('.popupInputs').append(texto);
 
-            $('.blurr').fadeIn();
-            $('.popup').fadeIn(); 
-        });
-     }else{
-         cuentaDeCambios++;
-     }
+        $('.blurr').fadeIn();
+        $('.popup').fadeIn(); 
+    });
     }
-    
+    $('.noActiva').on('click', function(e){
+        let inputNombre='<h2>Nombre</h2> <input type="text" id="inputNombre" name="inputNombre">';
+        let inputObservaciones='<h2>Observaciones</h2> <textarea id="inputObservaciones" name="inputObservaciones"></textarea>';
+        let inputDiagnostico='<h2>Diagnóstico</h2> <textarea id="inputDiagnostico" name="inputDiagnostico"></textarea>';
+
+
+        $('.popup').find('h1').html('Agregar falla');
+        $('.popup').prop('action', $('.popup').prop('action')+e.target.value);  //El value fue seteado a los par[ametros necesarios para eliminar una instancia
+        $('.popupInputs').append(inputNombre);
+        $('.popupInputs').append(inputObservaciones);
+        $('.popupInputs').append(inputDiagnostico);
+
+
+        $('.blurr').fadeIn();
+        $('.popup').fadeIn(); 
+    });
+    $('.activa').on('click',function(e){
+        let falla;
+        compras.forEach(compra => {
+            compra.instancias.forEach(instancia => {
+                if($(this).val() === 'solucionarFalla/'+instancia.codInstancia+'/'+instancia.falla.codFalla){
+                    falla=instancia.falla;
+                }
+            });
+        });
+        // let inputNombre='<h2>Nombre</h2> <input type="text" id="inputNombre" name="inputNombre" value="'+falla.nombre+'">';
+        let inputFecha='<h2>Fecha</h2> <input type="date" id="inputFecha" disabled="true" name="inputFecha" value="'+falla.fechaInicio+'">';
+        let inputObservaciones='<h2>Observaciones</h2> <textarea id="inputObservaciones" disabled="true" name="inputObservaciones">'+falla.observaciones+'</textarea>';
+        let inputDiagnostico='<h2>Diagnóstico</h2> <textarea id="inputDiagnostico" disabled="true" name="inputDiagnostico">'+falla.diagnostico+'</textarea>';
+
+
+        $('.popup').find('h1').html("Solucionar "+falla.nombre);
+        $('.popup').prop('action', $('.popup').prop('action')+e.target.value);  //El value fue seteado a los par[ametros necesarios para eliminar una instancia
+        //$('.popupInputs').append(inputNombre);
+        $('.popupInputs').append(inputFecha);
+        $('.popupInputs').append(inputObservaciones);
+        $('.popupInputs').append(inputDiagnostico);
+
+
+        $('.blurr').fadeIn();
+        $('.popup').fadeIn(); 
+    });
 }
 
-$('#categoria').on('click', function (e) {
-        let options=[];
-        if ($('#categoria').val()=='material') {
-            options.push('<option value="material">Material</option>');
-            options.push('<option value="consumible">Consumible</option>');
-        }
-        if ($('#categoria').val()=='herramienta') {
-            options.push('<option value="de_mano">De mano</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='maquinaria') {
-            options.push('<option value="movil">Móvil</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='informatico') {
-            options.push('<option value="pc">PC</option>');
-            options.push('<option value="monitor">Monitor</option>');
-            options.push('<option value="impresora">Impresora</option>');
-            options.push('<option value="periferico">Periférico</option>');
-        }
-        $('#tipo').empty();
-        options.forEach(option => {
-            $('#tipo').append(option);
-        });
+    $('#categoria').on('click', function (e) {
+        actualizarTipo();
     });
 
     function actualizarTipo() {
-        let options=[];
-        if ($('#categoria').val()=='material') {
-            options.push('<option value="material">Material</option>');
-            options.push('<option value="consumible">Consumible</option>');
-        }
-        if ($('#categoria').val()=='herramienta') {
-            options.push('<option value="de_mano">De mano</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='maquinaria') {
-            options.push('<option value="movil">Móvil</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='informatico') {
-            options.push('<option value="pc">PC</option>');
-            options.push('<option value="monitor">Monitor</option>');
-            options.push('<option value="impresora">Impresora</option>');
-            options.push('<option value="periferico">Periférico</option>');
-        }
-        $('#tipo').empty();
-        options.forEach(option => {
-            $('#tipo').append(option);
-        });
+            let options=[];
+            if ($('#categoria').val()=='material') {
+                options.push('<option value="material">Material</option>');
+                options.push('<option value="consumible">Consumible</option>');
+            }
+            if ($('#categoria').val()=='herramienta') {
+                options.push('<option value="de_mano">De mano</option>');
+                options.push('<option value="fija">Fija</option>');
+            }
+            if ($('#categoria').val()=='maquinaria') {
+                options.push('<option value="movil">Móvil</option>');
+                options.push('<option value="fija">Fija</option>');
+            }
+            if ($('#categoria').val()=='informatico') {
+                options.push('<option value="pc">PC</option>');
+                options.push('<option value="monitor">Monitor</option>');
+                options.push('<option value="impresora">Impresora</option>');
+                options.push('<option value="periferico">Periférico</option>');
+            }
+            $('#tipo').empty();
+            $('#tipo').append(options);
+            currentCat=$('#categoria').val();   
     }
-    $('#inventario').on('click', function (e){llenarTabla()});
+    var currentInventario='instancias';
+    $('#inventario').on('change', function (e){
+        if(currentInventario != $(this).val()){
+            llenarTabla();
+            currentInventario = $(this).val();
+        }
+    });

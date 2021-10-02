@@ -18,4 +18,13 @@
             }
             return $proveedores;
         }
+        public function countProveedoresPorSector($codSector)
+        {
+            $proveedores = [];
+            $db = db::conectar();
+            $callString = 'SELECT count(codProveedor) FROM proveedoresPorSector WHERE codSector="' . $codSector . '"';
+            $consulta = $db->query($callString);
+            $proveedores=$consulta->fetch_assoc()['count(codProveedor)'];
+            return $proveedores;
+        }
     }

@@ -56,15 +56,5 @@ $(document).ready(function (){
         $('.blurr').fadeIn();
         $('.popup').fadeIn(); 
     });
-    $('.btnEliminar').on('click', function(e){
-        let texto=createPopupText('Está seguro de que desea eliminar este item?');
-        console.log(e.target);
-        $('.popup').find('h1').html('Eliminar');
-        $('.popup').prop('action', $('.popup').prop('action')+e.target.value);
-        $('.popupInputs').append(texto);
-
-        $('.blurr').fadeIn();
-        $('.popup').fadeIn(); 
-    });
     
 });

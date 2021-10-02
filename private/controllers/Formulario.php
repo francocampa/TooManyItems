@@ -7,12 +7,16 @@
                 'admin' => true,
                 'coord' => true
             ];
-            $marcas= $marcaModel->getMarcasPorSector('IN');
+            $marcas=[];
+            foreach ($_SESSION['sectores'] as $sector) {
+                $marcas[$sector] = $marcaModel->getMarcasPorSector($sector);
+            }
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' => 'Agregar un nuevo insumo',
                 'permisos' => $permisos,
                 'marcas' => $marcas,
+                'categoria' => $origen,
                 'rutaAnterior' => $rutaAnterior
             ];
 
@@ -47,7 +51,7 @@
                 }
 
                 $insumo=[
-                    'codSector' => 'IN',
+                    'codSector' => $_POST['sector'],
                     'categoria' => $_POST['categoria'],
                     'nombre' => $_POST['nombre'],
                     'tipo' => $_POST['tipo'],
@@ -65,11 +69,11 @@
         public function compra($codInsumo){
             require_once APPROOT . '/Models/Instancia/Proveedor.php';
             $proveedorModel=new Proveedor();
-            $proveedores=$proveedorModel->getProveedoresPorSector('IN');
+            $proveedores=$proveedorModel->getProveedoresPorSector($_SESSION['sectorInstancia']);
 
             require_once APPROOT . '/Models/Instancia/Ubicacion.php';
             $ubicacionModel=new Ubicacion();
-            $ubicaciones= $ubicacionModel->getUbicacionesPorSector('IN');
+            $ubicaciones= $ubicacionModel->getUbicacionesPorSector($_SESSION['sectorInstancia']);
 
             $permisos = [
                 'admin' => true,
@@ -120,8 +124,8 @@
                 }else{
                     $instancias=-1;
                 }
-                $instanciaModel->insertInstancias($codInsumo, 'IN',$instancias, $infoCompra, $garantia, $_POST['cantidad']);
-                header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo);
+                $instanciaModel->insertInstancias($codInsumo, $_SESSION['sectorInstancia'],$instancias, $infoCompra, $garantia, $_POST['cantidad']);
+                header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $_SESSION['sectorInstancia']);
             }
             $this->view("forms/instancia", $data);
             

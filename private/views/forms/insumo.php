@@ -24,6 +24,14 @@ require_once APPROOT . '\views\includes/head.php';
                         <option value="maquinaria">Maquinaria</option>
                         <option value="informatico">Informatico</option>
                     </select>
+                    <h3>Sector</h3>
+                    <select name="sector" id="sectorInsumo">
+                        <?php
+                        foreach ($_SESSION['sectores'] as $sector) {
+                            echo '<option value="' . $sector . '">' . $sector . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="col">
                     <p>Características generales</p>
@@ -34,10 +42,10 @@ require_once APPROOT . '\views\includes/head.php';
                     <select name="tipo" id="tipo">
                     </select>
                     <h3>Marca</h3>
-                    <select name="marca">
+                    <select name="marca" id='marcas'>
                         <option value="-1">Sin marca</option>
                         <?php
-                        foreach ($data['marcas'] as $marca) {
+                        foreach ($data['marcas'][$_SESSION['sectores'][0]] as $marca) {
                             echo '<option value="' . $marca['nombre'] . '">' . $marca['nombre'] . '</option>';
                         }
                         ?>
@@ -67,6 +75,17 @@ require_once APPROOT . '\views\includes/head.php';
     </div>
 </div>
 <script src="<?php echo URLROOT ?>/public/js/formularioInsumo.js"></script>
+<script>
+    let marcasN = <?= json_encode($data['marcas']) ?>;
+    cargarMarcas(marcasN);
+    let categoria = "<?= $data['categoria'] ?>";
+    categoria = categoria == 'herramientas' ? 'herramienta' : categoria;
+    categoria = categoria == 'materiales' ? 'material' : categoria;
+
+
+    $('#categoria').val(categoria);
+    actualizarTipo();
+</script>
 <?php
 require_once APPROOT . '\views\includes/footer.php';
 ?>

@@ -19,7 +19,7 @@
             }
             $insumo = [
                 'codInsumo' => $codInsumo,
-                'codSector' => 'IN',
+                'codSector' => $_SESSION['sectorInstancia'],
                 'categoria' => $_POST['categoria'],
                 'nombre' => $_POST['nombre'],
                 'tipo' => $_POST['tipo'],
@@ -31,7 +31,7 @@
             ];
             var_dump($insumo);
             $insumoModel->updateInsumo($insumo);
-            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo);
+            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $_SESSION['sectorInstancia']);
 
         }
         public function compra($codInsumo, $codSector, $codCompra){
@@ -76,6 +76,6 @@
             
             $instanciaModel->updateCompra($compra,$instancia,$infoCompra,$garantia);
             var_dump($compra);
-            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo);
+            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $_SESSION['sectorInstancia']);
         }
     }

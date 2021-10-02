@@ -1,5 +1,5 @@
 <?php
-    class Cuenta{
+    class Usuario{
         public function __construct(){
         }
         public function login($ci, $contrasenia){
@@ -10,7 +10,14 @@
             $respuesta = $consulta->fetch_array()["@validacion"];
             return $respuesta;
         }
-
+        public function validarToken(){
+            $db=db::conectar();
+            $callString= 'CALL decriptar('.$_SESSION['cuenta']['ci'].', "'. $_SESSION['cuenta']['token'].'", @output)';
+            $consulta=$db->query($callString);
+            $consulta=$db->query('SELECT @output');
+            $resultado=$consulta->fetch_assoc();
+            return $resultado;
+        }
         public function getCuentaPorCi($ci){
             $db= db::conectar();
             //Recibo la info general

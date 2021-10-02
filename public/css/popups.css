@@ -24,6 +24,9 @@
 .popupHead > h1{
     font-size: 36px;
 }
+.popupInputs h2{
+    font-family: 'Exo';
+}
 /* #closePopup{
     position: absolute;
     right: 0;
@@ -35,8 +38,15 @@
 .popup  hr{
     border: 1px solid var(--color-darkbg);
 }
-.popupInputs{
-
+.popupInputs input, .popupInputs select{
+    width: 80%;
+    padding: 0.5rem;
+    height: 2.5rem;
+    font-size: 20px;
+    border: none;
+    border-bottom: 2px solid var(--color-mediumbg);
+    background-color: transparent;
+    transition: all 0.1s ease-in;
 }
 .popupBtnConfirmar, .popupBtnCancelar{
     background-color: var(--color-mediumbg);
@@ -65,4 +75,88 @@
     opacity: 30%;
     z-index: 0;
     transition: background-color 0.4s;
+}
+.botonesPopup{
+    display: flex;
+}
+.botonesPopup button + button{
+    margin-left: 1rem;
+}
+.popup textarea{
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-family: 'Roboto';
+    font-weight: 500;
+    color: var(--color-mediumbg);
+    width: 50ch;
+    height: 25ch;
+    border: none;
+    border-bottom: 0.3rem solid var(--color-mediumbg);
+    outline: none;
+    resize: none;
+    background-color: var(--color-bg);
+    border-radius: 1rem;
+}
+.bigPopup{
+    width: 60%;
+}
+.formPrestamo{
+    display: grid;
+    grid-template-areas: 'general selector'
+                         'general seleccionados';
+    gap: 2rem;
+}
+.infoGeneral{
+    grid-area: general;
+}
+.insumosSeleccionados{
+    grid-area: seleccionados;
+}
+.selectorDeInsumos{
+    grid-area: selector;
+}
+.selectorDeInsumos button{
+    float: right;
+}
+.formPrestamo hr{
+    margin: 0.5rem 0;
+    border: 1px solid var(--color-orange);
+}
+.infoGeneral textarea{
+    width: 100%;
+}
+input[type="radio" i],input[type="checkbox" i] {
+    width: 1rem;
+}
+input[type="number" i] {
+    width: 5rem;
+}
+.optionInstanciaCantidad{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.insumosSeleccionados{
+    height: 250px;
+}
+.insumoSeleccionado{
+    padding-right: 1rem;
+    padding-left: 0.3rem;
+}
+.insumoSeleccionado:hover{
+    background-color: var(--color-bg);
+}
+/* .insumosSeleccionados, .selectorDeInsumos{
+    background-color: var(--color-bg);
+    padding: 0.5rem;
+    border-radius: 1rem;
+} */
+.btnEliminarMini{
+    width: 1.3rem;
+    height: 1.3rem;
+    background-color: var(--color-red);
+    border-radius: 50%;
+    border:none;
+    outline: none;
+    color: var(--color-lightbg);
+    text-align: center;
 }

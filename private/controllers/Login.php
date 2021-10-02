@@ -11,7 +11,7 @@
             if (isset($_POST['submit'])) {
                 $ci = (int)$_POST['ci'];
                 $pass = $_POST['pass'];
-                $usuarioModel = new Cuenta();
+                $usuarioModel = new Usuario();
                 $tokenLogin= $usuarioModel->login($ci, $pass);
                 if ( $tokenLogin != 'false') {
                     $usuario=$usuarioModel->getCuentaPorCi($ci);

@@ -18,4 +18,13 @@
             }
             return $ubicaciones;
         }
+        public function countUbicacionesPorSector($codSector)
+        {
+            $ubicaciones = [];
+            $db = db::conectar();
+            $callString = 'SELECT count(codUbicacion) FROM ubicacionesPorSector WHERE codSector="' . $codSector . '"';
+            $consulta = $db->query($callString);
+            $ubicaciones=$consulta->fetch_assoc()['count(codUbicacion)'];
+            return $ubicaciones;
+        }
     }

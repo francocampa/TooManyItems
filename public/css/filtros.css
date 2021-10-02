@@ -30,11 +30,14 @@
     background-position: 35ch;
 }
 .btnOrange{
+    font-size: 1rem;
     margin-top: 0;
     color: var(--color-bg);
     padding: 0.5rem 1rem;
     background-color: var(--color-orange);
     border-radius: 1rem;
+    border: none;
+    outline: none;
 }
 .btnRed{
     margin-top: 0;

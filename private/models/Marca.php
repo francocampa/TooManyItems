@@ -18,5 +18,14 @@
             }
             return $marcas;
         }
+        public function countMarcasPorSector($codSector)
+        {
+            $marcas = [];
+            $db = db::conectar();
+            $callString = 'SELECT count(codMarca) FROM marcaPorSector WHERE codSector="' . $codSector . '"';
+            $consulta = $db->query($callString);
+            $marcas=$consulta->fetch_assoc()['count(codMarca)'];
+            return $marcas;
+        }
     }
     

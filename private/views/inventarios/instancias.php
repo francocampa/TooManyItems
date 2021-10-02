@@ -6,6 +6,7 @@ $css = [
     'filtros' => true,
     'popup' => true
 ];
+$_SESSION['sectorInstancia'] = $data['sectorInstancia'];
 require_once APPROOT . '\views\includes/head.php';
 ?>
 <div class="estructuraSideBar">
@@ -14,13 +15,14 @@ require_once APPROOT . '\views\includes/head.php';
     <?php require_once APPROOT . '\views\includes/filters.php'; ?>
 
     <div class="contenido">
-        <div class="tabla">
+        <div class="tabla marginLeft">
             <div class="cabecera instancias">
                 <p>Identificador</p>
                 <p>Estado</p>
                 <p>Ubicación</p>
                 <p>Fecha de compra</p>
                 <p>Proveedor</p>
+                <p>Falla</p>
             </div>
             <div class="cabecera compras">
                 <p>Proveedor</p>
@@ -67,7 +69,7 @@ require_once APPROOT . '\views\includes/head.php';
                                 </div>
                                 <div class="input base">
                                     <h4>Cantidad</h4>
-                                    <input type="number" name="cantidad" id="cantidad">
+                                    <input type="number" disabled='true' name="cantidad" id="cantidad">
                                 </div>
                                 <div class="input base">
                                     <h4>Costo</h4>
@@ -107,6 +109,7 @@ require_once APPROOT . '\views\includes/head.php';
                         <p>Categoria</p>
                         <p>Marca</p>
                         <p>Modelo</p>
+                        <button class="btnFalla" type="button">+</button>
                         <button class="btnEliminar" type="button">X</button>
                     </div>
                     <div class="instanciaCard close">
@@ -163,7 +166,7 @@ require_once APPROOT . '\views\includes/head.php';
                                 </div>
                                 <div class="input base">
                                     <h4>Cantidad</h4>
-                                    <input type="number" name="cantidad" id="cantidad">
+                                    <input type="number" disabled='true' name="cantidad" id="cantidad">
                                 </div>
                                 <div class="input base">
                                     <h4>Costo</h4>

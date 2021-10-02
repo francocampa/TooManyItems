@@ -38,10 +38,10 @@
             $insumoModel->deleteInsumo($codInsumo,$codSector);
             header('location:' . URLROOT . $_POST['origen']);
         }
-        public function eliminarInstancia($codInstancia){
+        public function eliminarInstancia($codInstancia, $codSector, $codInsumo){
             require_once APPROOT . '/Models/Instancia.php';
             $instanciaModel= new Instancia();
-            $instanciaModel->deleteInstancia($codInstancia);
+            $instanciaModel->deleteInstancia($codInstancia, $codSector, $codInsumo);
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function eliminarCompra($codCompra, $codInsumo, $codSector){
@@ -49,5 +49,52 @@
             $instanciaModel = new Instancia();
             $instanciaModel->deleteCompra($codCompra, $codInsumo, $codSector);
             header('location:' . URLROOT . $_POST['origen']);
+        }
+        public function agregarFalla($codInstancia){
+            var_dump($_POST);
+            $falla=[
+                'nombre'=>$_POST['inputNombre'],
+                'observaciones' => $_POST['inputObservaciones'],
+                'diagnostico' => $_POST['inputDiagnostico']
+            ];
+            require_once APPROOT . '/Models/Instancia.php';
+            $instanciaModel = new Instancia();
+            $instanciaModel->insertFalla($codInstancia, $falla);
+            header('location:' . URLROOT . $_POST['origen']);
+        }
+        public function solucionarFalla($codInstancia, $codFalla){
+            require_once APPROOT . '/Models/Instancia.php';
+            $instanciaModel = new Instancia();
+            $instanciaModel->solucionarFalla($codInstancia, $codFalla);
+            header('location:' . URLROOT . $_POST['origen']);
+        }
+        public function agregarPrestamo(){
+            $i=1;
+            $insumosSeleccionados=[];
+            while (isset($_POST['insumo'.$i])) {
+                $codInsumo=explode('.',$_POST['insumo' . $i])[0];
+                $codSector = explode('.', $_POST['insumo' . $i])[1];
+                $codInstancia = explode('.', $_POST['insumo' . $i])[2];
+                $cantidad = explode('.', $_POST['insumo' . $i])[3];
+                $consumir = explode('.', $_POST['insumo' . $i])[4];
+                $insumo=[
+                    'codInsumo' => $codInsumo,
+                    'codSector' => $codSector,
+                    'codInstancia' => $codInstancia,
+                    'cantidad' => $cantidad,
+                    'consumir' => $consumir
+                ];
+                array_push($insumosSeleccionados, $insumo);
+                $i++;
+            }
+            $prestamo=[
+                'clase' => $_POST['claseAlumno'],
+                'alumno' => $_POST['nombreAlumno'],
+                'fecha' => $_POST['fechaPrestamo'],
+                'hora' => $_POST['horaPrestamo'],
+                'razon' => $_POST['razonPrestamo'],
+                'insumos' => $insumosSeleccionados
+            ];
+            var_dump($prestamo);
         }
     }

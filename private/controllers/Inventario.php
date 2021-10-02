@@ -7,7 +7,9 @@
         public function materiales(){
             require_once APPROOT . '/Models/Insumo.php';
             $insumoModel = new Insumo();
-            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'material');
+            foreach ($_SESSION['sectores'] as $sector) {
+                $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'material');
+            }
             $insumos_json=json_encode($insumos);
             $permisos = [
                 'admin' => true,
@@ -28,7 +30,10 @@
         public function herramientas(){
             require_once APPROOT . '/Models/Insumo.php';
             $insumoModel = new Insumo();
-            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'herramienta');
+            $insumos=[];
+            foreach ($_SESSION['sectores'] as $sector) {
+                $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'herramienta');
+            }
             $insumos_json = json_encode($insumos);
             $permisos = [
                 'admin' => true,
@@ -45,12 +50,16 @@
                 'rutaAnterior' => $rutaAnterior
 
             ];
+            //var_dump($insumos);
+            //echo $insumos_json;
             $this->view("inventarios/insumos", $data);
         }
         public function maquinaria(){
             require_once APPROOT . '/Models/Insumo.php';
             $insumoModel = new Insumo();
-            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'maquinaria');
+            foreach ($_SESSION['sectores'] as $sector) {
+                $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'maquinaria');
+            }
             $insumos_json = json_encode($insumos);
             $permisos = [
                 'admin' => true,
@@ -71,7 +80,9 @@
         public function informatico(){
             require_once APPROOT . '/Models/Insumo.php';
             $insumoModel = new Insumo();
-            $insumos = $insumoModel->getInsumoPorCategoria('IN', 'informatico');
+            foreach ($_SESSION['sectores'] as $sector) {
+                $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'informatico');
+            }
             $insumos_json = json_encode($insumos);
             $permisos = [
                 'admin' => true,
@@ -89,16 +100,16 @@
             ];
             $this->view("inventarios/insumos", $data);
         }
-        public function instancias($codInsumo){
+        public function instancias($codInsumo, $sector){
             //Cargo los proveedores, se necesitan para la modificaci[on de las instancias
             require_once APPROOT . '/Models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
-            $proveedores = $proveedorModel->getProveedoresPorSector('IN');
+            $proveedores = $proveedorModel->getProveedoresPorSector($sector);
 
             //Cargo las ubicaciones, se necesitan para la modificaci[on de las instancias
             require_once APPROOT . '/Models/Instancia/Ubicacion.php';
             $ubicacionModel = new Ubicacion();
-            $ubicaciones = $ubicacionModel->getUbicacionesPorSector('IN');
+            $ubicaciones = $ubicacionModel->getUbicacionesPorSector($sector);
 
             //Cargo los estados, se necesitan para la modificaci[on de las instancias
             require_once APPROOT . '/Models/Instancia/Estado.php';
@@ -108,23 +119,20 @@
             //Cargo las marcas, se necesitan para la modificaci[on de insumo
             require_once APPROOT . '/Models/Marca.php';
             $marcaModel = new Marca();
-            $marcas = $marcaModel->getMarcasPorSector('IN');    
+            $marcas = $marcaModel->getMarcasPorSector($sector);    
 
             //Requiero el modelo de insumo, se parsean a json los insumos, y se busca el insumo seleccionado del que se va a mostrar el inventario de instancias
             require_once APPROOT . '/models/Instancia.php';
             $instanciasModel = new Instancia();
-            $insumo=[];
-            $insumos = json_decode($_SESSION['insumos'], true); 
-            foreach ($insumos as $i) {
-                if($i['codInsumo'] == $codInsumo){
-                    $insumo=$i;
-                    break;
-                }
-            }
+
+            //Requiero el modelo de insumo, se parsean a json los insumos, y se busca el insumo seleccionado del que se va a mostrar el inventario de instancias
+            require_once APPROOT . '/models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumo=$insumoModel->getInsumo($codInsumo, $sector);
             $insumo_json=json_encode($insumo);
 
             //Cargo las instancias del insumo y las parseo a json
-            $compras= $instanciasModel->getComprasPorInsumo($codInsumo, 'IN');
+            $compras= $instanciasModel->getComprasPorInsumo($codInsumo, $sector);
             $compras_json = json_encode($compras);
 
             $permisos = [
@@ -164,7 +172,8 @@
                 'ubicaciones' => $ubicaciones,
                 'proveedores' => $proveedores,
                 'origen' => $origen,
-                'rutaAnterior' => $rutaAnterior
+                'rutaAnterior' => $rutaAnterior,
+                'sectorInstancia' => $sector
             ];
            $this->view('inventarios/instancias', $data);
         }
@@ -206,7 +215,7 @@
                 'docente' => false
             ];
             $data = [
-                'titulo' => 'Inventario de Marcas',
+                'titulo' => 'Inventario de Proveedores',
                 'permisos' => $permisos,
                 'proveedores' => $proveedores,
                 'proveedores_json' => json_encode($proveedores),
@@ -229,7 +238,7 @@
                 'docente' => false
             ];
             $data = [
-                'titulo' => 'Inventario de Marcas',
+                'titulo' => 'Inventario de Ubicaciones',
                 'permisos' => $permisos,
                 'ubicaciones' => $ubicaciones,
                 'ubicaciones_json' => json_encode($ubicaciones),

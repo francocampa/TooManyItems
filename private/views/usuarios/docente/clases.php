@@ -13,7 +13,7 @@ require_once APPROOT . '\views\includes/head.php';
 
     <div class="contenido">
         <div class="tabla">
-            <div class="cabecera prestamos">
+            <div class="cabecera clase">
                 <p>Materia</p>
                 <p>Grupo</p>
                 <p>Docente</p>
@@ -21,7 +21,7 @@ require_once APPROOT . '\views\includes/head.php';
             </div>
             <hr>
             <div class="items">
-                <div class="item prestamos">
+                <div class="item clase">
                     <p>Materia</p>
                     <p>Grupo</p>
                     <p>Docente</p>

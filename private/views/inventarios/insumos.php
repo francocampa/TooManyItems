@@ -22,6 +22,7 @@ $_SESSION['insumos'] = $data['insumos_json'];
                     <p>Tipo</p>
                     <p>Marca</p>
                     <p>Modelo</p>
+                    <p>Sector</p>
                     <p>Stock</p>
                 </div>
                 <div class="existo"></div>
@@ -35,6 +36,7 @@ $_SESSION['insumos'] = $data['insumos_json'];
                         <p>Tipo</p>
                         <p>Marca</p>
                         <p>Modelo</p>
+                        <p>Sector</p>
                         <p>Stock</p>
                     </a>
                     <button class="btnEliminar">X</button>
@@ -46,8 +48,10 @@ $_SESSION['insumos'] = $data['insumos_json'];
 <script src="<?php echo URLROOT ?> /public/js/inventarioInsumos.js"></script>
 <script>
     let insumos_json = '<?= $data['insumos_json'] ?>';
-    let insumos = JSON.parse(insumos_json);
-    llenarTabla(insumos);
+    let insumosN = JSON.parse(insumos_json);
+    let sectores_json = '<?= json_encode($_SESSION['sectores']) ?>';
+    let sectores = JSON.parse(sectores_json);
+    inicializar(insumosN, sectores);
 </script>
 <?php
 require_once APPROOT . '\views\includes/footer.php';
