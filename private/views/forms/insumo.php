@@ -6,17 +6,20 @@ $css = [
 require_once APPROOT . '\views\includes/head.php';
 ?>
 <div class="estructura">
-    <?php require_once APPROOT . '\views\includes/navbar.php'; ?>
+    <?php require_once APPROOT . '\views\includes/navbar.php';
+    ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
 
     <div class="contenido">
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <div class="containerInputs">
                 <div class="col">
                     <p>Tipo e imagen</p>
                     <hr>
                     <h3>Imagen</h3>
-                    <input type="image">
+                    <input type="file" id="inputImagen" name="imagenInsumo" style="display:none;">
+                    <img class="inputImagen" id="frontInputImagen" src="<?= URLROOT ?>/public/img/iconos/AddImage.svg">
+                    <!-- <img width="15rem" height="15rem" id="imagenRandom"> -->
                     <h3>Categoría</h3>
                     <select name="categoria" id="categoria">
                         <option value="material">Material</option>
@@ -37,7 +40,7 @@ require_once APPROOT . '\views\includes/head.php';
                     <p>Características generales</p>
                     <hr>
                     <h3>Nombre</h3>
-                    <input type="text" name="nombre">
+                    <input type="text" name="nombre" id="nombreInsumo" class="errorInput">
                     <h3>Tipo</h3>
                     <select name="tipo" id="tipo">
                     </select>
@@ -51,9 +54,9 @@ require_once APPROOT . '\views\includes/head.php';
                         ?>
                     </select>
                     <h3>Modelo</h3>
-                    <input type="text" name="modelo">
+                    <input type="text" name="modelo" id="modeloInsumo">
                     <h3>Stock Mínimo</h3>
-                    <input type="text" name="stockMinimo">
+                    <input type="text" name="stockMinimo" id="stockMinimo" class="errorInput">
                 </div>
                 <div class="col overflow">
                     <p>Características técnicas</p>
@@ -64,13 +67,14 @@ require_once APPROOT . '\views\includes/head.php';
                     </div>
                     <hr>
                     <div class="caracteristicasT">
-                        <input type="text" name="caracteristicaNombre0">
-                        <input type="text" name="caracteristicaValor0">
+                        <!-- <input type="text" name="caracteristicaNombre0">
+                        <input type="text" name="caracteristicaValor0"> -->
                     </div>
-                    <button id="agregarCaracteristica" type="button">+</button>
+                    <button id="agregarCaracteristica" class="btnCaracteristicaT" type="button">+</button>
+                    <button id="quitarCaracteristica" class="btnCaracteristicaT" type="button">-</button>
                 </div>
             </div>
-            <input type="submit" name="submit">
+            <input type="submit" name="submit" class="btnConfirmar" id="btnSubmit" disabled>
         </form>
     </div>
 </div>

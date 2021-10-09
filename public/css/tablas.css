@@ -24,6 +24,13 @@ hr{
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 1fr 0.3fr;
 }
+.imagenInsumoTabla{
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--color-mediumbg);
+    border-radius: 1rem;
+    background-position: center;
+}
 .instancias{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr 0.2fr;
@@ -41,10 +48,7 @@ hr{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-.prestamos{
-    display: grid;
-    grid-template-columns: 3fr 3fr 3fr 2fr;
-}
+
 .item{
     margin: 0.2rem 0 0 0;
     font-size: 20px;
@@ -168,10 +172,6 @@ a > p{
     outline: none;
     resize: none;
 }
-.insumosPrestados{
-
-}
-
 .btnFalla{
     width: 2rem;
     height: 2rem;
@@ -198,4 +198,34 @@ a > p{
 .activa:hover{
     background-color: #ff4b3762;
     border-radius: 50%;
+}
+
+
+.clases{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.empleados{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr ;
+}
+
+.insumosEnSubinventarios{
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.5fr;
+}
+.fallaSubinventario{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+}
+.subInventario > .item:hover{
+    background-color: var(--color-bg);
+}
+.insumoSubinventarioCard{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr;
+    width: 100%;
 }

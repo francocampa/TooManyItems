@@ -14,6 +14,7 @@
             $db=db::conectar();
             $callString= 'CALL decriptar('.$_SESSION['cuenta']['ci'].', "'. $_SESSION['cuenta']['token'].'", @output)';
             $consulta=$db->query($callString);
+            // var_dump($db);
             $consulta=$db->query('SELECT @output');
             $resultado=$consulta->fetch_assoc();
             return $resultado;
@@ -68,5 +69,16 @@
                 'permisos' => $permisos
             ];
             return $usuario;
+        }
+        public function getEmpleadosPorSector($codSector){
+            $db = db::conectar();
+            //Recibo la info general
+            $callString = 'SELECT ciEmpleado,nombre,apellido,telefono,email,contrasenia FROM empleadosPorSector WHERE codSector="' . $codSector. '"';
+            $consulta = $db->query($callString);
+            $empleados = [];
+            while ($filas = $consulta->fetch_assoc()) {
+                $empleados[] = $filas;
+            }
+            return $empleados;
         }
     }

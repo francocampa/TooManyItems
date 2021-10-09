@@ -31,7 +31,7 @@ $_SESSION['insumos'] = $data['insumos_json'];
             <div class="items">
                 <div class="item unBoton">
                     <a class="insumos headerItem" href="<?php echo URLROOT ?>">
-                        <p>Imagen</p>
+                        <img src="<?= URLROOT . "/public/img/insumosUploads/" ?>" class="imagenInsumoTabla">
                         <p>Nombre</p>
                         <p>Tipo</p>
                         <p>Marca</p>

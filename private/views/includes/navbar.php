@@ -4,7 +4,7 @@
         <div class="navbarIcons">
             <?php
             if ($_SESSION['permisos']['admin'] || $_SESSION['permisos']['coord']) {
-                echo    '<a href="' . URLROOT . '/Estadisticas" id="Estadisticas">
+                echo    '<a href="' . URLROOT . '/Estadisticas/es/'.$_SESSION['sectores'][0].'" id="Estadisticas">
                             <img src="' . URLROOT . '/public/img/iconos/Estadisticas.svg" alt="" class="navbarIcon">
                             <p class="subtitulo">Estadisticas</p>
                         </a>';

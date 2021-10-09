@@ -12,49 +12,167 @@ $(document).ready(function (){
             $('.popupInputs').empty();
         }, 350);
     });
-    function createPopupInput(titulo, id, name){
-        return '<h2>'+titulo+'</h2> <input type="text" id="'+id+'" name="'+name+'">';
+    function createPopupInput(titulo, id, name, clase){
+        return '<h2>'+titulo+'</h2> <input type="text" id="'+id+'" name="'+name+'" class="'+clase+'">';
     }
 
-    function createPopupText(text){
-        return '<h2>'+text+'</h2>';
+    var inputSector;
+    getSector();
+    function getSector(){
+        if(document.getElementById('sectorPopup') != null){
+            inputSector=document.getElementById('sectorPopup').cloneNode(true);
+            document.getElementsByClassName('estructura')[0].removeChild(document.getElementById('sectorPopup'));
+        }
     }
     //Aqu[i est[an los m[etodos por bot[on, cada bot[on hace que aparezca el blurr y el popup, adem[as crea los input necesarios 
     $('#marca').on('click', function (){
         //Creo los input
-        let nombreInput=createPopupInput('Nombre', 'nombre', 'nombre');
+        let nombreInput=createPopupInput('Nombre', 'nombreMarca', 'nombre','errorPopupInput');
         //Aplico los valores que necesito a las propiedades
         $('.popup').prop('action', $('.popup').prop('action')+'/marca');    //Esto me enviar[a al controller que se encargar[a de agregar la info del popup a la bd
         $('.popup').find('h1').html('Agregar Marca');
         //Agrego el input al container dentro del popupp
         $('.popupInputs').append(nombreInput);
+        $('.popupInputs').append(inputSector.cloneNode(true));
+        $('#popupBtnConfirmar').prop('disabled', true);
+        $('#nombreMarca').on('input', function(e){
+            let validaciones;
+            let isCorrecto=true;
+            validaciones=validarLargo(1, 15, '#nombreMarca');
+            if(!validaciones[0]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(!validaciones[1]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(isCorrecto){
+                $(this).removeClass('errorPopupInput');
+                validarPopup();      
+            }
+        });
         //Muestro el blurr y el popup
         $('.blurr').fadeIn();
         $('.popup').fadeIn();
     });
     $('#proveedor').on('click', function (){
-        let nombreInput=createPopupInput('Nombre', 'nombre', 'nombre');
-        let telefonoInput=createPopupInput('Telefono', 'telefono', 'telefono');
+        let nombreInput=createPopupInput('Nombre', 'nombreProveedor', 'nombre','errorPopupInput');
+        let telefonoInput=createPopupInput('Telefono', 'telefonoProveedor', 'telefono');
 
         $('.popup').find('h1').html('Agregar Proveedor');
         $('.popup').prop('action', $('.popup').prop('action')+'/proveedor');
         $('.popupInputs').append(nombreInput);
+        $('.popupInputs').append(inputSector.cloneNode(true));
+        $('#popupBtnConfirmar').prop('disabled', true);
+        $('#nombreProveedor').on('input', function(e){
+            let validaciones;
+            let isCorrecto=true;
+            validaciones=validarLargo(1, 30, '#nombreProveedor');
+            if(!validaciones[0]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(!validaciones[1]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(isCorrecto){
+                $(this).removeClass('errorPopupInput');
+                validarPopup();      
+            }
+        });
         $('.popupInputs').append(telefonoInput);
-        
+        $('#telefonoProveedor').on('input', function(e){
+            let validaciones;
+            let isCorrecto=true;
+            validaciones=validarLargo(0, 9, '#telefonoProveedor');
+            if(!validaciones[0]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(!validaciones[1]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(isNaN($(this).val()) || $(this).val().includes(" ") ){
+                $(this).val($(this).val().slice(0, $(this).val().length -1));
+            }
+            if(isCorrecto){
+                $(this).removeClass('errorPopupInput');
+                validarPopup();      
+            }
+        });
         $('.blurr').fadeIn();
         $('.popup').fadeIn();        
     });
     $('#ubicacion').on('click', function (){
-        let nombreInput=createPopupInput('Nombre', 'nombre', 'nombre');
-        let tipoInput=createPopupInput('Tipo', 'tipo', 'tipo');
+        let nombreInput=createPopupInput('Nombre', 'nombreUbicacion', 'nombre','errorPopupInput');
+        let tipoInput=createPopupInput('Tipo', 'tipoUbicacion', 'tipo','errorPopupInput');
 
         $('.popup').find('h1').html('Agregar Ubicacion');
         $('.popup').prop('action', $('.popup').prop('action')+'/ubicacion');
         $('.popupInputs').append(nombreInput);
+        $('.popupInputs').append(inputSector.cloneNode(true));
+        $('#popupBtnConfirmar').prop('disabled', true);
+        $('#nombreUbicacion').on('input', function(e){
+            let validaciones;
+            let isCorrecto=true;
+            validaciones=validarLargo(1, 30, '#nombreUbicacion');
+            if(!validaciones[0]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(!validaciones[1]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(isCorrecto){
+                $(this).removeClass('errorPopupInput');
+                validarPopup();      
+            }
+        });
         $('.popupInputs').append(tipoInput);
-
+        $('#tipoUbicacion').on('input', function(e){
+            let validaciones;
+            let isCorrecto=true;
+            validaciones=validarLargo(1, 20, '#tipoUbicacion');
+            if(!validaciones[0]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(!validaciones[1]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(isCorrecto){
+                $(this).removeClass('errorPopupInput');
+                validarPopup();      
+            }
+        });
         $('.blurr').fadeIn();
         $('.popup').fadeIn(); 
     });
     
 });
+function validarLargo(min, max, selector){
+    let validacion=[true,true]
+    validacion[0]=$(selector).val().length >= min ? true : false;
+    validacion[1]=$(selector).val().length <= max ? true : false;
+    return validacion;
+}
+function validarPopup(){
+    if(!$('.errorPopupInput').length){
+        $('#popupBtnConfirmar').prop('disabled', false);
+    }
+}

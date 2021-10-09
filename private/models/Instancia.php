@@ -153,9 +153,9 @@
 
         public function countInstanciasConFallasPorSector($codSector){
             $db=db::conectar();
-            $callString= 'SELECT count(codInstancia) FROM insumosConFallasPorInstancia WHERE codSector="'.$codSector.'"';
+            $callString= 'SELECT count(codFalla) FROM fallasActivas WHERE codSector="'.$codSector.'"';
             $consulta=$db->query($callString);
-            $instanciasFalladas=$consulta->fetch_assoc()['count(codInstancia)'];
+            $instanciasFalladas=$consulta->fetch_assoc()['count(codFalla)'];
             return $instanciasFalladas;
         }
     }

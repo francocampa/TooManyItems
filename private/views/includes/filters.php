@@ -36,8 +36,27 @@
                 echo URLROOT . '/Formulario/insumo/' . $data['origen'];
             }
             echo '" class="btnOrange">+ Agregar</a>';
-        }else if($data['titulo']=='Pañol'){
-            echo '<button class="btnOrange" id="btnAgregarPrestamo" type="button">+ Agregar</button>';
+        }else{
+            switch ($data['titulo']) {
+                case 'Pañol':
+                    echo '<button class="btnOrange" id="btnAgregarPrestamo" type="button">+ Agregar</button>';
+                    break;
+                case 'Clases':
+                    echo '<button class="btnOrange" id="btnAgregarClase" type="button">+ Agregar</button>';
+                    break;
+                case 'Inventario de Marcas':
+                    echo '<button class="btnOrange" id="marca" type="button">+ Agregar</button>';
+                    break;
+                case 'Inventario de Proveedores':
+                    echo '<button class="btnOrange" id="proveedor" type="button">+ Agregar</button>';
+                    break;
+                case 'Inventario de Ubicaciones':
+                    echo '<button class="btnOrange" id="ubicacion" type="button">+ Agregar</button>';
+                    break;
+                default:
+                    # code...
+                    break;
+            }
         }
     ?>
     <!-- <a href="" class="btnRed">x Eliminar</a> -->

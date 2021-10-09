@@ -178,12 +178,22 @@
            $this->view('inventarios/instancias', $data);
         }
 
-        public function marcas(){
+        public function marcas($sector){
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
-            
+
+            require_once APPROOT . '/models/Insumo.php';
+            $insumoModel = new Insumo();
+
             require_once APPROOT . '/Models/Marca.php';
             $marcaModel = new Marca();
-            $marcas = $marcaModel->getMarcasPorSector('IN');   
+            $marcas = $marcaModel->getMarcasPorSector($sector);
+            for ($i = 0; $i < count($marcas); $i++) {
+                $marcas[$i]['fallas'] = $marcaModel->countFallasPorMarca($marcas[$i]['codMarca']);
+                $marcas[$i]['insumos'] = $insumoModel->getInsumoPorMarca($sector, $marcas[$i]['codMarca']);
+                for ($j=0; $j < count($marcas[$i]['insumos']); $j++) {
+                   $marcas[$i]['insumos'][$j]['fallas']=$insumoModel->getFallasPorInsumo($marcas[$i]['insumos'][$j]['codInsumo'],$sector);
+                }
+            }
 
             $permisos = [
                 'admin' => true,
@@ -196,17 +206,18 @@
                 'permisos' => $permisos,
                 'marcas' => $marcas,
                 'marcas_json' => json_encode($marcas),
-                'rutaAnterior' => $rutaAnterior
+                'rutaAnterior' => $rutaAnterior,
+                'sector' => $sector
             ];
             $this->view('inventarios/marcas', $data);
         }
-        public function proveedores()
+        public function proveedores($sector)
         {
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
 
             require_once APPROOT . '/Models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
-            $proveedores = $proveedorModel->getProveedoresPorSector('IN');
+            $proveedores = $proveedorModel->getProveedoresPorSector($sector);
 
             $permisos = [
                 'admin' => true,
@@ -219,17 +230,18 @@
                 'permisos' => $permisos,
                 'proveedores' => $proveedores,
                 'proveedores_json' => json_encode($proveedores),
-                'rutaAnterior' => $rutaAnterior
+                'rutaAnterior' =>$rutaAnterior,
+                'sector' => $sector
             ];
             $this->view('inventarios/proveedores', $data);
         }
-        public function ubicaciones()
+        public function ubicaciones($sector)
         {
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
 
             require_once APPROOT . '/Models/Instancia/Ubicacion.php';
             $ubicacionModel = new Ubicacion();
-            $ubicaciones = $ubicacionModel->getUbicacionesPorSector('IN');
+            $ubicaciones = $ubicacionModel->getUbicacionesPorSector($sector);
 
             $permisos = [
                 'admin' => true,
@@ -242,7 +254,8 @@
                 'permisos' => $permisos,
                 'ubicaciones' => $ubicaciones,
                 'ubicaciones_json' => json_encode($ubicaciones),
-                'rutaAnterior' => $rutaAnterior
+                'rutaAnterior' =>$rutaAnterior,
+                'sector' => $sector
             ];
             $this->view('inventarios/ubicaciones', $data);
         }

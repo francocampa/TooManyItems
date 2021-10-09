@@ -8,6 +8,9 @@
 }
 .graficas{
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* justify-content: center;
+    align-items: center; */
 }
 .containerTarjetas{
     width: 20%;
@@ -111,4 +114,21 @@
     margin: auto;
     text-align: center;
 }
+select{
+    width: 80%;
+}
+.selectSector{
+    margin-left: 2rem;
+    width: 10%;
+}
+.fallasPorMarcaGraph{
+    margin: auto;
+    width: 350px;
+    height: 350px;
+}
 
+/* canvas{
+    width: 20rem !important;
+    height: 20rem !important; 
+
+} */

@@ -9,7 +9,7 @@
             $marca=[
                 'nombre' => $_POST['nombre']
             ];
-            $marcaModel->insertMarca($marca, 'IN');
+            $marcaModel->insertMarca($marca, $_POST['sector']);
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function proveedor(){
@@ -19,7 +19,7 @@
                 'nombre' => $_POST['nombre'],
                 'telefono' => $_POST['telefono']
             ];
-            $proveedorModel->insertProveedor($proveedor, 'IN');
+            $proveedorModel->insertProveedor($proveedor, $_POST['sector']);
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function ubicacion(){
@@ -29,7 +29,7 @@
                 'nombre' => $_POST['nombre'],
                 'tipo' => $_POST['tipo']
             ];
-            $ubicacionModel->insertUbicacion($ubicacion, 'IN');
+            $ubicacionModel->insertUbicacion($ubicacion, $_POST['sector']);
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function eliminarInsumo($codInsumo, $codSector){
@@ -96,5 +96,34 @@
                 'insumos' => $insumosSeleccionados
             ];
             var_dump($prestamo);
+        }
+        public function agregarClase(){
+            $i = 1;
+            $insumosSeleccionados = [];
+            while (isset($_POST['insumo' . $i])) {
+                $codInsumo = explode('.', $_POST['insumo' . $i])[0];
+                $codSector = explode('.', $_POST['insumo' . $i])[1];
+                $codInstancia = explode('.', $_POST['insumo' . $i])[2];
+                $cantidad = explode('.', $_POST['insumo' . $i])[3];
+                $consumir = explode('.', $_POST['insumo' . $i])[4];
+                $insumo = [
+                    'codInsumo' => $codInsumo,
+                    'codSector' => $codSector,
+                    'codInstancia' => $codInstancia,
+                    'cantidad' => $cantidad,
+                    'consumir' => $consumir
+                ];
+                array_push($insumosSeleccionados, $insumo);
+                $i++;
+            }
+            $clase=[
+                'grupo' => $_POST['grupo'],
+                'fecha' => $_POST['fechaClase'],
+                'hora' => $_POST['horaClase'],
+                'razon' => $_POST['razonClase'],
+                'insumos' => $insumosSeleccionados
+            ];
+        var_dump($clase);
+
         }
     }

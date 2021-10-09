@@ -2,7 +2,8 @@
 $css = [
     'estructura' => true,
     'tablas' => true,
-    'filtros' => true
+    'filtros' => true,
+    'popup' => true
 ];
 require_once APPROOT . '\views\includes/head.php';
 ?>
@@ -11,6 +12,7 @@ require_once APPROOT . '\views\includes/head.php';
     <?php require_once APPROOT . '\views\includes/navbar.php'; ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
     <?php require_once APPROOT . '\views\includes/filters.php'; ?>
+    <input type="text" style="display:none;" name='sector' id='sectorPopup' value="<?= $data['sector'] ?>">
 
     <div class="contenido">
         <div class="division5050">

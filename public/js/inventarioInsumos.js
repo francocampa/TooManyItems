@@ -17,8 +17,8 @@ function llenarTabla(sectores) {
             insumos[sector].forEach(insumo => {
                 insumoTabla=itemTabla.cloneNode(true);
                 insumoInfo=insumoTabla.childNodes[1];
-                console.log(insumoInfo);
                 insumoInfo.href=insumoInfo.href+"/Inventario/instancias/"+insumo.codInsumo+"/"+insumo.codSector;
+                insumoInfo.childNodes[1].src=insumo.foto != null ? insumoInfo.childNodes[1].src+insumo.foto.ruta : '';
                 insumoInfo.childNodes[3].innerHTML=insumo.nombre;
                 insumoInfo.childNodes[5].innerHTML=insumo.tipo;
                 if(insumo.marca == null){

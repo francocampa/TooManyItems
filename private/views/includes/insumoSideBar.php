@@ -5,7 +5,14 @@
                 <a href="<?php echo URLROOT . "/Inventario/" . $data['origen'] ?>">
                     <img src="<?php echo URLROOT ?>/public/img/iconos/volver.svg" alt="" class="btnVolver">
                 </a>
-                <div class="imagen"></div>
+                <img class="imagen" src="<?php 
+                    if(is_null(json_decode($data['insumo'])->foto)){
+                        echo "";
+                    }else{
+                        echo URLROOT.'/public/img/insumosUploads/'.json_decode($data['insumo'])->foto->ruta;
+                    }
+                    
+                    ?>">
             </div>
             <div>
                 <h3>Información general</h3>

@@ -14,6 +14,24 @@ form{
 .col{
     width: 100%;
 }
+.btnConfirmar{
+    background-color: var(--color-mediumbg);
+    color: var(--color-lightbg);
+    margin: auto;
+    width: 50%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 0.5rem;
+    border-radius: 0.6rem;
+    transition: all 0.2s ease;
+}
+.btnConfirmar:enabled:hover{
+    opacity: 80%;
+}
+.btnConfirmar:disabled{
+    background-color: #ff4b3744;
+}
 p{
     font-family: 'Exo';
     font-size: 24px;
@@ -36,6 +54,31 @@ input, select{
 input:focus{
     background-color: var(--color-bg);
     outline: none;
+}
+.inputImagen{
+    text-align: center;
+    margin: 0 auto;
+    border: none;
+    width: 15rem !important;
+    height: 15rem;
+    background-color: transparent;
+    border-radius: 2rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.1s ease-in;
+}
+.inputImagen:focus{
+    background-color: transparent;
+}
+.inputImagen.errorInput{
+    background-color: #ff4b376b;
+    border-radius: 1rem;
+}
+.inputImagen.errorInput:focus{
+    background-color: #ff4b3725;
+}
+.inputImagen:hover{
+    opacity: 80%;
 }
 h3{
     margin-top: 2rem;
@@ -61,7 +104,7 @@ h3{
 .overflow{
     overflow: scroll;
 }
-#agregarCaracteristica{
+.btnCaracteristicaT{
     background-color: transparent;
     width: 1.5rem;
     height: 1.5rem;
@@ -69,11 +112,17 @@ h3{
     border: none;
     transition: all 0.4s;
 }
-#agregarCaracteristica:hover{
+.btnCaracteristicaT:hover{
     transform-origin: center;
     transform: scale(1.1);
     opacity: 60%;
 }
+.errorInput{
+    background-color: #ff4b3725;
+    border-color: var(--color-red);
+    border-radius: 0.4rem 0.4rem 0 0 ;
+}
+
 .instancia{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

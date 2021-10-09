@@ -27,6 +27,11 @@
 .popupInputs h2{
     font-family: 'Exo';
 }
+.errorPopupInput{
+    background-color: #ff4b3725 !important;
+    border-color: var(--color-red) !important;
+    border-radius: 0.4rem 0.4rem 0 0 ;
+}
 /* #closePopup{
     position: absolute;
     right: 0;
@@ -59,7 +64,10 @@
     border-radius: 0.6rem;
     transition: all 0.2s ease;
 }
-.popupBtnConfirmar:hover, .popupBtnCancelar:hover{
+.popupBtnConfirmar:disabled{
+    background-color: #ff4b3744;
+}
+.popupBtnConfirmar:enabled:hover, .popupBtnCancelar:hover{
     opacity: 80%;
 }
 .popupBtnCancelar{
@@ -100,7 +108,7 @@
 .bigPopup{
     width: 60%;
 }
-.formPrestamo{
+.formPrestamo, .formClase{
     display: grid;
     grid-template-areas: 'general selector'
                          'general seleccionados';
@@ -118,7 +126,7 @@
 .selectorDeInsumos button{
     float: right;
 }
-.formPrestamo hr{
+.formPrestamo hr, .formClase hr{
     margin: 0.5rem 0;
     border: 1px solid var(--color-orange);
 }

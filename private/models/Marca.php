@@ -27,5 +27,13 @@
             $marcas=$consulta->fetch_assoc()['count(codMarca)'];
             return $marcas;
         }
+        public function countFallasPorMarca($codMarca)
+        {
+            $db = db::conectar();
+            $callString = 'SELECT count(codMarca) FROM fallasPorMarca WHERE codMarca="' . $codMarca . '"';
+            $consulta = $db->query($callString);
+            $marcas = $consulta->fetch_assoc()['count(codMarca)'];
+            return $marcas;
+        }
     }
     

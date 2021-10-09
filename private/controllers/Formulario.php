@@ -26,8 +26,8 @@
                 
                 //Encuentro qu[e marca fue seleccionada, le asigno el valor -1 ya que este es el default si no se selecciona una
                 $codMarca = -1;
-                for ($i=0; $i < count($marcas); $i++) { 
-                    if($_POST['marca'] == $marcas[$i]['nombre']){
+                for ($i=0; $i < count($marcas[$_POST['sector']]); $i++) { 
+                    if($_POST['marca'] == $marcas[$_POST['sector']][$i]['nombre']){
                         $codMarca= $marcas[$i]['codMarca'];         
                     }
                 }
@@ -49,7 +49,17 @@
                     $nombreCaracteristicaT = 'caracteristicaNombre' . $i;
                     $valorCaracteristicaT = 'caracteristicaValor' . $i;
                 }
-
+                var_dump($_POST);
+                $imagen = $_FILES['imagenInsumo'];
+                if($imagen['name'] == ''){
+                    $rutaImagenDB=-1;
+                }else{
+                    $extension = explode('.', $imagen['name'])[1];
+                    $nombreArchivo = uniqid('', true);
+                    $rutaImagen = PUBLICROOT . '/public/img/insumosUploads/' . $nombreArchivo . '.' . $extension;
+                    move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+                    $rutaImagenDB = $nombreArchivo . '.' . $extension;
+                }
                 $insumo=[
                     'codSector' => $_POST['sector'],
                     'categoria' => $_POST['categoria'],
@@ -59,6 +69,7 @@
                     'modelo' => $_POST['modelo'],
                     'stockMinimo' =>$_POST['stockMinimo'],
                     'caraceristicasT' => $caracteristicas,
+                    'rutaImagen' => $rutaImagenDB
                 ];
                 $insumoModel->insertInsumo($insumo);
                 header('location:' . URLROOT . '/Inventario/'.$origen);

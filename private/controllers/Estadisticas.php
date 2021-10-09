@@ -1,18 +1,22 @@
 <?php
     class Estadisticas extends Controller {
-        public function __construct()
+        public function es($sector)
         {
             require_once APPROOT . '/Models/Marca.php';
             $marcaModel = new Marca();
-            $cantidadMarcas = $marcaModel->countMarcasPorSector('IN');  
+            $cantidadMarcas = $marcaModel->countMarcasPorSector($sector);  
+            $marcas= $marcaModel->getMarcasPorSector($sector);
+            for ($i=0; $i < count($marcas); $i++) {
+                $marcas[$i]['fallas'] = $marcaModel->countFallasPorMarca($marcas[$i]['codMarca']);
+            }
 
             require_once APPROOT . '/Models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
-            $cantidadProveedores = $proveedorModel->countProveedoresPorSector('IN');
+            $cantidadProveedores = $proveedorModel->countProveedoresPorSector($sector);
 
             require_once APPROOT . '/Models/Instancia/Ubicacion.php';
             $ubicacionModel = new Ubicacion();
-            $cantidadUbicaciones = $ubicacionModel->countUbicacionesPorSector('IN');
+            $cantidadUbicaciones = $ubicacionModel->countUbicacionesPorSector($sector);
 
             $cantidadGrupos=0;
             $infoSector=[
@@ -24,15 +28,15 @@
 
             require_once APPROOT . '/Models/Insumo.php';
             $insumoModel = new Insumo();
-            $cantidadHerramientas = $insumoModel->countInsumoPorCategoria('IN','herramienta');
-            $cantidadMaquinarias = $insumoModel->countInsumoPorCategoria('IN', 'maquinaria');
-            $cantidadInformaticos = $insumoModel->countInsumoPorCategoria('IN', 'informatico');
-            $cantidadMateriales = $insumoModel->countInsumoPorCategoria('IN', 'material');
-            $insumosStockBajo = $insumoModel->countInsumosStockBajoPorSector('IN');
+            $cantidadHerramientas = $insumoModel->countInsumoPorCategoria($sector,'herramienta');
+            $cantidadMaquinarias = $insumoModel->countInsumoPorCategoria($sector, 'maquinaria');
+            $cantidadInformaticos = $insumoModel->countInsumoPorCategoria($sector, 'informatico');
+            $cantidadMateriales = $insumoModel->countInsumoPorCategoria($sector, 'material');
+            $insumosStockBajo = $insumoModel->countInsumosStockBajoPorSector($sector);
 
             require_once APPROOT . '/Models/Instancia.php';
             $instanciaModel = new Instancia();
-            $instanciasFalladas = $instanciaModel->countInstanciasConFallasPorSector('IN'); 
+            $instanciasFalladas = $instanciaModel->countInstanciasConFallasPorSector($sector); 
 
             $infoInventarios=[
                 'herramientas' => $cantidadHerramientas,
@@ -52,7 +56,9 @@
                 'permisos' => $permisos,
                 'rutaAnterior' => $rutaAnterior,
                 'infoSector' => $infoSector,
-                'infoInventarios' => $infoInventarios
+                'infoInventarios' => $infoInventarios,
+                'sector' => $sector,
+                'marcas' => $marcas
             ];
             $this->view("usuarios/coordinador/estadisticas", $data);
            

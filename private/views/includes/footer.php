@@ -7,7 +7,7 @@
         <input type="text" style="display: none;" name="origen" value="<?php echo $data['rutaAnterior'] ?>">
     </div>
     <div class="botonesPopup">
-        <button class="popupBtnConfirmar">Confirmar</button>
+        <button class="popupBtnConfirmar" id='popupBtnConfirmar'>Confirmar</button>
         <button type="button" class="popupBtnCancelar" id="closePopup">Cancelar</button>
     </div>
 </form>

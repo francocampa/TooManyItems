@@ -19,7 +19,7 @@
         $_SESSION['permisos']= $cuenta['permisos'];
         var_dump($_SESSION);
         if($_SESSION['permisos']['admin'] || $_SESSION['permisos']['coord']){
-            header('location: ' . URLROOT . '/Estadisticas');
+            header('location: ' . URLROOT . '/Estadisticas/es/'.$_SESSION['sectores'][0]);
         }
         if ($_SESSION['permisos']['panio']) {
             header('location: ' . URLROOT . '/Paniol');
