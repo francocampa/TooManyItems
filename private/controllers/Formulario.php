@@ -77,14 +77,14 @@
 
             $this->view("forms/insumo", $data);
         }
-        public function compra($codInsumo){
+        public function compra($codInsumo,$codSector){
             require_once APPROOT . '/Models/Instancia/Proveedor.php';
             $proveedorModel=new Proveedor();
-            $proveedores=$proveedorModel->getProveedoresPorSector($_SESSION['sectorInstancia']);
+            $proveedores=$proveedorModel->getProveedoresPorSector($codSector);
 
             require_once APPROOT . '/Models/Instancia/Ubicacion.php';
             $ubicacionModel=new Ubicacion();
-            $ubicaciones= $ubicacionModel->getUbicacionesPorSector($_SESSION['sectorInstancia']);
+            $ubicaciones= $ubicacionModel->getUbicacionesPorSector($codSector);
 
             $permisos = [
                 'admin' => true,
@@ -135,8 +135,8 @@
                 }else{
                     $instancias=-1;
                 }
-                $instanciaModel->insertInstancias($codInsumo, $_SESSION['sectorInstancia'],$instancias, $infoCompra, $garantia, $_POST['cantidad']);
-                header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $_SESSION['sectorInstancia']);
+                $instanciaModel->insertInstancias($codInsumo, $codSector,$instancias, $infoCompra, $garantia, $_POST['cantidad']);
+                header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $codSector);
             }
             $this->view("forms/instancia", $data);
             

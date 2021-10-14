@@ -43,7 +43,7 @@
                     }
                     $instancias[$j]['estado']=end($estado);
 
-                    $callString = 'SELECT codUbicacion,nombre,tipo FROM ubicacionPorInstancia WHERE codInstancia=' . $instancias[$j]['codInstancia'];
+                    $callString = 'SELECT codUbicacion,nombreUbicacion,tipo FROM ubicacionPorInstancia WHERE codInstancia=' . $instancias[$j]['codInstancia'];
                     $subConsulta = $db->query($callString);
                     $ubicacion = [];
                     while ($subFilas = $subConsulta->fetch_assoc()) {
@@ -157,5 +157,61 @@
             $consulta=$db->query($callString);
             $instanciasFalladas=$consulta->fetch_assoc()['count(codFalla)'];
             return $instanciasFalladas;
+        }
+
+        public function getInstanciasPorProveedor($codSector, $codProveedor){
+            $db = db::conectar();
+            $callString = 'SELECT identificador, codInstancia, codSector, nombre FROM instanciasPorProveedor WHERE codSector="' . $codSector . '" AND codProveedor='.$codProveedor.'';
+            $consulta = $db->query($callString);
+            $instancias = [];
+            while ($filas = $consulta->fetch_assoc()) {
+                $instancias[] = $filas;
+            }
+            return $instancias;
+        }
+        public function getFallasPorInstancia($codInstancia){
+            $db = db::conectar();
+            $callString = 'SELECT codFalla, nombre, fechaInicio,fechaFinal FROM fallasPorProveedor WHERE codInstancia=' . $codInstancia . '';
+            $consulta = $db->query($callString);
+            $instancias = [];
+            while ($filas = $consulta->fetch_assoc()) {
+                $instancias[] = $filas;
+            }
+            return $instancias;
+        }
+
+        public function getInstanciasPorUbicacion($codUbicacion,$codSector){
+            $db = db::conectar();
+            $callString = 'SELECT identificador, codInstancia, codSector, nombre FROM ubicacionPorInstancia WHERE codSector="' . $codSector . '" AND codUbicacion=' . $codUbicacion . '';
+            $consulta = $db->query($callString);
+            $instancias = [];
+            while ($filas = $consulta->fetch_assoc()) {
+                $instancias[] = $filas;
+            }
+            return $instancias;
+        }
+
+        public function getInstanciasConFalla($codSector){
+            $db = db::conectar();
+            $callString = 'SELECT identificador, codInstancia,codSector, codInsumo,codFalla,fechaInicio FROM insumosConFallasPorInstancia WHERE codSector="' . $codSector . '" AND fechaFinal IS NULL';
+            $consulta = $db->query($callString);
+            $instancias = [];
+            while ($filas = $consulta->fetch_assoc()) {
+                $instancias[] = $filas;
+            }
+            for ($i=0; $i < count($instancias); $i++) {
+                $subCallString = 'SELECT nombre as nombreInsumo, modelo FROM insumos WHERE codInsumo=' . $instancias[$i]['codInsumo'] . ' AND codSector="'.$instancias[$i]['codSector'].'"';
+                $subConsulta = $db->query($subCallString);
+                $instancias[$i]['insumo'] = $subConsulta->fetch_assoc();
+
+                $subCallString = 'SELECT nombre FROM marcaPorInsumo WHERE codInsumo=' . $instancias[$i]['codInsumo'] . ' AND codSector="' . $instancias[$i]['codSector'] . '"';
+                $subConsulta = $db->query($subCallString);
+                $instancias[$i]['marca'] = $subConsulta->fetch_assoc();
+
+                $callString = 'SELECT nombre, observaciones,diagnostico,fechaInicio,fechaFinal FROM fallasPorInstancia WHERE codFalla=' . $instancias[$i]['codFalla'];
+                $subConsulta = $db->query($callString);
+                $instancias[$i]['falla'] = $subConsulta->fetch_assoc();
+            }
+            return $instancias;
         }
     }

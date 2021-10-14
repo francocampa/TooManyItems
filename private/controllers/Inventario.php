@@ -23,6 +23,7 @@
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
                 'origen' => 'materiales',
+                'tipo' => 'insumo',
                 'rutaAnterior' => $rutaAnterior
             ];
             $this->view("inventarios/insumos",$data);
@@ -47,6 +48,7 @@
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
                 'origen' => 'herramientas',
+                'tipo' => 'insumo',
                 'rutaAnterior' => $rutaAnterior
 
             ];
@@ -73,6 +75,7 @@
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
                 'origen' => 'maquinaria',
+                'tipo' => 'insumo',
                 'rutaAnterior' => $rutaAnterior
             ];
             $this->view("inventarios/insumos", $data);
@@ -96,6 +99,7 @@
                 'permisos' => $permisos,
                 'insumos_json' => $insumos_json,
                 'origen' => 'informatico',
+                'tipo' => 'insumo',
                 'rutaAnterior' => $rutaAnterior
             ];
             $this->view("inventarios/insumos", $data);
@@ -219,6 +223,15 @@
             $proveedorModel = new Proveedor();
             $proveedores = $proveedorModel->getProveedoresPorSector($sector);
 
+            require_once APPROOT . '/Models/Instancia.php';
+            $instanciaModel = new Instancia();
+            for ($i = 0; $i < count($proveedores); $i++) {
+                $proveedores[$i]['fallas'] = $proveedorModel->countFallasPorProveedor($proveedores[$i]['codProveedor']);
+                $proveedores[$i]['instancias'] = $instanciaModel->getInstanciasPorProveedor($sector, $proveedores[$i]['codProveedor']);
+                for ($j = 0; $j < count($proveedores[$i]['instancias']); $j++) {
+                    $proveedores[$i]['instancias'][$j]['fallas'] = $instanciaModel->getFallasPorInstancia($proveedores[$i]['instancias'][$j]['codInstancia']);
+                }
+            }
             $permisos = [
                 'admin' => true,
                 'coord' => true,
@@ -243,6 +256,16 @@
             $ubicacionModel = new Ubicacion();
             $ubicaciones = $ubicacionModel->getUbicacionesPorSector($sector);
 
+            require_once APPROOT . '/Models/Instancia.php';
+            $instanciaModel = new Instancia();
+            for ($i = 0; $i < count($ubicaciones); $i++) {
+                //$ubicaciones[$i]['fallas'] = $ubicacionModel->countFallasPorUbicacion($ubicaciones[$i]['codUbicacion']);
+                $ubicaciones[$i]['instancias'] = $instanciaModel->getInstanciasPorUbicacion($ubicaciones[$i]['codUbicacion'], $sector);
+                for ($j = 0; $j < count($ubicaciones[$i]['instancias']); $j++) {
+                    $ubicaciones[$i]['instancias'][$j]['fallas'] = $instanciaModel->getFallasPorInstancia($ubicaciones[$i]['instancias'][$j]['codInstancia']);
+                }
+            }
+
             $permisos = [
                 'admin' => true,
                 'coord' => true,
@@ -259,4 +282,43 @@
             ];
             $this->view('inventarios/ubicaciones', $data);
         }
+        public function stockBajo($codSector){
+            require_once APPROOT . '/models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumos = $insumoModel->getInsumoStockBajo($codSector);
+            $permisos = [
+                'admin' => true,
+                'coord' => true,
+                'panio' => true,
+                'docente' => true
+            ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
+            $data = [
+                'titulo' => 'Insumos con stock insuficiente',
+                'permisos' => $permisos,
+                'insumos' => $insumos,
+                'rutaAnterior' => $rutaAnterior
+            ];
+            $this->view("inventarios/insumosStockBajo", $data);
+        }
+        public function instanciasFalladas($codSector){
+            require_once APPROOT . '/models/Instancia.php';
+            $instanciaModel = new Instancia();
+            $instancias = $instanciaModel->getInstanciasConFalla($codSector);
+            $permisos = [
+                'admin' => true,
+                'coord' => true,
+                'panio' => true,
+                'docente' => true
+            ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
+            $data = [
+                'titulo' => 'Fallas activas',
+                'permisos' => $permisos,
+                'instancias' => $instancias,
+                'rutaAnterior' => $rutaAnterior
+            ];
+            $this->view("inventarios/instanciasFalladas", $data);
+        }
     }
+   

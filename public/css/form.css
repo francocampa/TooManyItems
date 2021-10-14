@@ -129,9 +129,6 @@ h3{
     gap: 0.5rem;
     overflow-x: hidden;
 }
-.instancia > input, .instancia > select{
-    width: 100%;
-}
 
 .indicacionesTresSubtitulos{
     display: grid;

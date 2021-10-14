@@ -60,6 +60,20 @@ function llenarTabla(){
             });
             contador++;
         }); 
+        contador=0;
     });
     $('#scriptFeo').remove();
+}
+$('#buscador').on('input',function(){
+    const busqueda= $(this).val().toLowerCase();
+    showItems();
+    for (let i = 0; i < $('.item').length; i++) {
+        const nombreMarca=$('.item')[i].childNodes[1].innerHTML.toLowerCase();
+        if(!(nombreMarca.includes(busqueda))){
+            $('.item')[i].style.display='none';
+        } 
+    }
+})
+function showItems(){
+    $('.item').css('display','grid');
 }

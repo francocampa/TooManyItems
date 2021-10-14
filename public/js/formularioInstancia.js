@@ -230,8 +230,6 @@ function validarLargo(min, max, selector){
 }
 function convertToDate(fechaString) {
     let splitString= fechaString.split('-');
-    console.log(splitString)
     let fechaDate= new Date(splitString[0],Number.parseInt(splitString[1])-1,splitString[2]);
-    console.log(fechaDate)
     return fechaDate;
 }

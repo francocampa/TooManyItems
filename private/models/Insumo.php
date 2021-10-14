@@ -139,4 +139,34 @@
             }
             return $fallas;
         }
+        public function getInsumoStockBajo($codSector){
+            $insumos = [];
+            $db = db::conectar();
+            $callString = "SELECT * FROM insumos WHERE codSector='" . $codSector . "' AND stockActual < stockMinimo";
+            $consulta = $db->query($callString);
+            while ($filas = $consulta->fetch_assoc()) {
+                $insumos[] = $filas;
+            }
+            for ($i = 0; $i < count($insumos); $i++) {
+                $callString = 'SELECT codFoto,ruta,nombre FROM imagenPorInsumo WHERE codInsumo=' . $insumos[$i]['codInsumo'] . ' AND codSector="' . $codSector . '"';
+                $consulta = $db->query($callString);
+                $foto = $consulta->fetch_assoc();
+                $insumos[$i]['foto'] = $foto;
+
+                $callString = 'SELECT codMarca, nombre FROM marcaPorInsumo WHERE codInsumo=' . $insumos[$i]['codInsumo'] . ' AND codSector="' . $codSector . '"';
+                $consulta = $db->query($callString);
+                $marca = $consulta->fetch_assoc();
+                $insumos[$i]['marca'] = $marca;
+
+                $caracteristicasT = [];
+                $callString = "SELECT codCaracteristicaTecnica, nombre, valor FROM caracteristicaTPorInsumo where codInsumo=" . $insumos[$i]['codInsumo'] . " AND codSector='" . $codSector . "';
+    ";
+                $consulta = $db->query($callString);
+                while ($filas = $consulta->fetch_assoc()) {
+                    $caracteristicasT[] = $filas;
+                }
+                $insumos[$i]['caracteristicasT'] = $caracteristicasT;
+            }
+            return $insumos;
+        }
     }

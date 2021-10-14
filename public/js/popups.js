@@ -25,7 +25,7 @@ $(document).ready(function (){
         }
     }
     //Aqu[i est[an los m[etodos por bot[on, cada bot[on hace que aparezca el blurr y el popup, adem[as crea los input necesarios 
-    $('#marca').on('click', function (){
+    $('#marcaPopup').on('click', function (){
         //Creo los input
         let nombreInput=createPopupInput('Nombre', 'nombreMarca', 'nombre','errorPopupInput');
         //Aplico los valores que necesito a las propiedades
@@ -58,7 +58,7 @@ $(document).ready(function (){
         $('.blurr').fadeIn();
         $('.popup').fadeIn();
     });
-    $('#proveedor').on('click', function (){
+    $('#proveedorPopup').on('click', function (){
         let nombreInput=createPopupInput('Nombre', 'nombreProveedor', 'nombre','errorPopupInput');
         let telefonoInput=createPopupInput('Telefono', 'telefonoProveedor', 'telefono');
 
@@ -112,7 +112,7 @@ $(document).ready(function (){
         $('.blurr').fadeIn();
         $('.popup').fadeIn();        
     });
-    $('#ubicacion').on('click', function (){
+    $('#ubicacionPopup').on('click', function (){
         let nombreInput=createPopupInput('Nombre', 'nombreUbicacion', 'nombre','errorPopupInput');
         let tipoInput=createPopupInput('Tipo', 'tipoUbicacion', 'tipo','errorPopupInput');
 

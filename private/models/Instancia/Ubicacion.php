@@ -27,4 +27,12 @@
             $ubicaciones=$consulta->fetch_assoc()['count(codUbicacion)'];
             return $ubicaciones;
         }
+        public function countFallasPorUbicacion($codUbicacion){
+            $ubicaciones = [];
+            $db = db::conectar();
+            $callString = 'SELECT count(codUbicacion) FROM fallasPorUbicacion WHERE codUbicacion="' . $codUbicacion . '"';
+            $consulta = $db->query($callString);
+            $ubicaciones = $consulta->fetch_assoc()['count(codUbicacion)'];
+            return $ubicaciones;
+        }
     }

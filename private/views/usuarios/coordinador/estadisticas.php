@@ -46,10 +46,10 @@ require_once APPROOT . '\views\includes/head.php';
                         <p>Ubicaciones</p>
                         <p class="numero"><?= $data['infoSector']['ubicaciones'] ?></p>
                     </a>
-                    <a class="tarjeta clara" href="">
+                    <!-- <a class="tarjeta clara" href="">
                         <p>Grupos</p>
-                        <p class="numero"><?= $data['infoSector']['grupos'] ?></p>
-                    </a>
+                        <p class="numero"></p>
+                    </a> -->
                 </div>
             </div>
             <div>
@@ -77,11 +77,11 @@ require_once APPROOT . '\views\includes/head.php';
             <div>
                 <h2>Alertas</h2>
                 <div class="containerTarjetas alertas">
-                    <a class="tarjeta roja" href="">
+                    <a class="tarjeta roja" href="<?php echo URLROOT; ?>/Inventario/stockBajo/<?= $data['sector'] ?>">
                         <p>Insumos con stock insuficiente</p>
                         <p class="numero"><?= $data['infoInventarios']['insumosBajoStock'] ?></p>
                     </a>
-                    <a class="tarjeta roja" href="">
+                    <a class="tarjeta roja" href="<?php echo URLROOT; ?>/Inventario/instanciasFalladas/<?= $data['sector'] ?>">
                         <p>Insumos con fallas</p>
                         <p class="numero"><?= $data['infoInventarios']['instanciasFalladas'] ?></p>
                     </a>

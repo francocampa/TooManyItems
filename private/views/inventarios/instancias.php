@@ -6,7 +6,6 @@ $css = [
     'filtros' => true,
     'popup' => true
 ];
-$_SESSION['sectorInstancia'] = $data['sectorInstancia'];
 require_once APPROOT . '\views\includes/head.php';
 ?>
 <div class="estructuraSideBar">
@@ -210,8 +209,11 @@ require_once APPROOT . '\views\includes/head.php';
     let comprasIn = JSON.parse(compras_json);
     let insumo_json = '<?= $data['insumo'] ?>';
     let insumo = JSON.parse(insumo_json);
+    let estadosr=<?= json_encode($data['estados']) ?>;
+    let proveedoresr=<?= json_encode($data['proveedores'])?>;
+    let ubicacionesr=<?= json_encode($data['ubicaciones'])?>;
     llenarInfoInsumo(insumo);
-    inicializar(comprasIn);
+    inicializar(comprasIn,estadosr,proveedoresr,ubicacionesr);
 </script>
 <?php
 require_once APPROOT . '\views\includes/footer.php';

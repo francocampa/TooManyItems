@@ -24,6 +24,17 @@ hr{
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 1fr 0.3fr;
 }
+.stockBajo{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 2fr ;
+}
+.insumosFallados{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
+}
+.stockBajo a{
+    width: 70%;
+}
 .imagenInsumoTabla{
     width: 4rem;
     height: 4rem;
@@ -34,6 +45,14 @@ hr{
 .instancias{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr 0.2fr;
+}
+.item input, .item select{
+    width: 100%;
+    font-size: 16px;
+    padding: 0.5rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 2px var(--color-mediumbg);
 }
 .insumoForm{
     display: grid;

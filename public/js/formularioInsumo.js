@@ -51,6 +51,7 @@
         $('.caracteristicasT').children().last().remove();
         $('.caracteristicasT').children().last().remove();
         contador=contador>0 ? contador-1 : contador;
+        validarForm();
     });
     //Cambiar el tipo seg[un la categor[ia
     $('#categoria').on('change', function (e) {

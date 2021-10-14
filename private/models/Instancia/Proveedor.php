@@ -27,4 +27,11 @@
             $proveedores=$consulta->fetch_assoc()['count(codProveedor)'];
             return $proveedores;
         }
+        public function countFallasPorProveedor($codProveedor){
+            $db = db::conectar();
+            $callString = 'SELECT count(codProveedor) FROM fallasPorProveedor WHERE codProveedor=' . $codProveedor . '';
+            $consulta = $db->query($callString);
+            $proveedores = $consulta->fetch_assoc()['count(codProveedor)'];
+            return $proveedores;
+        }
     }

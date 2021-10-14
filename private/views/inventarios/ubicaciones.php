@@ -22,14 +22,48 @@ require_once APPROOT . '\views\includes/head.php';
                     <p>Tipo</p>
                 </div>
                 <div class="items">
-                    <a class="item marcas headerItem">
+                    <div class="item marcas headerItem">
                         <p>Nombre</p>
                         <p>Nro Insumos</p>
-                    </a>
+                    </div>
                 </div>
             </div>
             <div class="informacion">
-
+                <h1>Nombre marca</h1>
+                <hr>
+                <div class="tabla">
+                    <div class="cabecera insumosEnSubinventarios">
+                        <p>Identificador</p>
+                        <p>Nombre Insumo</p>
+                        <p>Fallas</p>
+                    </div>
+                    <div class="items subInventario">
+                        <div class="item" id='itemSubinventario'>
+                            <div class="headerItem insumosEnSubinventarios">
+                                <p>Identificador</p>
+                                <p>Nombre Insumo</p>
+                                <p>Fallas</p>
+                            </div>
+                            <div class="insumoSubinventarioCard">
+                                <div class="tabla">
+                                    <div class="cabecera fallaSubinventario">
+                                        <p>Falla</p>
+                                        <p>Fecha</p>
+                                        <p>Estado</p>
+                                    </div>
+                                    <hr>
+                                    <div class="items subSubInventario">
+                                        <div class="item fallaSubinventario">
+                                            <p>Falla</p>
+                                            <p>Fecha</p>
+                                            <p>Estado</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -39,9 +73,9 @@ require_once APPROOT . '\views\includes/head.php';
 <script src="<?php echo URLROOT ?> /public/js/subinventarios/inventarioUbicaciones.js"></script>
 <script>
     let ubicaciones_json = '<?= $data['ubicaciones_json'] ?>';
-    console.log(ubicaciones_json);
-    let ubicaciones = JSON.parse(ubicaciones_json);
-    llenarTabla(ubicaciones);
+    let ubicacionesr = JSON.parse(ubicaciones_json);
+    console.log(ubicacionesr);
+    inicializar(ubicacionesr);
 </script>
 <?php
 require_once APPROOT . '\views\includes/footer.php';
