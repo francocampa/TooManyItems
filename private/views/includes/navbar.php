@@ -12,7 +12,7 @@
             ?>
             <?php
             if ($_SESSION['permisos']['admin'] || $_SESSION['permisos']['panio']) {
-                echo    '<a href="' . URLROOT . '/Paniol" id="Pañol">
+                echo    '<a href="' . URLROOT . '/Paniol/paniol" id="Pañol">
                             <img src="' . URLROOT . '/public/img/iconos/Paniol.svg" alt="" class="navbarIcon">
                             <p class="subtitulo">Pañol</p>
                         </a>';
@@ -20,7 +20,7 @@
             ?>
             <?php
             if ($_SESSION['permisos']['admin'] || $_SESSION['permisos']['docente']) {
-                echo    '<a href="' . URLROOT . '/Clases" id="Clases">
+                echo    '<a href="' . URLROOT . '/Clases/clases" id="Clases">
                             <img src="' . URLROOT . '/public/img/iconos/Clases.svg" alt="" class="navbarIcon">
                             <p class="subtitulo">Clases</p>
                         </a>';

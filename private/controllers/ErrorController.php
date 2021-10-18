@@ -1,9 +1,15 @@
 <?php
     class ErrorController extends Controller{
         public function permisos(){
+            $permisos = [
+                'admin' => true,
+                'coord' => true,
+                'panio' => true,
+                'docente' => true
+            ];
             $data=[
                 'titulo' => "",
-                'permisos' => ''
+                'permisos' => $permisos
             ];
             $this->view('errorMessages/permisosErroneos',$data);
         }

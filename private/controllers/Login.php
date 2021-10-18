@@ -1,6 +1,7 @@
 <?php
     class Login extends Controller {
         public function __construct(){
+
             //$rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' =>'login',

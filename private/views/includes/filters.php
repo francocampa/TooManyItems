@@ -38,34 +38,36 @@
 
         <!-- Boton agregar dependiendo de la pestania -->
         <?php
-        if ($data['titulo'] == "Inventario de " || isset($data['tipo'])) {
-            echo '<a href="';
-            if ($data['titulo'] == "Inventario de ") {
-                echo URLROOT . '/Formulario/compra/' . $data['codInsumo'] . '/' . json_decode($data['insumo'])->codSector;
-            } else if (isset($data['tipo'])) {
-                echo URLROOT . '/Formulario/insumo/' . $data['origen'];
-            }
-            echo '" class="btnOrange">+ Agregar</a>';
-        } else {
-            switch ($data['titulo']) {
-                case 'Pañol':
-                    echo '<button class="btnOrange" id="btnAgregarPrestamo" type="button">+ Agregar</button>';
-                    break;
-                case 'Clases':
-                    echo '<button class="btnOrange" id="btnAgregarClase" type="button">+ Agregar</button>';
-                    break;
-                case 'Inventario de Marcas':
-                    echo '<button class="btnOrange" id="marcaPopup" type="button">+ Agregar</button>';
-                    break;
-                case 'Inventario de Proveedores':
-                    echo '<button class="btnOrange" id="proveedorPopup" type="button">+ Agregar</button>';
-                    break;
-                case 'Inventario de Ubicaciones':
-                    echo '<button class="btnOrange" id="ubicacionPopup" type="button">+ Agregar</button>';
-                    break;
-                default:
-                    # code...
-                    break;
+        if($_SESSION['permisos']['admin'] || $_SESSION['permisos']['coord']){
+            if ($data['titulo'] == "Inventario de " || isset($data['tipo'])) {
+                echo '<a href="';
+                if ($data['titulo'] == "Inventario de ") {
+                    echo URLROOT . '/Formulario/compra/' . $data['codInsumo'] . '/' . json_decode($data['insumo'])->codSector;
+                } else if (isset($data['tipo'])) {
+                    echo URLROOT . '/Formulario/insumo/' . $data['origen'];
+                }
+                echo '" class="btnOrange">+ Agregar</a>';
+            } else {
+                switch ($data['titulo']) {
+                    case 'Pañol':
+                        echo '<button class="btnOrange" id="btnAgregarPrestamo" type="button">+ Agregar</button>';
+                        break;
+                    case 'Clases':
+                        echo '<button class="btnOrange" id="btnAgregarClase" type="button">+ Agregar</button>';
+                        break;
+                    case 'Inventario de Marcas':
+                        echo '<button class="btnOrange" id="marcaPopup" type="button">+ Agregar</button>';
+                        break;
+                    case 'Inventario de Proveedores':
+                        echo '<button class="btnOrange" id="proveedorPopup" type="button">+ Agregar</button>';
+                        break;
+                    case 'Inventario de Ubicaciones':
+                        echo '<button class="btnOrange" id="ubicacionPopup" type="button">+ Agregar</button>';
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
             }
         }
         ?>

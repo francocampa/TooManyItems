@@ -53,6 +53,9 @@ if (!isLoggedIn() && $data['titulo'] != "login") { //comprueba si estamos logead
     if (isset($css['popup'])) {
         echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/popups.css\">";
     }
+    if (isset($css['error'])) {
+        echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/error.css\">";
+    }
     // if($css['']){
     // }
     ?>

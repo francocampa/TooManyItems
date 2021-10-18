@@ -3,6 +3,10 @@ class Clases extends Controller
 {
     public function __construct()
     {
+        
+    }
+    public function clases()
+    {
         require_once APPROOT . '/Models/Insumo.php';
         $insumoModel = new Insumo();
         $insumos = $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'material');

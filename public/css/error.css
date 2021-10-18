@@ -1,0 +1,27 @@
+.tarjetaError{
+    padding: 3rem;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    display:grid;
+    grid-template-areas: 'img titulo'
+                         'img texto';
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: auto;
+    background-color: #f3c4c4;
+    box-shadow: 7px 7px 13px #c09a9a;
+    border-radius: 5rem;
+}
+.tarjetaError img{
+    width: 20rem;
+    height: 20rem;
+    grid-area: img;
+}
+.tarjetaError h1{
+    grid-area: titulo;
+}
+.tarjetaError p{
+    text-align: justify;
+    grid-area: texto;
+}

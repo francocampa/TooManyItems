@@ -1,6 +1,10 @@
 <?php
     class Paniol extends Controller{
-        public function __construct(){
+        public function __construct()
+        {
+            
+        }
+        public function paniol(){
             require_once APPROOT . '/Models/Insumo.php';
             $insumoModel = new Insumo();
             $insumos=$insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'material');
