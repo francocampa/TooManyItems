@@ -49,7 +49,7 @@ require_once APPROOT . '\views\includes/head.php';
                         <option value="-1">Sin marca</option>
                         <?php
                         foreach ($data['marcas'][$_SESSION['sectores'][0]] as $marca) {
-                            echo '<option value="' . $marca['nombre'] . '">' . $marca['nombre'] . '</option>';
+                            echo '<option value="' . $marca['codMarca'] . '">' . $marca['nombre'] . '</option>';
                         }
                         ?>
                     </select>

@@ -12,6 +12,7 @@
             foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
                 $callString = 'CALL insertCaracteristicaT(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codInsumo.',"'.$insumo['codSector'].'","'.$caracteristicaT['nombre'].'","'.$caracteristicaT['valor'].'")';
                 $consulta = $db->query($callString);
+                var_dump($db);
             }
         }
         public function updateInsumo($insumo){

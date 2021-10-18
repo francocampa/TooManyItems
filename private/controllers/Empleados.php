@@ -1,7 +1,7 @@
 <?php
 class Empleados extends Controller
 {
-    public function __construct()
+    public function em()
     {
         require_once APPROOT . '/Models/Cuenta.php';
         $cuentaModel = new Usuario();

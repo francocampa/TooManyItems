@@ -32,7 +32,7 @@ function llenarTabla(sectores,tiposSeleccionados) {
                         }else{ 
                             insumoInfo.childNodes[7].innerHTML=insumo.marca.nombre;
                         }
-                        insumoInfo.childNodes[9].innerHTML=insumo.modelo;
+                        insumoInfo.childNodes[9].innerHTML=insumo.modelo != '' ? insumo.modelo : 'Sin modelo';
                         insumoInfo.childNodes[11].innerHTML=sector;
                         insumoInfo.childNodes[13].innerHTML=insumo.stockActual+"/"+insumo.stockMinimo;
 

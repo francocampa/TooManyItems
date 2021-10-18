@@ -10,7 +10,9 @@ define('APPROOT', dirname(dirname(__FILE__)));
 define('PUBLICROOT', dirname(dirname(dirname(__FILE__))))."/public";
 
 //URLROOT (Dynamic links)
+//define('URLROOT', 'http://192.168.21.210/TooManyItems');
 define('URLROOT', 'http://localhost/TooManyItems');
+
 
 //Sitename
 define('SITENAME', 'TooManyItems');

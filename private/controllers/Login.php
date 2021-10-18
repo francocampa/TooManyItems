@@ -10,6 +10,7 @@
             ];
             require_once '../private/models/Cuenta.php';
             if (isset($_POST['submit'])) {
+                // session_destroy();
                 $ci = (int)$_POST['ci'];
                 $pass = $_POST['pass'];
                 $usuarioModel = new Usuario();

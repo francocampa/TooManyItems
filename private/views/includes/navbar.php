@@ -44,7 +44,7 @@
             </a>
             <?php
             if ($_SESSION['permisos']['admin']) {
-                echo    '<a href="' . URLROOT . '/Empleados" id="Empleados">
+                echo    '<a href="' . URLROOT . '/Empleados/em" id="Empleados">
                                 <img src="' . URLROOT . '/public/img/iconos/Empleados.svg" alt="" class="navbarIcon">
                                 <p class="subtitulo">Empleados</p>
                             </a>';

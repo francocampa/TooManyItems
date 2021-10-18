@@ -23,14 +23,6 @@
             if (isset($_POST['submit'])) {
                 require_once APPROOT.'/Models/Insumo.php';
                 $insumoModel=new Insumo();                  //requiero y creo el modelo de insumo
-                
-                //Encuentro qu[e marca fue seleccionada, le asigno el valor -1 ya que este es el default si no se selecciona una
-                $codMarca = -1;
-                for ($i=0; $i < count($marcas[$_POST['sector']]); $i++) { 
-                    if($_POST['marca'] == $marcas[$_POST['sector']][$i]['nombre']){
-                        $codMarca= $marcas[$i]['codMarca'];         
-                    }
-                }
 
                 $caracteristicas=[];    //Aqu[i se extraer[an las caracter[isticas t[ecnicas del POST a una matriz
                 $i=0;
@@ -65,7 +57,7 @@
                     'categoria' => $_POST['categoria'],
                     'nombre' => $_POST['nombre'],
                     'tipo' => $_POST['tipo'],
-                    'codMarca' => $codMarca,
+                    'codMarca' => $_POST['marca'],
                     'modelo' => $_POST['modelo'],
                     'stockMinimo' =>$_POST['stockMinimo'],
                     'caraceristicasT' => $caracteristicas,
@@ -139,6 +131,5 @@
                 header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $codSector);
             }
             $this->view("forms/instancia", $data);
-            
         }
     }
