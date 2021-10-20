@@ -4,12 +4,12 @@ $css = [
     'tablas' => true,
     'filtros' => true
 ];
-require_once APPROOT . '\views\includes/head.php';
+require_once APPROOT . '/views/includes/head.php';
 ?>
 <div class="estructura">
-    <?php require_once APPROOT . '\views\includes/navbar.php'; ?>
+    <?php require_once APPROOT . '/views/includes/navbar.php'; ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
-    <?php require_once APPROOT . '\views\includes/filters.php'; ?>
+    <?php require_once APPROOT . '/views/includes/filters.php'; ?>
 
     <div class="contenido">
         <div class="division5050">
@@ -41,10 +41,10 @@ require_once APPROOT . '\views\includes/head.php';
     </div>
 </div>
 <script src="<?php echo URLROOT ?> /public/js/subinventarios/empleados.js"></script>
-<script>
+<script></script>
     empleados=<?= json_encode($data['empleados'])?>;
     cargarInfo(empleados);
 </script>
 <?php
-require_once APPROOT . '\views\includes/footer.php';
+require_once APPROOT . '/views/includes/footer.php';
 ?>

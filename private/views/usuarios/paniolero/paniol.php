@@ -5,12 +5,12 @@ $css = [
     'filtros' => true,
     'popup' => true
 ];
-require_once APPROOT . '\views\includes/head.php';
+require_once APPROOT . '/views/includes/head.php';
 ?>
 <div class="estructura">
-    <?php require_once APPROOT . '\views\includes/navbar.php'; ?>
+    <?php require_once APPROOT . '/views/includes/navbar.php'; ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
-    <?php require_once APPROOT . '\views\includes/filters.php'; ?>
+    <?php require_once APPROOT . '/views/includes/filters.php'; ?>
 
     <div class="contenido">
         <div class="tabla">
@@ -45,7 +45,15 @@ require_once APPROOT . '\views\includes/head.php';
                             <h3>Insumos prestados</h3>
                             <hr>
                             <div class="insumosPrestados">
-
+                                <div class="tabla">
+                                    <div class="item insumoPrestamo">
+                                        <p>Nombre</p>
+                                        <p>Marca</p>
+                                        <p>Modelo</p>
+                                        <p>Identificador</p>
+                                        <p>Cantidad</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -57,7 +65,7 @@ require_once APPROOT . '\views\includes/head.php';
                 <h3>Información general</h3>
                 <h2>Clase</h2>
                 <input type="text" id="claseAlumno" name="claseAlumno">
-                <h2>Nombre Completo</h2>
+                <h2>Cédula</h2>
                 <input type="text" id="nombreAlumno" name="nombreAlumno">
                 <h2>Fecha</h2>
                 <input type="date" id="fechaPrestamo" name="fechaPrestamo">
@@ -137,9 +145,11 @@ require_once APPROOT . '\views\includes/head.php';
                             ?>;
         clasesn = '';
         alumnosn = '';
-        cargarInfo(insumosn, clasesn, alumnosn);
+        prestamosn = <?= json_encode($data['prestamos']) ?>;
+        console.log(prestamosn)
+        cargarInfo(insumosn, clasesn, alumnosn, prestamosn);
     </script>
 </div>
 <?php
-require_once APPROOT . '\views\includes/footer.php';
+require_once APPROOT . '/views/includes/footer.php';
 ?>

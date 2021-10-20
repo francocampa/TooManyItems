@@ -1,59 +1,74 @@
-var prestamoTablaBase=document.getElementsByClassName('item')[0].cloneNode(true);
-//document.getElementsByClassName('items')[0].removeChild(document.getElementsByClassName('item')[0]);
+var insumoSubTablaBase=document.getElementsByClassName('insumoPrestamo')[0].cloneNode(true);
+document.getElementsByClassName('tabla')[1].removeChild(document.getElementsByClassName('insumoPrestamo')[0])
 
-function llenarTabla(prestamos) {
+var prestamoTablaBase=document.getElementsByClassName('item')[0].cloneNode(true);
+document.getElementsByClassName('items')[0].removeChild(document.getElementsByClassName('item')[0]);
+
+
+var insumos;
+var grupos;
+var alumnos;
+var prestamos;
+
+function cargarInfo(insumosn, gruposn, alumnosn, prestamosn){
+    insumos=insumosn;
+    grupos=gruposn;
+    alumnos=alumnosn
+    prestamos=prestamosn;
+    llenarTabla();
+}
+
+function llenarTabla() {
     let i=0;
     prestamos.forEach(prestamo => {
         prestamoTabla=prestamoTablaBase.cloneNode(true);
-        prestamoInfo=prestamoTabla.childNodes(1);
-        console.log(prestamoInfo)
+        prestamoInfo=prestamoTabla.childNodes[1];
+        prestamoCard=prestamoTabla.childNodes[3];
+
         const itemId='prestamo'+i;
-        prestamoInfo.childNodes()[1].innerHTML=prestamo.materia;
-        prestamoInfo.childNodes()[3].innerHTML=prestamo.grupo;
-        prestamoInfo.childNodes()[5].innerHTML=prestamo.docente;
-        prestamoInfo.childNodes()[7].innerHTML=prestamo.fecha;
-        prestamoInfo.id=itemId;
+        prestamoTabla.id=itemId;
 
+        prestamoInfo.childNodes[1].innerHTML=prestamo.ciPrestatario;
+        prestamoInfo.childNodes[3].innerHTML=prestamo.curso;
+        prestamoInfo.childNodes[5].innerHTML=prestamo.fechaPrestado;
+        prestamoInfo.childNodes[7].innerHTML=prestamo.horaPrestamo;
+        prestamoInfo.childNodes[9].innerHTML='-';
+        prestamoInfo.childNodes[11].innerHTML=prestamo.fechaDevuelto == null ? 'No devuelto' : 'Devuelto';
+        
         document.getElementsByClassName('items')[0].appendChild(prestamoTabla);
-
-        $(itemId).children().last().hide();
-            $(itemId).children().first().on('click', function(){
+        let queryId='#'+itemId;
+        $(queryId).children().last().hide();
+            $(queryId).children().first().on('click', function(){
                 //$('.close').slideUp(100);
-                if($(itemId).children().is(':hidden') ){
-                    $(itemId).children().last().slideDown();
+                if($(queryId).children().is(':hidden') ){
+                    $(queryId).children().last().slideDown();
                 }else{
-                    $(itemId).children().last().slideUp();
+                    $(queryId).children().last().slideUp();
                 }
+        });
+
+        $(queryId).find('textarea').html(prestamo.razon);
+        $(queryId).find('textarea').prop('disabled', true);
+        prestamo.insumos.forEach(insumo => {
+            insumoSubTabla=insumoSubTablaBase.cloneNode(true);
+
+            insumoSubTabla.childNodes[1].innerHTML=insumo.nombre;
+            insumoSubTabla.childNodes[3].innerHTML=insumo.nombreMarca == null ? 'Sin marca' : insumo.nombreMarca;
+            insumoSubTabla.childNodes[5].innerHTML=insumo.modelo == '' ? 'Sin modelo' : insumo.modelo;
+            insumoSubTabla.childNodes[7].innerHTML=insumo.identificador == undefined ? '-' : insumo.identificador;
+            insumoSubTabla.childNodes[9].innerHTML=insumo.cantidad == undefined ? '-' : insumo.cantidad;
+
+            $(queryId).find('.tabla').append(insumoSubTabla);
         });
         i++;
     });
 }
-
-    $('.item').children().last().hide();
-    $('.item').children().first().on('click', function(){
-        //$('.close').slideUp(100);
-        if($('.item').children().is(':hidden') ){
-            $('.item').children().last().slideDown();
-        }else{
-            $('.item').children().last().slideUp();
-        }
-    });
-
 
 const formPrestamo=document.getElementsByClassName('formPrestamo')[0].cloneNode(true);
 const insumoPrestadoTabla=document.getElementsByClassName('insumoSeleccionado')[0].cloneNode(true);
 document.getElementsByClassName('listaInsumosSeleccionados')[0].removeChild(document.getElementsByClassName('insumoSeleccionado')[0]);
 document.getElementsByClassName('contenido')[0].removeChild(document.getElementsByClassName('formPrestamo')[0]);
 
-var insumos;
-var grupos;
-var alumnos;
-
-function cargarInfo(insumosn, gruposn, alumnosn){
-    insumos=insumosn;
-    grupos=gruposn;
-    alumnos=alumnosn
-}
 
 $('#btnAgregarPrestamo').on('click', function (e){
     document.getElementsByClassName('popupInputs')[0].appendChild(formPrestamo)

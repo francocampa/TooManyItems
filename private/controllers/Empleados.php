@@ -3,7 +3,7 @@ class Empleados extends Controller
 {
     public function em()
     {
-        require_once APPROOT . '/Models/Cuenta.php';
+        require_once APPROOT . '/models/Cuenta.php';
         $cuentaModel = new Usuario();
         $empleados = $cuentaModel->getEmpleadosPorSector('IN');  
 

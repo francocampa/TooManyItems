@@ -5,10 +5,10 @@ $css = [
     'popup' => true,
     'form' => true
 ];
-require_once APPROOT . '\views\includes/head.php';
+require_once APPROOT . '/views/includes/head.php';
 ?>
 <div class="estructura">
-    <?php require_once APPROOT . '\views\includes/navbar.php'; ?>
+    <?php require_once APPROOT . '/views/includes/navbar.php'; ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
     <div class="selectSector">
         <h2>Sector</h2>
@@ -216,5 +216,5 @@ require_once APPROOT . '\views\includes/head.php';
     </div>
 </div>
 <?php
-require_once APPROOT . '\views\includes/footer.php';
+require_once APPROOT . '/views/includes/footer.php';
 ?>

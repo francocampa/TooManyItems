@@ -4,7 +4,7 @@
             
         }
         public function marca(){
-            require_once APPROOT. '/Models/Marca.php';
+            require_once APPROOT. '/models/Marca.php';
             $marcaModel = new Marca();
             $marca=[
                 'nombre' => $_POST['nombre']
@@ -13,7 +13,7 @@
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function proveedor(){
-            require_once APPROOT . '/Models/Instancia/Proveedor.php';
+            require_once APPROOT . '/models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
             $proveedor = [
                 'nombre' => $_POST['nombre'],
@@ -23,7 +23,7 @@
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function ubicacion(){
-            require_once APPROOT . '/Models/Instancia/Ubicacion.php';
+            require_once APPROOT . '/models/Instancia/Ubicacion.php';
             $ubicacionModel = new Ubicacion();
             $ubicacion = [
                 'nombre' => $_POST['nombre'],
@@ -33,19 +33,19 @@
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function eliminarInsumo($codInsumo, $codSector){
-            require_once APPROOT . '/Models/Insumo.php';
+            require_once APPROOT . '/models/Insumo.php';
             $insumoModel= new Insumo();
             $insumoModel->deleteInsumo($codInsumo,$codSector);
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function eliminarInstancia($codInstancia, $codSector, $codInsumo){
-            require_once APPROOT . '/Models/Instancia.php';
+            require_once APPROOT . '/models/Instancia.php';
             $instanciaModel= new Instancia();
             $instanciaModel->deleteInstancia($codInstancia, $codSector, $codInsumo);
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function eliminarCompra($codCompra, $codInsumo, $codSector){
-            require_once APPROOT . '/Models/Instancia.php';
+            require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
             $instanciaModel->deleteCompra($codCompra, $codInsumo, $codSector);
             header('location:' . URLROOT . $_POST['origen']);
@@ -57,13 +57,13 @@
                 'observaciones' => $_POST['inputObservaciones'],
                 'diagnostico' => $_POST['inputDiagnostico']
             ];
-            require_once APPROOT . '/Models/Instancia.php';
+            require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
             $instanciaModel->insertFalla($codInstancia, $falla);
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function solucionarFalla($codInstancia, $codFalla){
-            require_once APPROOT . '/Models/Instancia.php';
+            require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
             $instanciaModel->solucionarFalla($codInstancia, $codFalla);
             header('location:' . URLROOT . $_POST['origen']);
@@ -87,15 +87,21 @@
                 array_push($insumosSeleccionados, $insumo);
                 $i++;
             }
+            $tipo='p';
             $prestamo=[
                 'clase' => $_POST['claseAlumno'],
-                'alumno' => $_POST['nombreAlumno'],
+                'ciPrestatario' => $_POST['nombreAlumno'],
                 'fecha' => $_POST['fechaPrestamo'],
                 'hora' => $_POST['horaPrestamo'],
                 'razon' => $_POST['razonPrestamo'],
-                'insumos' => $insumosSeleccionados
+                'insumos' => $insumosSeleccionados,
+                'tipo' => $tipo
             ];
             var_dump($prestamo);
+            require_once APPROOT . '/models/Prestamo.php';
+            $prestamoModel = new PrestamoModel();
+            $prestamoModel->insertPrestamo($prestamo);
+            header('location:' . URLROOT . $_POST['origen']);
         }
         public function agregarClase(){
             $i = 1;
@@ -117,13 +123,18 @@
                 $i++;
             }
             $clase=[
-                'grupo' => $_POST['grupo'],
+                'ciPrestatario' => $_SESSION['cuenta']['ci'],
+                'clase' => $_POST['grupo'],
                 'fecha' => $_POST['fechaClase'],
                 'hora' => $_POST['horaClase'],
                 'razon' => $_POST['razonClase'],
-                'insumos' => $insumosSeleccionados
+                'insumos' => $insumosSeleccionados,
+                'tipo' => 'c'
             ];
-        var_dump($clase);
-
+            var_dump($clase);
+            require_once APPROOT . '/models/Prestamo.php';
+            $prestamoModel = new PrestamoModel();
+            $prestamoModel->insertPrestamo($clase);
+            //header('location:' . URLROOT . $_POST['origen']);
         }
     }

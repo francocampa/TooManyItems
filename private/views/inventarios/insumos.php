@@ -5,13 +5,13 @@ $css = [
     'filtros' => true,
     'popup' => true
 ];
-require_once APPROOT . '\views\includes/head.php';
+require_once APPROOT . '/views/includes/head.php';
 $_SESSION['insumos'] = $data['insumos_json'];
 ?>
 <div class="estructura">
-    <?php require_once APPROOT . '\views\includes/navbar.php'; ?>
+    <?php require_once APPROOT . '/views/includes/navbar.php'; ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
-    <?php require_once APPROOT . '\views\includes/filters.php'; ?>
+    <?php require_once APPROOT . '/views/includes/filters.php'; ?>
 
     <div class="contenido">
         <div class="tabla">
@@ -54,5 +54,5 @@ $_SESSION['insumos'] = $data['insumos_json'];
     inicializar(insumosN, sectores);
 </script>
 <?php
-require_once APPROOT . '\views\includes/footer.php';
+require_once APPROOT . '/views/includes/footer.php';
 ?>

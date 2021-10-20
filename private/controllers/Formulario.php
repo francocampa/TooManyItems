@@ -1,7 +1,7 @@
 <?php
     class Formulario extends Controller{
         public function insumo($origen){
-            require_once APPROOT.'/Models/Marca.php';
+            require_once APPROOT.'/models/Marca.php';
             $marcaModel= new Marca();
             $permisos = [
                 'admin' => true,
@@ -21,7 +21,7 @@
             ];
 
             if (isset($_POST['submit'])) {
-                require_once APPROOT.'/Models/Insumo.php';
+                require_once APPROOT.'/models/Insumo.php';
                 $insumoModel=new Insumo();                  //requiero y creo el modelo de insumo
 
                 $caracteristicas=[];    //Aqu[i se extraer[an las caracter[isticas t[ecnicas del POST a una matriz
@@ -70,11 +70,11 @@
             $this->view("forms/insumo", $data);
         }
         public function compra($codInsumo,$codSector){
-            require_once APPROOT . '/Models/Instancia/Proveedor.php';
+            require_once APPROOT . '/models/Instancia/Proveedor.php';
             $proveedorModel=new Proveedor();
             $proveedores=$proveedorModel->getProveedoresPorSector($codSector);
 
-            require_once APPROOT . '/Models/Instancia/Ubicacion.php';
+            require_once APPROOT . '/models/Instancia/Ubicacion.php';
             $ubicacionModel=new Ubicacion();
             $ubicaciones= $ubicacionModel->getUbicacionesPorSector($codSector);
 
@@ -91,7 +91,7 @@
                 'rutaAnterior' => $rutaAnterior
             ];
             if(isset($_POST['submit'])){
-                require_once APPROOT . '/Models/Instancia.php';
+                require_once APPROOT . '/models/Instancia.php';
                 $instanciaModel=new Instancia();
                 if(isset($_POST['cboxInfoCompra'])){
                     $infoCompra = [

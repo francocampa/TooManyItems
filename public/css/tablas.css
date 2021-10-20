@@ -32,6 +32,10 @@ hr{
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
 }
+.insumoPrestamo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
+}
 .stockBajo a{
     width: 70%;
 }

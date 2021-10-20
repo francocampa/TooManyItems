@@ -2,7 +2,7 @@
     class Modificacion extends Controller{
         public function insumo($codInsumo){
 
-            require_once APPROOT . '/Models/Insumo.php';
+            require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();                  //requiero y creo el modelo de insumo
 
             //Todos estos malabares para agarrar las caracter[isticas t[ecnicas de manera din[amica
@@ -35,7 +35,7 @@
 
         }
         public function compra($codInsumo, $codSector, $codCompra){
-            require_once APPROOT . '/Models/Instancia.php';
+            require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
 
             var_dump($_POST);

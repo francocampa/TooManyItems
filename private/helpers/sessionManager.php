@@ -22,10 +22,10 @@
             header('location: ' . URLROOT . '/Estadisticas/es/'.$_SESSION['sectores'][0]);
         }
         if ($_SESSION['permisos']['panio']) {
-            header('location: ' . URLROOT . '/Paniol/paniol');
+            header('location: ' . URLROOT . '/Prestamo/paniol');
         }
         if ($_SESSION['permisos']['docente']) {
-            header('location: ' . URLROOT . '/Clases/paniol');
+            header('location: ' . URLROOT . '/Prestamo/paniol');
         }
     }
     function logOut(){

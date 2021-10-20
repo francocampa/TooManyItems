@@ -5,7 +5,7 @@
             require_once '../private/models/Insumo.php';
         }
         public function materiales(){
-            require_once APPROOT . '/Models/Insumo.php';
+            require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
             foreach ($_SESSION['sectores'] as $sector) {
                 $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'material');
@@ -29,7 +29,7 @@
             $this->view("inventarios/insumos",$data);
         }
         public function herramientas(){
-            require_once APPROOT . '/Models/Insumo.php';
+            require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
             $insumos=[];
             foreach ($_SESSION['sectores'] as $sector) {
@@ -57,7 +57,7 @@
             $this->view("inventarios/insumos", $data);
         }
         public function maquinaria(){
-            require_once APPROOT . '/Models/Insumo.php';
+            require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
             foreach ($_SESSION['sectores'] as $sector) {
                 $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'maquinaria');
@@ -81,7 +81,7 @@
             $this->view("inventarios/insumos", $data);
         }
         public function informatico(){
-            require_once APPROOT . '/Models/Insumo.php';
+            require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
             foreach ($_SESSION['sectores'] as $sector) {
                 $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'informatico');
@@ -106,22 +106,22 @@
         }
         public function instancias($codInsumo, $sector){
             //Cargo los proveedores, se necesitan para la modificaci[on de las instancias
-            require_once APPROOT . '/Models/Instancia/Proveedor.php';
+            require_once APPROOT . '/models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
             $proveedores = $proveedorModel->getProveedoresPorSector($sector);
 
             //Cargo las ubicaciones, se necesitan para la modificaci[on de las instancias
-            require_once APPROOT . '/Models/Instancia/Ubicacion.php';
+            require_once APPROOT . '/models/Instancia/Ubicacion.php';
             $ubicacionModel = new Ubicacion();
             $ubicaciones = $ubicacionModel->getUbicacionesPorSector($sector);
 
             //Cargo los estados, se necesitan para la modificaci[on de las instancias
-            require_once APPROOT . '/Models/Instancia/Estado.php';
+            require_once APPROOT . '/models/Instancia/Estado.php';
             $estadoModel= new Estado();
             $estados= $estadoModel->getEstados();
 
             //Cargo las marcas, se necesitan para la modificaci[on de insumo
-            require_once APPROOT . '/Models/Marca.php';
+            require_once APPROOT . '/models/Marca.php';
             $marcaModel = new Marca();
             $marcas = $marcaModel->getMarcasPorSector($sector);    
 
@@ -188,7 +188,7 @@
             require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
 
-            require_once APPROOT . '/Models/Marca.php';
+            require_once APPROOT . '/models/Marca.php';
             $marcaModel = new Marca();
             $marcas = $marcaModel->getMarcasPorSector($sector);
             for ($i = 0; $i < count($marcas); $i++) {
@@ -219,11 +219,11 @@
         {
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
 
-            require_once APPROOT . '/Models/Instancia/Proveedor.php';
+            require_once APPROOT . '/models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
             $proveedores = $proveedorModel->getProveedoresPorSector($sector);
 
-            require_once APPROOT . '/Models/Instancia.php';
+            require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
             for ($i = 0; $i < count($proveedores); $i++) {
                 $proveedores[$i]['fallas'] = $proveedorModel->countFallasPorProveedor($proveedores[$i]['codProveedor']);
@@ -252,11 +252,11 @@
         {
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
 
-            require_once APPROOT . '/Models/Instancia/Ubicacion.php';
+            require_once APPROOT . '/models/Instancia/Ubicacion.php';
             $ubicacionModel = new Ubicacion();
             $ubicaciones = $ubicacionModel->getUbicacionesPorSector($sector);
 
-            require_once APPROOT . '/Models/Instancia.php';
+            require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
             for ($i = 0; $i < count($ubicaciones); $i++) {
                 //$ubicaciones[$i]['fallas'] = $ubicacionModel->countFallasPorUbicacion($ubicaciones[$i]['codUbicacion']);

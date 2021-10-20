@@ -6,12 +6,12 @@ $css = [
     'filtros' => true,
     'popup' => true
 ];
-require_once APPROOT . '\views\includes/head.php';
+require_once APPROOT . '/views/includes/head.php';
 ?>
 <div class="estructuraSideBar">
-    <?php require_once APPROOT . '\views\includes/insumoSideBar.php'; ?>
+    <?php require_once APPROOT . '/views/includes/insumoSideBar.php'; ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
-    <?php require_once APPROOT . '\views\includes/filters.php'; ?>
+    <?php require_once APPROOT . '/views/includes/filters.php'; ?>
 
     <div class="contenido">
         <div class="tabla marginLeft">
@@ -216,5 +216,5 @@ require_once APPROOT . '\views\includes/head.php';
     inicializar(comprasIn,estadosr,proveedoresr,ubicacionesr);
 </script>
 <?php
-require_once APPROOT . '\views\includes/footer.php';
+require_once APPROOT . '/views/includes/footer.php';
 ?>
