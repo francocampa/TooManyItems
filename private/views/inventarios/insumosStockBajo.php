@@ -37,7 +37,7 @@ require_once APPROOT . '/views/includes/head.php';
         </div>
     </div>
 </div>
-<script src="<?php echo URLROOT ?> /public/js/subInventarios/stockInsuficiente.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/subInventarios/stockInsuficiente.js"></script>
 <script>
     let insumosr = <?= json_encode($data['insumos']) ?>;
     inicializar(insumosr);

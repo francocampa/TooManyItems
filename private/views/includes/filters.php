@@ -49,12 +49,6 @@
                 echo '" class="btnOrange">+ Agregar</a>';
             } else {
                 switch ($data['titulo']) {
-                    case 'Pañol':
-                        echo '<button class="btnOrange" id="btnAgregarPrestamo" type="button">+ Agregar</button>';
-                        break;
-                    case 'Clases':
-                        echo '<button class="btnOrange" id="btnAgregarClase" type="button">+ Agregar</button>';
-                        break;
                     case 'Inventario de Marcas':
                         echo '<button class="btnOrange" id="marcaPopup" type="button">+ Agregar</button>';
                         break;
@@ -69,6 +63,16 @@
                         break;
                 }
             }
+        }
+        switch ($data['titulo']) {
+            case 'Pañol':
+                echo '<button class="btnOrange" id="btnAgregarPrestamo" type="button">+ Agregar</button>';
+                break;
+            case 'Clases':
+                echo '<button class="btnOrange" id="btnAgregarClase" type="button">+ Agregar</button>';
+                break;
+            default:
+                break;
         }
         ?>
 </form>

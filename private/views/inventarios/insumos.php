@@ -45,7 +45,7 @@ $_SESSION['insumos'] = $data['insumos_json'];
         </div>
     </div>
 </div>
-<script src="<?php echo URLROOT ?> /public/js/inventarioInsumos.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/inventarioInsumos.js"></script>
 <script>
     let insumos_json = '<?= $data['insumos_json'] ?>';
     let insumosN = JSON.parse(insumos_json);

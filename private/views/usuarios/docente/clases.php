@@ -126,7 +126,7 @@ require_once APPROOT . '/views/includes/head.php';
         </div>
     </div>
 </div>
-<script src="<?php echo URLROOT ?> /public/js/clases.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/clases.js"></script>
 <script>
     //clases_json = <?php //$data['clases'] 
                     ?>;

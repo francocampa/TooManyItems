@@ -136,7 +136,7 @@ require_once APPROOT . '/views/includes/head.php';
             </div>
         </div>
     </div>
-    <script src="<?php echo URLROOT ?> /public/js/paniol.js"></script>
+    <script src="<?php echo URLROOT ?>/public/js/paniol.js"></script>
     <script>
         let insumosn = <?= json_encode($data['insumos']) ?>;
         // let clasesn = <?php //json_encode($data['clases']) 

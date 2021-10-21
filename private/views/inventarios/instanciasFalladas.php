@@ -37,7 +37,7 @@ require_once APPROOT . '/views/includes/head.php';
         </div>
     </div>
 </div>
-<script src="<?php echo URLROOT ?> /public/js/subInventarios/instanciasFalladas.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/subInventarios/instanciasFalladas.js"></script>
 <script>
     let instanciasr = <?= json_encode($data['instancias']) ?>;
     inicializar(instanciasr);

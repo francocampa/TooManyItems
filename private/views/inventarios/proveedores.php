@@ -70,7 +70,7 @@ require_once APPROOT . '/views/includes/head.php';
     </div>
 </div>
 
-<script src="<?php echo URLROOT ?> /public/js/subinventarios/inventarioProveedores.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/subinventarios/inventarioProveedores.js"></script>
 <script>
     let proveedores_json = '<?= $data['proveedores_json'] ?>';
     let proveedoresr = JSON.parse(proveedores_json);

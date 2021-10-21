@@ -1,7 +1,6 @@
 <?php
     class Login extends Controller {
         public function __construct(){
-
             //$rutaAnterior = '/' . rtrim($_GET['url'], '/');
             $data = [
                 'titulo' =>'login',
@@ -28,5 +27,6 @@
                 }
             }  
             $this->view("forms/login", $data);
+            var_dump($_SESSION); 
         }
     }   //TODO: tengo que mover las cosas de base de datos al model de cuenta

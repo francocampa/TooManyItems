@@ -56,5 +56,5 @@
             <p class="subtitulo">Mi cuenta</p>
         </a>
     </navbar>
-    <script src="<?php echo URLROOT ?> /public/js/navbar.js"></script>
+    <script src="<?php echo URLROOT; ?>/public/js/navbar.js"></script>
 </div>

@@ -203,7 +203,7 @@ require_once APPROOT . '/views/includes/head.php';
         </div>
     </div>
 </div>
-<script src="<?php echo URLROOT ?> /public/js/inventarioInstancias.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/inventarioInstancias.js"></script>
 <script>
     let compras_json = '<?= $data['compras_json'] ?>';
     let comprasIn = JSON.parse(compras_json);
