@@ -31,7 +31,7 @@ require_once APPROOT . '/views/includes/head.php';
                         <p>Fecha</p>
                         <p>Hora</p>
                         <p>Cantidad</p>
-                        <p>Estado</p>
+                        <button class="btnBorder" id="devolverPrestamo">Devuelto</button>
                     </div>
                     <div class="prestamoCard close">
                         <div class="seccionPrestamo">
@@ -62,10 +62,14 @@ require_once APPROOT . '/views/includes/head.php';
         </div>
         <div class="formPrestamo">
             <div class="infoGeneral">
+                <input type="text" style="display:none;" name='tipo' value='<?php
+                                                                            $tipo = $data['titulo'] == 'Clases' ? 'c' : 'p';
+                                                                            echo $tipo;
+                                                                            ?>'>
                 <h3>Información general</h3>
                 <h2>Clase</h2>
                 <input type="text" id="claseAlumno" name="claseAlumno">
-                <h2>Cédula</h2>
+                <h2 id="h1ci">Cédula</h2>
                 <input type="text" id="nombreAlumno" name="nombreAlumno">
                 <h2>Fecha</h2>
                 <input type="date" id="fechaPrestamo" name="fechaPrestamo">
@@ -139,15 +143,9 @@ require_once APPROOT . '/views/includes/head.php';
     <script src="<?php echo URLROOT ?>/public/js/paniol.js"></script>
     <script>
         let insumosn = <?= json_encode($data['insumos']) ?>;
-        // let clasesn = <?php //json_encode($data['clases']) 
-                            ?>;
-        // let alumnosn = <?php //json_encode($data['alumnos']) 
-                            ?>;
-        clasesn = '';
-        alumnosn = '';
         prestamosn = <?= json_encode($data['prestamos']) ?>;
-        console.log(prestamosn)
-        cargarInfo(insumosn, clasesn, alumnosn, prestamosn);
+        let tipon = "<?= $data['titulo'] ?>";
+        cargarInfo(insumosn, prestamosn, tipon);
     </script>
 </div>
 <?php

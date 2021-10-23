@@ -1,20 +1,19 @@
-var insumoSubTablaBase=document.getElementsByClassName('insumoPrestamo')[0].cloneNode(true);
+	var insumoSubTablaBase=document.getElementsByClassName('insumoPrestamo')[0].cloneNode(true);
 document.getElementsByClassName('tabla')[1].removeChild(document.getElementsByClassName('insumoPrestamo')[0])
 
 var prestamoTablaBase=document.getElementsByClassName('item')[0].cloneNode(true);
 document.getElementsByClassName('items')[0].removeChild(document.getElementsByClassName('item')[0]);
 
 
-var insumos;
-var grupos;
-var alumnos;
-var prestamos;
+var insumos = [];
+var prestamos=[];
+var tipo='';
 
-function cargarInfo(insumosn, gruposn, alumnosn, prestamosn){
+function cargarInfo(insumosn,  prestamosn, tipon){
     insumos=insumosn;
-    grupos=gruposn;
-    alumnos=alumnosn
     prestamos=prestamosn;
+    console.log(tipon);
+    tipo=tipon;
     llenarTabla();
 }
 
@@ -32,11 +31,18 @@ function llenarTabla() {
         prestamoInfo.childNodes[3].innerHTML=prestamo.curso;
         prestamoInfo.childNodes[5].innerHTML=prestamo.fechaPrestado;
         prestamoInfo.childNodes[7].innerHTML=prestamo.horaPrestamo;
-        prestamoInfo.childNodes[9].innerHTML='-';
-        prestamoInfo.childNodes[11].innerHTML=prestamo.fechaDevuelto == null ? 'No devuelto' : 'Devuelto';
+        prestamoInfo.childNodes[9].innerHTML=prestamo.insumos.length;
+        if(prestamo.fechaDevuelto == null){
+            prestamoInfo.childNodes[11].innerHTML='Marcar como devuelto';
+            prestamoInfo.childNodes[11].value='devolverPrestamo/'+prestamo.codPrestamo;
+            prestamoInfo.childNodes[11].id='devolverPrestamo'+prestamo.codPrestamo;
+            prestamoInfo.childNodes[11].className='btnOrange';
+        }
         
         document.getElementsByClassName('items')[0].appendChild(prestamoTabla);
         let queryId='#'+itemId;
+
+        //Abrir y cerrar card
         $(queryId).children().last().hide();
             $(queryId).children().first().on('click', function(){
                 //$('.close').slideUp(100);
@@ -46,6 +52,17 @@ function llenarTabla() {
                     $(queryId).children().last().slideUp();
                 }
         });
+
+        //Boton de devolver prestamo
+        if($('#devolverPrestamo').length){
+            $('#devolverPrestamo'+prestamo.codPrestamo).on('click', function(e){
+                $('.popup').find('h1').html("Marcar prestamo como devuelto?");
+                $('.popup').prop('action', $('.popup').prop('action')+e.target.value);
+
+                $('.blurr').fadeIn();
+                $('.popup').fadeIn(); 
+            });
+        }
 
         $(queryId).find('textarea').html(prestamo.razon);
         $(queryId).find('textarea').prop('disabled', true);
@@ -69,12 +86,21 @@ const insumoPrestadoTabla=document.getElementsByClassName('insumoSeleccionado')[
 document.getElementsByClassName('listaInsumosSeleccionados')[0].removeChild(document.getElementsByClassName('insumoSeleccionado')[0]);
 document.getElementsByClassName('contenido')[0].removeChild(document.getElementsByClassName('formPrestamo')[0]);
 
-
 $('#btnAgregarPrestamo').on('click', function (e){
     document.getElementsByClassName('popupInputs')[0].appendChild(formPrestamo)
+    $('.popup').prop('action', $('.popup').prop('action') + 'agregarPrestamo');
     $('.listaInsumosSeleccionados').empty();
+    if(tipo=='Clases'){
+        $('.popup').find('h1').html('Agregar Clase');
+        $('#nombreAlumno').remove();
+        $('#h1ci').remove();
+    }else{
+        $('.popup').find('h1').html('Agregar Prestamo');
+        $('#nombreAlumno').val('')
+    }
 
-    $('.popup').find('h1').html('Agregar Prestamo');
+   
+
     const date=new Date();
     const mes=date.getMonth() < 10 ? "0"+date.getMonth() : date.getMonth();
     const dia=date.getUTCDate() < 10 ? "0"+date.getUTCDate() : date.getUTCDate();
@@ -84,7 +110,6 @@ $('#btnAgregarPrestamo').on('click', function (e){
     const horaActual=hora+":"+minutos;
 
     $('#claseAlumno').val('')
-    $('#nombreAlumno').val('')
     $('#razonPrestamo').val('')
 
     $('#fechaPrestamo').val(fecha);
@@ -176,12 +201,12 @@ $('#btnAgregarPrestamo').on('click', function (e){
 
         }
     })
-    $('.popup').prop('action', $('.popup').prop('action')+'agregarPrestamo');
     $('.popup').prop('class', $('.popup').prop('class')+' bigPopup');
 
     $('.blurr').fadeIn();
     $('.popup').fadeIn(); 
 });
+
 function actualizarInstancias(codInsumoSeleccionado){
     $('#listaIdentificadores').empty();
     insumos.forEach(insumo => {
@@ -221,3 +246,4 @@ function isInsumoEnTabla(codInsumo, codSector){
     }
     return false;
 }
+

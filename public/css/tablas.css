@@ -93,6 +93,15 @@ hr{
     border-radius: 1rem;
     opacity: 80%;
 }
+.btnBorder{
+    background-color: transparent;
+    border-radius: 0.7rem;
+    border: solid 0.3rem var(--color-orange);
+    outline: none;
+    color: var(--color-orange);
+    font-weight: bolder;
+    transition: all 0.2s ease;
+}
 .existo{
     width: 2rem;
 }

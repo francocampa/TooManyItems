@@ -32,7 +32,7 @@
 
             require_once APPROOT . '/models/Prestamo.php';
             $prestamoModel = new PrestamoModel();
-            $prestamos=$prestamoModel->getPrestamosPaniol();
+            $prestamos=$prestamoModel->getPrestamosPaniol('p');
 
             $permisos=[
                 'admin' => true,
@@ -46,7 +46,7 @@
                 'insumos' => $insumos,
                 'prestamos' => $prestamos
             ];
-            $this->view('usuarios/paniolero/paniol',$data);
+            $this->view('usuarios/paniolero/prestamo',$data);
         }
         public function clases()
         {
@@ -74,6 +74,11 @@
                     $insumos[$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$i]['codInsumo'], $insumos[$i]['codSector']);
                 }
             }
+
+            require_once APPROOT . '/models/Prestamo.php';
+            $prestamoModel = new PrestamoModel();
+            $prestamos=$prestamoModel->getPrestamosPaniol('c');
+
             $permisos = [
                 'admin' => true,
                 'docente' => true
@@ -83,8 +88,9 @@
                 'titulo' => 'Clases',
                 'permisos' => $permisos,
                 'rutaAnterior' => $rutaAnterior,
-                'insumos' => $insumos
+                'insumos' => $insumos,
+                'prestamos' => $prestamos
             ];
-            $this->view('usuarios/docente/clases', $data);
+            $this->view('usuarios/paniolero/prestamo',$data);
         }
     }

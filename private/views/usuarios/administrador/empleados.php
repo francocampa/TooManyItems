@@ -40,8 +40,8 @@ require_once APPROOT . '/views/includes/head.php';
         </div>
     </div>
 </div>
-<script src="<?php echo URLROOT ?>/public/js/subinventarios/empleados.js"></script>
-<script></script>
+<script src="<?php echo URLROOT ?>/public/js/subInventarios/empleados.js"></script>
+<script>
     empleados=<?= json_encode($data['empleados'])?>;
     cargarInfo(empleados);
 </script>

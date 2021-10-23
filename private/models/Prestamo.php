@@ -22,11 +22,12 @@
                 }
             }
         }
-        public function getPrestamosPaniol(){
+        public function getPrestamosPaniol($tipo){
             $prestamos = [];
             $db = db::conectar();
-            $callString = 'SELECT * FROM prestamos WHERE tipo="p"';
+            $callString = 'SELECT * FROM prestamos WHERE tipo="'.$tipo.'"';
             $consulta = $db->query($callString);
+            // var_dump($db);
             while ($filas = $consulta->fetch_assoc()) {
                 $prestamos[] = $filas;
             }
@@ -54,6 +55,7 @@
                     }
                     $callString = 'SELECT mi.nombre AS nombreMarca, i.modelo, i.categoria, i.nombre FROM marcaPorInsumo mi right join insumos i ON i.codInsumo=mi.codInsumo AND i.codSector=mi.codSector WHERE i.codInsumo=' . $prestamos[$i]['insumos'][$j]['codInsumo'] . ' AND i.codSector="' . $prestamos[$i]['insumos'][$j]['codSector'] . '"';
                     $consulta = $db->query($callString);
+                    //var_dump($db);
                     $resultado = $consulta->fetch_assoc();
                     $prestamos[$i]['insumos'][$j]['nombreMarca'] = $resultado['nombreMarca'];
                     $prestamos[$i]['insumos'][$j]['nombre'] = $resultado['nombre'];
@@ -63,7 +65,9 @@
             }
             return $prestamos;
         }
-        public function getPrestamosClases(){
-
+        public function devolverPrestamo($codPrestamo){
+            $db=db::conectar();
+            $callString= 'CALL devolverPrestamo(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codPrestamo.')';
+            $consulta=$db->query($callString);
         }
     }

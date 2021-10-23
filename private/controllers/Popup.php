@@ -87,15 +87,15 @@
                 array_push($insumosSeleccionados, $insumo);
                 $i++;
             }
-            $tipo='p';
+            $ci=isset($_POST['nombreAlumno']) ? $_POST['nombreAlumno'] : $_SESSION['cuenta']['ci'];
             $prestamo=[
                 'clase' => $_POST['claseAlumno'],
-                'ciPrestatario' => $_POST['nombreAlumno'],
+                'ciPrestatario' => $ci,
                 'fecha' => $_POST['fechaPrestamo'],
                 'hora' => $_POST['horaPrestamo'],
                 'razon' => $_POST['razonPrestamo'],
                 'insumos' => $insumosSeleccionados,
-                'tipo' => $tipo
+                'tipo' => $_POST['tipo']
             ];
             var_dump($prestamo);
             require_once APPROOT . '/models/Prestamo.php';
@@ -103,38 +103,10 @@
             $prestamoModel->insertPrestamo($prestamo);
             header('location:' . URLROOT . $_POST['origen']);
         }
-        public function agregarClase(){
-            $i = 1;
-            $insumosSeleccionados = [];
-            while (isset($_POST['insumo' . $i])) {
-                $codInsumo = explode('.', $_POST['insumo' . $i])[0];
-                $codSector = explode('.', $_POST['insumo' . $i])[1];
-                $codInstancia = explode('.', $_POST['insumo' . $i])[2];
-                $cantidad = explode('.', $_POST['insumo' . $i])[3];
-                $consumir = explode('.', $_POST['insumo' . $i])[4];
-                $insumo = [
-                    'codInsumo' => $codInsumo,
-                    'codSector' => $codSector,
-                    'codInstancia' => $codInstancia,
-                    'cantidad' => $cantidad,
-                    'consumir' => $consumir
-                ];
-                array_push($insumosSeleccionados, $insumo);
-                $i++;
-            }
-            $clase=[
-                'ciPrestatario' => $_SESSION['cuenta']['ci'],
-                'clase' => $_POST['grupo'],
-                'fecha' => $_POST['fechaClase'],
-                'hora' => $_POST['horaClase'],
-                'razon' => $_POST['razonClase'],
-                'insumos' => $insumosSeleccionados,
-                'tipo' => 'c'
-            ];
-            var_dump($clase);
+        public function devolverPrestamo($codPrestamo){
             require_once APPROOT . '/models/Prestamo.php';
             $prestamoModel = new PrestamoModel();
-            $prestamoModel->insertPrestamo($clase);
-            //header('location:' . URLROOT . $_POST['origen']);
+            $prestamoModel->devolverPrestamo($codPrestamo);
+            header('location:' . URLROOT . $_POST['origen']);
         }
     }

@@ -35,7 +35,7 @@
                 while ($filas = $consulta->fetch_assoc()) { //Las instancias tienen su informaci[on dividida por lo que se requieren m[as consultas
                     $instancias[] = $filas;
 
-                    $callString= 'SELECT estado FROM estadoPorinstancia WHERE codInstancia='.$instancias[$j]['codInstancia'];
+                    $callString= 'SELECT estado FROM estadoPorInstancia WHERE codInstancia='.$instancias[$j]['codInstancia'];
                     $subConsulta=$db->query($callString);
                     $estado=[];
                     while($subFilas= $subConsulta->fetch_assoc()['estado']){
@@ -90,10 +90,13 @@
                 $callString= 'CALL insertInfoCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codCompra.','.$codInsumo.',"'.$codSector.'",'.$infoCompra['costo'].',"'.$infoCompra['tipo'].'","'.$infoCompra['fechaCompra'].'",'.$infoCompra['codProveedor'].')';
                 $consulta=$db->query($callString);
             }
+            echo "<br>";
             if($garantia != -1){
                 $callString= 'CALL insertGarantia(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codCompra . ',' . $codInsumo . ',"' . $codSector . '","'.$garantia['tipo'].'","'.$garantia['fechaInicio'].'","'.$garantia['fechaLimite'].'")';
                 $consulta = $db->query($callString);
             }
+            echo "<br>";
+
             if($instancias != -1){
                 foreach ($instancias as $instancia) {
                     $callString= 'CALL insertInstancia(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'. $codCompra . ',' . $codInsumo . ',"' . $codSector . '","'.$instancia['identificador'].'","'.$instancia['estado'].'",'.$instancia['ubicacion'].')';
@@ -115,10 +118,13 @@
             if ($infoCompra != -1) {
                 $callString = 'CALL updateInfoCompra(' . $_SESSION['cuenta']['ci'] . ',' . $token . ',"' . $compra['codSector'] . '",' . $compra['codInsumo'] . ',' . $compra['codCompra'] . ',' . $infoCompra['costo'] . ',"' . $infoCompra['tipo'] . '","' . $infoCompra['fechaCompra'] . '",' . $infoCompra['proveedor'] . ', '.$infoCompra['codInfoCompra'].')';
                 $consulta = $db->query($callString);
+                var_dump($db);
             }
             if($garantia != -1){
                 $callString = 'CALL updateGarantia(' . $_SESSION['cuenta']['ci'] . ',' . $token . ',"' . $compra['codSector'] . '",' . $compra['codInsumo'] . ',' . $compra['codCompra'] . ',"' . $garantia['tipo'] . '","' . $garantia['fechaInicio'] . '","' . $garantia['fechaLimite'] . '", '. $garantia['codGarantia'].')';
                 $consulta = $db->query($callString);
+                echo "<br>";
+                var_dump($db);
             }
            
         }

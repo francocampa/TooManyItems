@@ -65,6 +65,7 @@
                 ];
                 $insumoModel->insertInsumo($insumo);
                 header('location:' . URLROOT . '/Inventario/'.$origen);
+                echo "se pas[o por los huevos el header";
             }
 
             $this->view("forms/insumo", $data);

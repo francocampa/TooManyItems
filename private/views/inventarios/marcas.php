@@ -68,7 +68,7 @@ require_once APPROOT . '/views/includes/head.php';
     </div>
 </div>
 
-<script src="<?php echo URLROOT ?>/public/js/subinventarios/inventarioMarcas.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/subInventarios/inventarioMarcas.js"></script>
 <script id="scriptFeo">
     let marcas_json = '<?= $data['marcas_json'] ?>';
     let marcasr = JSON.parse(marcas_json);

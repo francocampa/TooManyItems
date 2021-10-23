@@ -1,6 +1,6 @@
 <?php
     class Modificacion extends Controller{
-        public function insumo($codInsumo){
+        public function insumo($codInsumo, $sector){
 
             require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();                  //requiero y creo el modelo de insumo
@@ -19,7 +19,7 @@
             }
             $insumo = [
                 'codInsumo' => $codInsumo,
-                'codSector' => $_SESSION['sectorInstancia'],
+                'codSector' => $sector,
                 'categoria' => $_POST['categoria'],
                 'nombre' => $_POST['nombre'],
                 'tipo' => $_POST['tipo'],
@@ -31,7 +31,7 @@
             ];
             var_dump($insumo);
             $insumoModel->updateInsumo($insumo);
-            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $_SESSION['sectorInstancia']);
+            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $sector);
 
         }
         public function compra($codInsumo, $codSector, $codCompra){
@@ -76,6 +76,6 @@
             
             $instanciaModel->updateCompra($compra,$instancia,$infoCompra,$garantia);
             var_dump($compra);
-            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $_SESSION['sectorInstancia']);
+            header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $codSector);
         }
     }

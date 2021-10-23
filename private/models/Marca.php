@@ -7,6 +7,7 @@
             $db=db::conectar();
             $callString= 'CALL insertMarca(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","'.$marca['nombre'].'","'.$codSector.'")';
             $consulta=$db->query($callString);
+            var_dump($db);
         }
         public function getMarcasPorSector($codSector){
             $marcas=[];

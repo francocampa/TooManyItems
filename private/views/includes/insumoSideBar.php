@@ -1,5 +1,5 @@
 <div class="containerNavbar">
-    <form action="<?= URLROOT ?>/Modificacion/insumo/ <?= json_decode($data['insumo'])->codInsumo ?>" method="POST">
+    <form action="<?= URLROOT ?>/Modificacion/insumo/<?= json_decode($data['insumo'])->codInsumo.'/'.json_decode($data['insumo'])->codSector ?>" method="POST">
         <div class="insumoSidebar">
             <div class="superior">
                 <a href="<?php echo URLROOT . "/Inventario/" . $data['origen'] ?>">

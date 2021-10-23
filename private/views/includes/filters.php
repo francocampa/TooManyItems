@@ -64,15 +64,8 @@
                 }
             }
         }
-        switch ($data['titulo']) {
-            case 'Pañol':
+        if($data['titulo']=='Pañol' || $data['titulo']=='Clases'){
                 echo '<button class="btnOrange" id="btnAgregarPrestamo" type="button">+ Agregar</button>';
-                break;
-            case 'Clases':
-                echo '<button class="btnOrange" id="btnAgregarClase" type="button">+ Agregar</button>';
-                break;
-            default:
-                break;
         }
         ?>
 </form>

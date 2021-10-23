@@ -3,10 +3,10 @@ $css = [
     'estructura' => true,
     'form' => true,
 ];
-require_once APPROOT . '\views\includes/head.php';
+require_once APPROOT . '/views/includes/head.php';
 ?>
 <div class="estructura">
-    <?php require_once APPROOT . '\views\includes/navbar.php';
+    <?php require_once APPROOT . '/views/includes/navbar.php';
     ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
 
@@ -89,5 +89,5 @@ require_once APPROOT . '\views\includes/head.php';
 </div>
 <script src="<?php echo URLROOT ?>/public/js/formularioInstancia.js"></script>
 <?php
-require_once APPROOT . '\views\includes/footer.php';
+require_once APPROOT . '/views/includes/footer.php';
 ?>

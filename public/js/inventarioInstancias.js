@@ -5,6 +5,7 @@ var estados=[];
 var proveedores=[];
 function inicializar(comprasIn, estadosr, proveedoresr, ubicacionesr){
     compras=comprasIn;
+    console.log(comprasIn);
     estados=estadosr;
     proveedores=proveedoresr;
     ubicaciones=ubicacionesr;
