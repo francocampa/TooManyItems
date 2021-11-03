@@ -1,7 +1,19 @@
 <?php
     class Modificacion extends Controller{
         public function insumo($codInsumo, $sector){
-
+            if(!($_SESSION['permisos']['admin'] || $_SESSION['permisos']['coord'])){
+                header('location:' . URLROOT . '/ErrorController/permisos');
+            }
+            if (!in_array($sector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
+            // require_once APPROOT . '/models/Insumo.php';
+            // $insumoModel = new Insumo();
+            // $insumo = $insumoModel->getInsumo($codInsumo, $sector);
+            // $insumo_json = json_encode($insumo);
+            // if ($insumo_json == '{"foto":null,"marca":null,"caracteristicasT":[]}') {
+            //     header('location:' . URLROOT . '/error/');
+            // }
             require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();                  //requiero y creo el modelo de insumo
 
@@ -17,6 +29,17 @@
                 ];
                 array_push($caracteristicas, $caracteristica);
             }
+            var_dump($_FILES);
+            $imagen = $_FILES['imagenInsumo'];
+            if ($imagen['name'] == '') {
+                $rutaImagenDB = -1;
+            } else {
+                $extension = explode('.', $imagen['name'])[1];
+                $nombreArchivo = uniqid('', true);
+                $rutaImagen = PUBLICROOT . '/public/img/insumosUploads/' . $nombreArchivo . '.' . $extension;
+                move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+                $rutaImagenDB = $nombreArchivo . '.' . $extension;
+            }
             $insumo = [
                 'codInsumo' => $codInsumo,
                 'codSector' => $sector,
@@ -28,6 +51,7 @@
                 'stockMinimo' => $_POST['stockMinimo'],
                 'stockActual' => $_POST['stockActual'],
                 'caraceristicasT' => $caracteristicas,
+                'rutaImagen' => $rutaImagenDB
             ];
             var_dump($insumo);
             $insumoModel->updateInsumo($insumo);
@@ -35,6 +59,9 @@
 
         }
         public function compra($codInsumo, $codSector, $codCompra){
+            if (!in_array($codSector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
             require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
 
@@ -77,5 +104,23 @@
             $instanciaModel->updateCompra($compra,$instancia,$infoCompra,$garantia);
             var_dump($compra);
             header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $codSector);
+        }
+        public function cuenta(){
+            require_once APPROOT . '/models/Cuenta.php';
+            $cuentaModel = new Usuario();
+            $usuario=[
+                'nombre'=>$_POST['nombre'],
+                'apellido' => $_POST['apellido'],
+                'telefono' => $_POST['telefono'],
+                'email' => $_POST['email']
+            ];
+            //Lo actualizo manualmente en la aplicaci[on para no tener que consultar la base de datos
+            $_SESSION['cuenta']['nombre']= $_POST['nombre'];
+            $_SESSION['cuenta']['apellido'] = $_POST['apellido'];
+            $_SESSION['cuenta']['telefono'] = $_POST['telefono'];
+            $_SESSION['cuenta']['email'] = $_POST['email'];
+
+            $cuentaModel->updateCuenta($usuario);
+            header('location:' . URLROOT . '/Cuenta/ver');
         }
     }

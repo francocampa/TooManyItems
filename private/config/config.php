@@ -4,9 +4,9 @@ define('DB_HOST', 'localhost'); //Add your db host
 //define('DB_HOST', $_SERVER['SERVER_ADDR']); //Add your db host
 
 //define('DB_USER', 'sysadmin'); // Add your DB root
-define('DB_USER', 'root'); // Add your DB root
+define('DB_USER', 'app'); // Add your DB root
 
-define('DB_PASS', ''); //Add your DB pass
+define('DB_PASS', 'app'); //Add your DB pass
 define('DB_NAME', 'TooManyItems'); //Add your DB Name
 
 //APPROOT

@@ -5,6 +5,7 @@
         require_once '../private/models/Cuenta.php';
         $cuentaModelToken= new Usuario();
         $validacionCuenta= isset($_SESSION['cuenta']) ? $cuentaModelToken->validarToken() : false;
+        //echo($validacionCuenta['@output']);
         if($validacionCuenta['@output']){
             return true;
         }
@@ -28,6 +29,9 @@
         }
     }
     function logOut(){
+        require_once '../private/models/Cuenta.php';
+        $cuentaModelLogout = new Usuario();
+        $cuentaModelLogout->logOut();
         session_destroy();
         header('location: '.URLROOT.'/Login');
     }

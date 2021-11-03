@@ -97,7 +97,7 @@ require_once APPROOT . '/views/includes/head.php';
                                     <input type="date" name="fechaLimite" id="fechaLimite">
                                 </div>
                             </div>
-                            <button class="btnModificar">Modificar</button>
+                            <button class="btnModificar btnInstancia">Modificar</button>
                         </div>
                     </div>
                 </form>
@@ -194,7 +194,7 @@ require_once APPROOT . '/views/includes/head.php';
                                     <input type="date" name="fechaLimite" id="fechaLimite">
                                 </div>
                             </div>
-                            <button class="btnModificar">Modificar</button>
+                            <button class="btnModificar btnInstancia" id=''>Modificar</button>
                         </div>
                     </div>
                 </form>
@@ -204,16 +204,21 @@ require_once APPROOT . '/views/includes/head.php';
     </div>
 </div>
 <script src="<?php echo URLROOT ?>/public/js/inventarioInstancias.js"></script>
+<script src="<?php echo URLROOT ?>/public/js/insumoSideBar.js"></script>
+
 <script>
     let compras_json = '<?= $data['compras_json'] ?>';
     let comprasIn = JSON.parse(compras_json);
     let insumo_json = '<?= $data['insumo'] ?>';
     let insumo = JSON.parse(insumo_json);
-    let estadosr=<?= json_encode($data['estados']) ?>;
-    let proveedoresr=<?= json_encode($data['proveedores'])?>;
-    let ubicacionesr=<?= json_encode($data['ubicaciones'])?>;
+    let estadosr = <?= json_encode($data['estados']) ?>;
+    let proveedoresr = <?= json_encode($data['proveedores']) ?>;
+    let ubicacionesr = <?= json_encode($data['ubicaciones']) ?>;
+
+    var routeAddImage = "<?= URLROOT ?>/public/img/iconos/AddImage.svg";
+
     llenarInfoInsumo(insumo);
-    inicializar(comprasIn,estadosr,proveedoresr,ubicacionesr);
+    inicializar(comprasIn, estadosr, proveedoresr, ubicacionesr);
 </script>
 <?php
 require_once APPROOT . '/views/includes/footer.php';

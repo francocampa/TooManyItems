@@ -35,15 +35,32 @@ require_once APPROOT . '/views/includes/head.php';
                 </div>
             </div>
             <div class="informacion">
-
+                <h2>Acciones recientes</h2>
+                <hr>
+                <div class="tabla tablaAuditorias">
+                    <div class="cabecera auditorias">
+                        <p>Cédula</p>
+                        <p>Fecha</p>
+                        <p>Accion</p>
+                    </div>
+                    <hr>
+                    <div class="items">
+                        <div class="item headerItem auditorias">
+                            <p>Cédula</p>
+                            <p>Fecha</p>
+                            <p>Accion</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script src="<?php echo URLROOT ?>/public/js/subInventarios/empleados.js"></script>
 <script>
-    empleados=<?= json_encode($data['empleados'])?>;
-    cargarInfo(empleados);
+    empleados = <?= json_encode($data['empleados']) ?>;
+    sectoresn = <?= json_encode($_SESSION['sectores']) ?>;
+    cargarInfo(empleados, sectoresn);
 </script>
 <?php
 require_once APPROOT . '/views/includes/footer.php';

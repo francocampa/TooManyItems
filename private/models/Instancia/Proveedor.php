@@ -8,6 +8,12 @@
             $callString = 'CALL insertProveedor(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","' . $proveedor['nombre'] . '",'.$proveedor['telefono'].',"' . $codSector . '")';
             $consulta = $db->query($callString);
         }
+        public function deleteProveedor($codProveedor)
+        {
+            $db = db::conectar();
+            $callString = 'CALL deleteProveedor(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codProveedor . ')';
+            $consulta = $db->query($callString);
+        }
         public function getProveedoresPorSector($codSector){
             $proveedores = [];
             $db = db::conectar();

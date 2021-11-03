@@ -13,6 +13,7 @@ require_once APPROOT . '/views/includes/head.php';
     <?php require_once APPROOT . '/views/includes/filters.php'; ?>
 
     <div class="contenido">
+        
         <div class="tabla">
             <div class="cabecera prestamo">
                 <p>Alumno</p>
@@ -31,7 +32,7 @@ require_once APPROOT . '/views/includes/head.php';
                         <p>Fecha</p>
                         <p>Hora</p>
                         <p>Cantidad</p>
-                        <button class="btnBorder" id="devolverPrestamo">Devuelto</button>
+                        <button class="btnPrestamo devuelto" id="devolverPrestamo">Devuelto</button>
                     </div>
                     <div class="prestamoCard close">
                         <div class="seccionPrestamo">
@@ -66,11 +67,12 @@ require_once APPROOT . '/views/includes/head.php';
                                                                             $tipo = $data['titulo'] == 'Clases' ? 'c' : 'p';
                                                                             echo $tipo;
                                                                             ?>'>
+                <input type="text" style="display:none;" name='sector' id='codSector'>
                 <h3>Información general</h3>
                 <h2>Clase</h2>
-                <input type="text" id="claseAlumno" name="claseAlumno">
+                <input type="text" id="claseAlumno" name="claseAlumno" class="errorPopupInput">
                 <h2 id="h1ci">Cédula</h2>
-                <input type="text" id="nombreAlumno" name="nombreAlumno">
+                <input type="text" id="nombreAlumno" name="nombreAlumno" class="errorPopupInput">
                 <h2>Fecha</h2>
                 <input type="date" id="fechaPrestamo" name="fechaPrestamo">
                 <h2>Hora</h2>
@@ -145,7 +147,8 @@ require_once APPROOT . '/views/includes/head.php';
         let insumosn = <?= json_encode($data['insumos']) ?>;
         prestamosn = <?= json_encode($data['prestamos']) ?>;
         let tipon = "<?= $data['titulo'] ?>";
-        cargarInfo(insumosn, prestamosn, tipon);
+        let sectoresn= <?= json_encode($_SESSION['sectores']) ?>;
+        cargarInfo(prestamosn, insumosn, tipon, sectoresn);
     </script>
 </div>
 <?php

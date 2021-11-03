@@ -84,7 +84,7 @@
             //Ingresar info de compra
             $callString= 'CALL insertCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codInsumo.',"'.$codSector. '",' . $cantidad . ')';
             $consulta = $db->query($callString);
-            $consulta = $db->query("SELECT max(codCompra) FROM Compra");
+            $consulta = $db->query("SELECT max(codCompra) FROM comprasPorInsumo");
             $codCompra = $consulta->fetch_assoc()['max(codCompra)'];
             if($infoCompra != -1){
                 $callString= 'CALL insertInfoCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codCompra.','.$codInsumo.',"'.$codSector.'",'.$infoCompra['costo'].',"'.$infoCompra['tipo'].'","'.$infoCompra['fechaCompra'].'",'.$infoCompra['codProveedor'].')';
@@ -118,13 +118,10 @@
             if ($infoCompra != -1) {
                 $callString = 'CALL updateInfoCompra(' . $_SESSION['cuenta']['ci'] . ',' . $token . ',"' . $compra['codSector'] . '",' . $compra['codInsumo'] . ',' . $compra['codCompra'] . ',' . $infoCompra['costo'] . ',"' . $infoCompra['tipo'] . '","' . $infoCompra['fechaCompra'] . '",' . $infoCompra['proveedor'] . ', '.$infoCompra['codInfoCompra'].')';
                 $consulta = $db->query($callString);
-                var_dump($db);
             }
             if($garantia != -1){
                 $callString = 'CALL updateGarantia(' . $_SESSION['cuenta']['ci'] . ',' . $token . ',"' . $compra['codSector'] . '",' . $compra['codInsumo'] . ',' . $compra['codCompra'] . ',"' . $garantia['tipo'] . '","' . $garantia['fechaInicio'] . '","' . $garantia['fechaLimite'] . '", '. $garantia['codGarantia'].')';
                 $consulta = $db->query($callString);
-                echo "<br>";
-                var_dump($db);
             }
            
         }
@@ -219,5 +216,16 @@
                 $instancias[$i]['falla'] = $subConsulta->fetch_assoc();
             }
             return $instancias;
+        }
+        public function getComprasPorMes($codSector){
+            $db=db::conectar();
+            $callString= 'SELECT * FROM auditorias a WHERE year(fecha)=year(now()) AND tipo="a" AND tabla="Compra" AND SUBSTRING_INDEX(SUBSTRING_INDEX(codigo,"|",-2),"|",1)="'.$codSector.'"';
+            //echo $callString;
+            $consulta=$db->query($callString);
+            $compras=[];
+            while($filas = $consulta->fetch_assoc()){
+                $compras []=$filas;
+            }
+            return $compras;
         }
     }

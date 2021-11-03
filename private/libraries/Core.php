@@ -11,6 +11,8 @@
             $Error= new ErrorController();
 
             $url = $this->getUrl();
+            
+            $stringController='';
 
             if(file_exists('../private/controllers/' . ucwords($url[0]) . '.php')){
                 $this->currentController = ucwords($url[0]);
@@ -25,7 +27,15 @@
                     $this->currentMethod=$url[1];
                     unset($url[1]);
                     $this->params = $url ? array_values($url) : [];
-                    call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+
+                    //Compruebo si el n[umero de parametros recibidos es el correcto
+                    $metodo= new ReflectionMethod($this->currentController, $this->currentMethod);
+                    $paramsNecesarios= $metodo -> getNumberOfRequiredParameters();
+                    if($paramsNecesarios == count($url)){
+                        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+                    }else{
+                        header( 'location:' . URLROOT . '/error/');    
+                    }
                 }
             }
             if($this->currentMethod == 'e404' && $stringController != 'Login')call_user_func_array([$Error, $this->currentMethod], $this->params);

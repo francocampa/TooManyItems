@@ -12,63 +12,6 @@ function inicializar(comprasIn, estadosr, proveedoresr, ubicacionesr){
     agregarFiltros();
     llenarTabla();
 }
-function llenarInfoInsumo(insumo){
-    $('.titulo').html($('.titulo').html()+" "+insumo.nombre);
-    $('#nombre').val(insumo.nombre);
-    $('#categoria').val(insumo.categoria);
-    actualizarTipo();
-    $('#tipo').val(insumo.tipo);
-    if(insumo.marca !== null){
-        $('#marcaCB').val(insumo.marca.codMarca);
-    }else{
-        $('#marcaCB').val('-1');
-    }
-    $('#modelo').val(insumo.modelo);
-    $('#stockMinimo').val(insumo.stockMinimo);
-    $('#stockActual').val(insumo.stockActual);
-    $('#stockActual').prop('max',insumo.stockActual);
-
-    let caracteristicaTablaBase=document.getElementsByClassName("input base")[0].cloneNode(true);
-    let tablaCaracteristica = document.getElementsByClassName("containerInputs cTecnicas")[0];
-    tablaCaracteristica.removeChild(document.getElementsByClassName("input base")[0]);
-    let i=0;
-    insumo.caracteristicasT.forEach(caracteristica => {
-        const caracteristicaTabla=caracteristicaTablaBase.cloneNode(true);
-        caracteristicaTabla.childNodes[1].innerHTML=caracteristica.nombre;
-        caracteristicaTabla.childNodes[3].value=caracteristica.valor;
-        caracteristicaTabla.childNodes[3].name="caracteristicaT|"+caracteristica.codCaracteristicaTecnica;
-
-        tablaCaracteristica.appendChild(caracteristicaTabla);
-        i++;
-    });
-}
-$('#categoria').on('click', function (e) {
-    actualizarTipo();
-});
-function actualizarTipo() {
-        let options=[];
-        if ($('#categoria').val()=='material') {
-            options.push('<option value="material">Material</option>');
-            options.push('<option value="consumible">Consumible</option>');
-        }
-        if ($('#categoria').val()=='herramienta') {
-            options.push('<option value="de_mano">De mano</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='maquinaria') {
-            options.push('<option value="movil">Móvil</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='informatico') {
-            options.push('<option value="pc">PC</option>');
-            options.push('<option value="monitor">Monitor</option>');
-            options.push('<option value="impresora">Impresora</option>');
-            options.push('<option value="periferico">Periférico</option>');
-        }
-        $('#tipo').empty();
-        $('#tipo').append(options);
-        currentCat=$('#categoria').val();   
-}
 
 var instanciaTablaBase=document.getElementsByClassName("item in")[0].cloneNode(true);
 var compraTablaBase=document.getElementsByClassName("item com")[0].cloneNode(true);
@@ -185,7 +128,7 @@ function llenarTabla() {
                     const itemCabeceraTabla=itemTabla.childNodes[1];
                     itemCabeceraTabla.childNodes[1].innerHTML=instancia.identificador;
                     itemCabeceraTabla.childNodes[3].innerHTML=instancia.estado;
-                    itemCabeceraTabla.childNodes[5].innerHTML=instancia.ubicacion.nombreUbicacion;
+                    itemCabeceraTabla.childNodes[5].innerHTML=instancia.ubicacion != false ? instancia.ubicacion.nombreUbicacion : 'Sin ubicacion';
                     itemCabeceraTabla.childNodes[7].innerHTML=compra.infoCompra != null ? compra.infoCompra.fechaAdquisicion : '-';
                     itemCabeceraTabla.childNodes[9].innerHTML= compra.infoCompra != null ? compra.infoCompra.proveedor != null ? compra.infoCompra.proveedor.nombre : "Sin proveedor" : '-';
                     itemCabeceraTabla.childNodes[13].value='eliminarInstancia/'+instancia.codInstancia+'/'+compra.codSector+'/'+compra.codInsumo;
@@ -211,7 +154,7 @@ function llenarTabla() {
                             $(itemId).children().last().slideUp();
                         }
                     });
-
+                    $(itemId).find('.btnInstancia').prop('id','btnInstancia'+i);
                     const instanciaForm=$(itemId).children().last().children()[0];  //Obtengo el container de los input y select de la instancia
                     const infoCompraForm=$(itemId).children().last().children()[1];  //Obtengo el container de los input y select de la info de compra
                     const garantiaForm=$(itemId).children().last().children()[2];  //Obtengo el container de los input y select de la garantia
@@ -221,11 +164,30 @@ function llenarTabla() {
 
                     $(instanciaForm).find('#identificador').val(instancia.identificador)
                     $(instanciaForm).find('#identificador').prop('id','identificador'+i);
+                    $('#identificador'+i).on('input', function(e){
+                        let validaciones;
+                        let isCorrecto=true;
+                        validaciones=validarLargo(1, 15, "#"+$(this).prop('id'));
+                        if(!validaciones[0]){
+                            $(this).addClass('errorInputInstancia');
+                            $(itemId).find('.btnInstancia').prop('disabled', true);
+                            isCorrecto=false;
+                        }
+                        if(!validaciones[1]){
+                            $(this).addClass('errorInputInstancia');
+                            $(itemId).find('.btnInstancia').prop('disabled', true);
+                            isCorrecto=false;
+                        }
+                        if(isCorrecto){
+                            $(this).removeClass('errorInputInstancia');
+                            validarFormInstancia(itemId);      
+                        }
+                    });
                     
                     $(instanciaForm).find('#estado').val(instancia.estado)
                     $(instanciaForm).find('#estado').prop('id','estado'+i);
                     
-                    $(instanciaForm).find('#ubicacion').val(instancia.ubicacion.codUbicacion)
+                    if (instancia.ubicacion != false) $(instanciaForm).find('#ubicacion').val(instancia.ubicacion.codUbicacion);
                     $(instanciaForm).find('#ubicacion').prop('id','ubicacion'+i);
 
                     if(compra.infoCompra !=null){
@@ -250,9 +212,43 @@ function llenarTabla() {
 
                         $(infoCompraForm).find('#costo').val(compra.infoCompra.costo);
                         $(infoCompraForm).find('#costo').prop('id', 'costo'+i);
+                        $('#costo'+i).on('input',function(e){
+                            let validaciones;
+                            let isCorrecto=true;
+                            if(isNaN($(this).val()) || $(this).val().includes(" ") ){
+                                $(this).val($(this).val().slice(0, $(this).val().length -1));
+                            }
+                            validaciones=validarLargo(1, 11, "#"+$(this).prop('id'));
+                            if(!validaciones[0]){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true)
+                                isCorrecto=false;
+                            }
+                            if(!validaciones[1]){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true)
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                validarFormInstancia(itemId);    
+                            }
+                        });
 
                         $(infoCompraForm).find('#fechaCompra').val(compra.infoCompra.fechaAdquisicion);
                         $(infoCompraForm).find('#fechaCompra').prop('id', 'fechaCompra'+i);
+                        $('#fechaCompra'+i).on('change', function(e){
+                            let isCorrecto=true
+                            if($(this).val() == ''){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true)
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                validarFormInstancia(itemId);      
+                            }
+                        });
                     }else{
                         $(infoCompraForm).find('#proveedor').prop('disabled',true);
                         $(infoCompraForm).find('#tipoCompra').prop('disabled',true);
@@ -266,12 +262,80 @@ function llenarTabla() {
 
                         $(garantiaForm).find('#tipoGarantia').val(compra.garantia.tipo);
                         $(garantiaForm).find('#tipoGarantia').prop('id', 'tipoGarantia'+i);
+                        $('#tipoGarantia'+i).on('input', function(e){
+                            let validaciones;
+                            let isCorrecto=true;
+                            validaciones=validarLargo(1, 20, "#"+$(this).prop('id'));
+                            if(!validaciones[0]){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(!validaciones[1]){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                validarFormInstancia(itemId);      
+                            }
+                        });
 
                         $(garantiaForm).find('#fechaInicio').val(compra.garantia.fechaInicio);
                         $(garantiaForm).find('#fechaInicio').prop('id', 'fechaInicio'+i);
 
                         $(garantiaForm).find('#fechaLimite').val(compra.garantia.fechaTerminacion);
                         $(garantiaForm).find('#fechaLimite').prop('id', 'fechaLimite'+i);
+
+                        $('#fechaInicio'+i).on('change', function(e){
+                            let numeroId=$(this).prop('id').slice($(this).prop('id').length - 1); //Agarro el numero identificador de su id, esto para poder comparar con la otra fecha de la garantia
+                            let isCorrecto=true
+                            if($(this).val() == ''){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            let thisDate=convertToDate($(this).val());
+                            let lastDate=convertToDate($('#fechaLimite'+numeroId).val());
+                            if(thisDate>lastDate){
+                                $(this).addClass('errorInputInstancia');
+                                $('#fechaLimite'+numeroId).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                if($('#fechaLimite'+numeroId).val() != ''){
+                                    $('#fechaLimite'+numeroId).removeClass('errorInputInstancia');
+                                }
+                                validarFormInstancia(itemId);      
+                            }
+                        });
+                        $('#fechaLimite'+i).on('change', function(e){
+                            let numeroId=$(this).prop('id').slice($(this).prop('id').length - 1); //Agarro el numero identificador de su id, esto para poder comparar con la otra fecha de la garantia
+                            let isCorrecto=true
+                            if($(this).val() == ''){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            let thisDate=convertToDate($(this).val());
+                            let initDate=convertToDate($('#fechaInicio'+numeroId).val());
+                            if(thisDate<initDate){
+                                $('#fechaInicio'+numeroId).addClass('errorInputInstancia');
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                if($('#fechaInicio'+numeroId).val() != ''){
+                                    $('#fechaInicio'+numeroId).removeClass('errorInputInstancia');
+                                }
+                                validarFormInstancia(itemId);      
+                            }
+                        });
                     }else{
                         $(garantiaForm).find('#tipoGarantia').prop('disabled',true);
                         $(garantiaForm).find('#fechaInicio').prop('disabled',true);
@@ -351,9 +415,48 @@ function llenarTabla() {
 
                     $(infoCompraForm).find('#costo').val(compra.infoCompra.costo);
                     $(infoCompraForm).find('#costo').prop('id', 'costo'+i);
+                    $('#costo'+i).on('input',function(e){
+                        let validaciones;
+                        let isCorrecto=true;
+                        if(isNaN($(this).val()) || $(this).val().includes(" ") ){
+                            $(this).val($(this).val().slice(0, $(this).val().length -1));
+                        }
+                        validaciones=validarLargo(1, 11, "#"+$(this).prop('id'));
+                        if(!validaciones[0]){
+                            $(this).addClass('errorInputInstancia');
+                            $(itemId).find('.btnInstancia').prop('disabled', true)
+                            isCorrecto=false;
+                        }
+                        if(!validaciones[1]){
+                            $(this).addClass('errorInputInstancia');
+                            $(itemId).find('.btnInstancia').prop('disabled', true)
+                            isCorrecto=false;
+                        }
+                        if(isCorrecto){
+                            $(this).removeClass('errorInputInstancia');
+                            validarFormInstancia(itemId);    
+                        }
+                    });
 
                     $(infoCompraForm).find('#fechaCompra').val(compra.infoCompra.fechaAdquisicion);
                     $(infoCompraForm).find('#fechaCompra').prop('id', 'fechaCompra'+i);
+                    $('#fechaCompra'+i).on('change', function(e){
+                        let isCorrecto=true
+                        if($(this).val() == ''){
+                            $(this).addClass('errorInputInstancia');
+                            $(itemId).find('.btnInstancia').prop('disabled', true)
+                            isCorrecto=false;
+                        }
+                        if(isCorrecto){
+                            $(this).removeClass('errorInputInstancia');
+                            validarFormInstancia(itemId);      
+                        }
+                    });
+                }else{
+                    $(infoCompraForm).find('#proveedor').prop('disabled',true);
+                    $(infoCompraForm).find('#tipoCompra').prop('disabled',true);
+                    $(infoCompraForm).find('#proveedor').prop('disabled',true);
+                    $(infoCompraForm).find('#costo').prop('disabled',true);
                 }
                 if(compra.garantia != null){
                     $(garantiaForm).find('#codGarantia').val(compra.garantia.codGarantia);
@@ -361,14 +464,85 @@ function llenarTabla() {
 
                     $(garantiaForm).find('#tipoGarantia').val(compra.garantia.tipo);
                     $(garantiaForm).find('#tipoGarantia').prop('id', 'tipoGarantia'+i);
+                    $('#tipoGarantia'+i).on('input', function(e){
+                            let validaciones;
+                            let isCorrecto=true;
+                            validaciones=validarLargo(1, 20, "#"+$(this).prop('id'));
+                            if(!validaciones[0]){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(!validaciones[1]){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                validarFormInstancia(itemId);      
+                            }
+                        });
 
-                    $(garantiaForm).find('#fechaInicio').val(compra.garantia.fechaInicio);
-                    $(garantiaForm).find('#fechaInicio').prop('id', 'fechaInicio'+i);
+                        $(garantiaForm).find('#fechaInicio').val(compra.garantia.fechaInicio);
+                        $(garantiaForm).find('#fechaInicio').prop('id', 'fechaInicio'+i);
 
-                    $(garantiaForm).find('#fechaLimite').val(compra.garantia.fechaTerminacion);
-                    $(garantiaForm).find('#fechaLimite').prop('id', 'fechaLimite'+i);
+                        $(garantiaForm).find('#fechaLimite').val(compra.garantia.fechaTerminacion);
+                        $(garantiaForm).find('#fechaLimite').prop('id', 'fechaLimite'+i);
 
-                }
+                        $('#fechaInicio'+i).on('change', function(e){
+                            let numeroId=$(this).prop('id').slice($(this).prop('id').length - 1); //Agarro el numero identificador de su id, esto para poder comparar con la otra fecha de la garantia
+                            let isCorrecto=true
+                            if($(this).val() == ''){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            let thisDate=convertToDate($(this).val());
+                            let lastDate=convertToDate($('#fechaLimite'+numeroId).val());
+                            if(thisDate>lastDate){
+                                $(this).addClass('errorInputInstancia');
+                                $('#fechaLimite'+numeroId).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                if($('#fechaLimite'+numeroId).val() != ''){
+                                    $('#fechaLimite'+numeroId).removeClass('errorInputInstancia');
+                                }
+                                validarFormInstancia(itemId);      
+                            }
+                        });
+                        $('#fechaLimite'+i).on('change', function(e){
+                            let numeroId=$(this).prop('id').slice($(this).prop('id').length - 1); //Agarro el numero identificador de su id, esto para poder comparar con la otra fecha de la garantia
+                            let isCorrecto=true
+                            if($(this).val() == ''){
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            let thisDate=convertToDate($(this).val());
+                            let initDate=convertToDate($('#fechaInicio'+numeroId).val());
+                            if(thisDate<initDate){
+                                $('#fechaInicio'+numeroId).addClass('errorInputInstancia');
+                                $(this).addClass('errorInputInstancia');
+                                $(itemId).find('.btnInstancia').prop('disabled', true);
+                                isCorrecto=false;
+                            }
+                            if(isCorrecto){
+                                $(this).removeClass('errorInputInstancia');
+                                if($('#fechaInicio'+numeroId).val() != ''){
+                                    $('#fechaInicio'+numeroId).removeClass('errorInputInstancia');
+                                }
+                                validarFormInstancia(itemId);      
+                            }
+                        });
+                    }else{
+                        $(garantiaForm).find('#tipoGarantia').prop('disabled',true);
+                        $(garantiaForm).find('#fechaInicio').prop('disabled',true);
+                        $(garantiaForm).find('#fechaLimite').prop('disabled',true);
+                    }
                 i++
             }
         }
@@ -392,7 +566,7 @@ function llenarTabla() {
         $('.popup').find('h1').html('Agregar falla');
         $('.popup').prop('action', $('.popup').prop('action')+e.target.value);  //El value fue seteado a los par[ametros necesarios para eliminar una instancia
         $('.popupInputs').append(inputNombre);
-        console.log($('#inputNombre'));
+        $('#inputNombre').addClass('errorPopupInput');
         $('#inputNombre').on('input', function(e){
             let validaciones;
             let isCorrecto=true;
@@ -414,7 +588,8 @@ function llenarTabla() {
         });
         $('.popupInputs').append(inputObservaciones);
         $('.popupInputs').append(inputDiagnostico);
-        validarPopup();      
+        $('#popupBtnConfirmar').prop('disabled', true);
+        validarPopup();
 
         $('.blurr').fadeIn();
         $('.popup').fadeIn(); 
@@ -481,11 +656,21 @@ function showItems(){
     $('.item').css('display','grid');
 }
 
+function validarFormInstancia(idForm){
+    if(!$(idForm).find('.errorInputInstancia').length){
+        $('.btnInstancia').prop('disabled', false);
+    }
+}
 function validarLargo(min, max, selector){
     let validacion=[true,true]
     validacion[0]=$(selector).val().length >= min ? true : false;
     validacion[1]=$(selector).val().length <= max ? true : false;
     return validacion;
+}
+function convertToDate(fechaString) {
+    let splitString= fechaString.split('-');
+    let fechaDate= new Date(splitString[0],Number.parseInt(splitString[1])-1,splitString[2]);
+    return fechaDate;
 }
 function validarPopup(){
     if(!$('.errorPopupInput').length){

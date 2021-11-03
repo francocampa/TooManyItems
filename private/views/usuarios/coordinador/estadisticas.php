@@ -30,6 +30,7 @@ require_once APPROOT . '/views/includes/head.php';
 
 
     <div class="contenido">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
         <div class="seccion tarjetas">
             <div>
                 <h2>Informacion del sector</h2>
@@ -82,138 +83,39 @@ require_once APPROOT . '/views/includes/head.php';
                         <p class="numero"><?= $data['infoInventarios']['insumosBajoStock'] ?></p>
                     </a>
                     <a class="tarjeta roja" href="<?php echo URLROOT; ?>/Inventario/instanciasFalladas/<?= $data['sector'] ?>">
-                        <p>Insumos con fallas</p>
+                        <p>Instancias con fallas</p>
                         <p class="numero"><?= $data['infoInventarios']['instanciasFalladas'] ?></p>
                     </a>
-                    <a class="tarjeta roja" href="">
-                        <p>Insumos no devueltos</p>
-                        <p class="numero">TODO</p>
+                    <a class="tarjeta roja" href="<?php echo URLROOT; ?>/Inventario/prestamosActivos/<?= $data['sector'] ?>">
+                        <p>Prestamos no devueltos</p>
+                        <p class="numero"><?= $data['infoInventarios']['prestamosActivos'] ?></p>
                     </a>
                 </div>
             </div>
         </div>
         <h2 style="margin-left: 2rem;">Gráficas</h2>
         <div class="seccion graficas">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
             <div class="fallasPorMarcaGraph">
                 <h2>Fallas por Marca</h2>
                 <canvas id="fallasPorMarcaGraph" width="300px" height="300px"></canvas>
-                <script>
-                    {
-                        let marcas = <?= json_encode($data['marcas']) ?>;
-                        let nombresMarcas = [];
-                        let fallasMarcas = [];
-                        let colores = [];
-                        let colorBase = 'rgba(255,134,';
-                        let bActual = 55;
-                        let bordes = [];
-                        marcas.forEach(marca => {
-                            nombresMarcas.push(marca.nombre);
-                            fallasMarcas.push(marca.fallas);
-                            colores.push(colorBase + bActual + ', 1)');
-                            bActual += 20;
-                            bordes.push("#545454");
-                        });
-
-                        console.log(nombresMarcas)
-                        console.log(fallasMarcas)
-                        let fallasPorMarca = document.getElementById('fallasPorMarcaGraph').getContext('2d');
-                        let fallasPorMarcaChart = new Chart(fallasPorMarca, {
-                            type: 'doughnut',
-                            data: {
-                                labels: nombresMarcas,
-                                datasets: [{
-                                    data: fallasMarcas,
-                                    backgroundColor: colores,
-                                    borderColor: bordes
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    legend: {
-                                        display: true,
-                                        position: 'left'
-                                    }
-                                }
-                            }
-                        })
-                    }
-                </script>
             </div>
-            <div class="fallasPorMarcaGraph">
+            <div class="fallasPorProveedorGraph">
                 <h2>Fallas por Proveedor</h2>
-                <canvas id="fallasPorMarcaGraph2" width="300px" height="300px"></canvas>
-                <script>
-                    {
-                        let marcas = <?= json_encode($data['marcas']) ?>;
-                        let nombresMarcas = [];
-                        let fallasMarcas = [];
-                        let colores = [];
-                        let colorBase = 'rgba(255,134,';
-                        let bActual = 55;
-                        let bordes = [];
-                        marcas.forEach(marca => {
-                            nombresMarcas.push(marca.nombre);
-                            fallasMarcas.push(marca.fallas);
-                            colores.push(colorBase + bActual + ', 1)');
-                            bActual += 20;
-                            bordes.push("#545454");
-                        });
-
-                        console.log(nombresMarcas)
-                        console.log(fallasMarcas)
-                        let fallasPorMarca = document.getElementById('fallasPorMarcaGraph2').getContext('2d');
-                        let fallasPorMarcaChart = new Chart(fallasPorMarca, {
-                            type: 'bar',
-                            data: {
-                                labels: nombresMarcas,
-                                datasets: [{
-                                    data: fallasMarcas,
-                                    backgroundColor: colores,
-                                    borderColor: bordes
-                                }]
-                            },
-                        })
-                    }
-                </script>
+                <canvas id="fallasPorProveedor" width="300px" height="300px"></canvas>
             </div>
-            <div class="fallasPorMarcaGraph">
+            <div class="comprasPorMes">
                 <h2>Compras Mensuales</h2>
-                <canvas id="fallasPorMarcaGraph3" width="300px" height="300px"></canvas>
-                <script>
-                    let marcas = <?= json_encode($data['marcas']) ?>;
-                    let nombresMarcas = [];
-                    let fallasMarcas = [];
-                    let colores = [];
-                    let colorBase = 'rgba(255,134,';
-                    let bActual = 55;
-                    let bordes = [];
-                    marcas.forEach(marca => {
-                        nombresMarcas.push(marca.nombre);
-                        fallasMarcas.push(marca.fallas);
-                        colores.push(colorBase + bActual + ', 1)');
-                        bActual += 20;
-                        bordes.push("#545454");
-                    });
-
-                    console.log(nombresMarcas)
-                    console.log(fallasMarcas)
-                    let fallasPorMarca = document.getElementById('fallasPorMarcaGraph3').getContext('2d');
-                    let fallasPorMarcaChart = new Chart(fallasPorMarca, {
-                        type: 'line',
-                        data: {
-                            labels: nombresMarcas,
-                            datasets: [{
-                                data: fallasMarcas,
-                                backgroundColor: colores,
-                                borderColor: bordes
-                            }]
-                        },
-                    })
-                </script>
+                <canvas id="comprasMensuales" width="300px" height="300px"></canvas>
             </div>
         </div>
     </div>
+    <script src="<?php echo URLROOT ?>/public/js/estadisticas.js"></script>
+    <script>
+        let marcasn = <?= json_encode($data['marcas']) ?>;
+        let proveedoresn = <?= json_encode($data['proveedores']) ?>;
+        let comprasn = <?= json_encode($data['compras']) ?>;
+        cargarDatos(marcasn, proveedoresn, comprasn);
+    </script>
 </div>
 <?php
 require_once APPROOT . '/views/includes/footer.php';

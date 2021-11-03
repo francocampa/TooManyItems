@@ -59,23 +59,27 @@
     });
     function actualizarTipo() {
         let options=[];
-        if ($('#categoria').val()=='material') {
-            options.push('<option value="material">Material</option>');
-            options.push('<option value="consumible">Consumible</option>');
-        }
-        if ($('#categoria').val()=='herramienta') {
-            options.push('<option value="de_mano">De mano</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='maquinaria') {
-            options.push('<option value="movil">Móvil</option>');
-            options.push('<option value="fija">Fija</option>');
-        }
-        if ($('#categoria').val()=='informatico') {
-            options.push('<option value="pc">PC</option>');
-            options.push('<option value="monitor">Monitor</option>');
-            options.push('<option value="impresora">Impresora</option>');
-            options.push('<option value="periferico">Periférico</option>');
+        switch ($('#categoria').val()) {
+            case 'material':
+                options.push('<option value="material">Material</option>');
+                options.push('<option value="consumible">Consumible</option>');
+                break;
+            case 'herramienta':
+                options.push('<option value="de_mano">De mano</option>');
+                options.push('<option value="fija">Fija</option>');
+                break;
+            case 'maquinaria':
+                options.push('<option value="movil">Móvil</option>');
+                options.push('<option value="fija">Fija</option>');
+                break;
+            case 'informatico':
+                options.push('<option value="pc">PC</option>');
+                options.push('<option value="monitor">Monitor</option>');
+                options.push('<option value="impresora">Impresora</option>');
+                options.push('<option value="periferico">Periférico</option>');
+                break;
+            default:
+                break;
         }
         $('#tipo').empty();
         $('#tipo').append(options);
@@ -182,9 +186,6 @@
                     document.getElementById('frontInputImagen').src=URL.createObjectURL($('#inputImagen').prop('files')[0]);
                     //$('').css('background-image','url('++')');
                 }else{
-                    document.getElementById('frontInputImagen').src=routeAddImage;
-                    $('#frontInputImagen').addClass('errorInput');
-                    $('#btnSubmit').prop('disabled', true);
                     isCorrecto=false; 
                 }
             }
@@ -193,14 +194,15 @@
         const extension= imagen.name.split('.')[1];
         const extensionValida=['png'];
         if(!extension.includes(extensionValida)){
-            $('#frontInputImagen').addClass('errorInput');
-            $('#btnSubmit').prop('disabled', true);
             isCorrecto=false;
         }else{
             fileReader.readAsDataURL(imagen);
         }
         if(isCorrecto){
-            $('#frontInputImagen').removeClass('errorInput');
+            $('#frontInputImagen').removeClass('errorInputInsumo');
             validarForm();
+        }else{
+            document.getElementById('frontInputImagen').src=routeAddImage;
+            $('#inputImagen').val('');
         }
     })

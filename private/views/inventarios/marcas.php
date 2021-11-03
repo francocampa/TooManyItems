@@ -12,25 +12,31 @@ require_once APPROOT . '/views/includes/head.php';
     <?php require_once APPROOT . '/views/includes/navbar.php'; ?>
     <h1 class="titulo"><?php echo $data['titulo']; ?></h1>
     <?php require_once APPROOT . '/views/includes/filters.php'; ?>
-    <input type="text" style="display:none;" name='sector' id='sectorPopup'value="<?= $data['sector'] ?>">
+    <input type="text" style="display:none;" name='sector' id='sectorPopup' value="<?= $data['sector'] ?>">
     <div class="contenido">
         <div class="division5050">
             <div class="tabla">
-                <div class="cabecera marcas">
-                    <p>Nombre</p>
-                    <p>Nro Insumos</p>
-                </div>
-                <div class="items">
-                    <div class="item marcas headerItem">
+                <div class="unBoton">
+                    <div class="cabecera marcas">
                         <p>Nombre</p>
                         <p>Nro Insumos</p>
+                    </div>
+                    <div class="existo"></div>
+                </div>
+                <div class="items">
+                    <div class="item unBoton mar">
+                        <div class="marcas headerItem">
+                            <p>Nombre</p>
+                            <p>Nro Insumos</p>
+                        </div>
+                        <button class="btnEliminar">X</button>
                     </div>
                 </div>
             </div>
             <div class="informacion">
                 <h1>Nombre marca</h1>
                 <hr>
-                <div class="tabla">
+                <div class="tabla max">
                     <div class="cabecera insumosEnSubinventarios">
                         <p>Nombre</p>
                         <p>Modelo</p>

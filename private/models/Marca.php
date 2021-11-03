@@ -9,6 +9,11 @@
             $consulta=$db->query($callString);
             var_dump($db);
         }
+        public function deleteMarca($codMarca){
+            $db = db::conectar();
+            $callString = 'CALL deleteMarca(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codMarca . ')';
+            $consulta = $db->query($callString);
+        }
         public function getMarcasPorSector($codSector){
             $marcas=[];
             $db = db::conectar();

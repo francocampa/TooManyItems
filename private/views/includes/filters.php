@@ -32,8 +32,22 @@
                 <select name='" . $data['origen'] . "' id='tipoInsumo'>
                 <option value='todos'>Todos</option>
                  </select>";
+        }elseif (isset($data['prestamos'])) {
+            echo '<p>Sector</p>
+                  <select name="sector" id="selectorSectores">';
+            foreach ($_SESSION['sectores'] as $sector) {
+                echo '<option value="' . $sector . '">' . $sector . '</option>';
+            }
+            echo '</select>';
+        }elseif (isset($data['empleados'])){
+            echo '<p>Sector</p>
+                  <select name="sector" id="selectorSectores">
+                   <option value="todos">Todos</option>';
+            foreach ($_SESSION['sectores'] as $sector) {
+                echo '<option value="' . $sector . '">' . $sector . '</option>';
+            }
+            echo '</select>';
         }
-
         ?>
 
         <!-- Boton agregar dependiendo de la pestania -->

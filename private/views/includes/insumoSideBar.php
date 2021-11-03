@@ -1,18 +1,19 @@
 <div class="containerNavbar">
-    <form action="<?= URLROOT ?>/Modificacion/insumo/<?= json_decode($data['insumo'])->codInsumo.'/'.json_decode($data['insumo'])->codSector ?>" method="POST">
+    <form enctype="multipart/form-data" action="<?= URLROOT ?>/Modificacion/insumo/<?= json_decode($data['insumo'])->codInsumo . '/' . json_decode($data['insumo'])->codSector ?>" method="POST">
         <div class="insumoSidebar">
             <div class="superior">
                 <a href="<?php echo URLROOT . "/Inventario/" . $data['origen'] ?>">
                     <img src="<?php echo URLROOT ?>/public/img/iconos/volver.svg" alt="" class="btnVolver">
                 </a>
-                <img class="imagen" src="<?php 
-                    if(is_null(json_decode($data['insumo'])->foto)){
-                        echo "";
-                    }else{
-                        echo URLROOT.'/public/img/insumosUploads/'.json_decode($data['insumo'])->foto->ruta;
-                    }
-                    
-                    ?>">
+                <img class="inputImagen imagen" id="frontInputImagen" src="<?php
+                                                                            if (is_null(json_decode($data['insumo'])->foto)) {
+                                                                                echo URLROOT . "/public/img/iconos/AddImage.svg";
+                                                                            } else {
+                                                                                echo URLROOT . '/public/img/insumosUploads/' . json_decode($data['insumo'])->foto->ruta;
+                                                                            }
+
+                                                                            ?>">
+                <input type="file" id="inputImagen" name="imagenInsumo" style="display:none;">
             </div>
             <div>
                 <h3>Información general</h3>
@@ -74,7 +75,7 @@
                     <input type="text" style='display:none;' name="nCaracteristicasTecnicas" value="<?= count(json_decode($data['insumo'])->caracteristicasT) ?>">
                 </div>
             </div>
-            <button class="btnModificar">Modificar</button>
+            <button class="btnModificar btnInsumo">Modificar</button>
 
         </div>
     </form>

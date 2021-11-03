@@ -1,6 +1,9 @@
 <?php
     class Formulario extends Controller{
         public function insumo($origen){
+            if ($origen != 'herramientas' && $origen != 'materiales' && $origen != 'maquinaria' && $origen != 'informatico') {
+                header('location:' . URLROOT . '/error/');
+            }
             require_once APPROOT.'/models/Marca.php';
             $marcaModel= new Marca();
             $permisos = [
@@ -71,6 +74,16 @@
             $this->view("forms/insumo", $data);
         }
         public function compra($codInsumo,$codSector){
+            if (!in_array($codSector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
+            require_once APPROOT . '/models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumo = $insumoModel->getInsumo($codInsumo, $codSector);
+            $insumo_json = json_encode($insumo);
+            if ($insumo_json == '{"foto":null,"marca":null,"caracteristicasT":[]}') {
+                header('location:' . URLROOT . '/error/');
+            }
             require_once APPROOT . '/models/Instancia/Proveedor.php';
             $proveedorModel=new Proveedor();
             $proveedores=$proveedorModel->getProveedoresPorSector($codSector);

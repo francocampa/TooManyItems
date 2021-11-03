@@ -8,7 +8,10 @@
 }
 .graficas{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 'fallam compra'
+                'fallap compra';
+    grid-template-columns: 1fr 1.5fr; 
+    gap: 4rem;
     /* justify-content: center;
     align-items: center; */
 }
@@ -121,14 +124,24 @@ select{
     margin-left: 2rem;
     width: 10%;
 }
-.fallasPorMarcaGraph{
+.fallasPorMarcaGraph, .fallasPorProveedorGraph{
     margin: auto;
-    width: 350px;
-    height: 350px;
+    width: 50%;
+    /* height: 20rem; */
 }
-
-/* canvas{
-    width: 20rem !important;
-    height: 20rem !important; 
-
-} */
+.fallasPorMarcaGraph{
+    grid-area: fallam;
+}
+.fallasPorProveedorGraph{
+    grid-area: fallap;
+}
+.comprasPorMes{
+    grid-area: compra;
+    width: 80%;
+}
+canvas{
+    background-color: var(--color-lightbg);
+    padding: 0.5rem;
+    border-radius: 2rem;
+    box-shadow: 3px 3px 10px rgb(145, 144, 144);
+}

@@ -79,6 +79,7 @@ require_once APPROOT . '/views/includes/head.php';
     </div>
 </div>
 <script src="<?php echo URLROOT ?>/public/js/formularioInsumo.js"></script>
+
 <script>
     let marcasN = <?= json_encode($data['marcas']) ?>;
     cargarMarcas(marcasN);

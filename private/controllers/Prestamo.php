@@ -7,32 +7,52 @@
         public function paniol(){
             require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
-            $insumos=$insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'material');
-            $herramientas= $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'herramienta');
-            foreach ($herramientas as $herramienta) {
-                array_push($insumos, $herramienta);
-            }
-            $maquinarias = $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'maquinaria');
-            foreach ($maquinarias as $maquinaria) {
-                array_push($insumos, $maquinaria);
-            }
-            $informaticos = $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'informatico');
-            foreach ($informaticos as $informatico) {
-                array_push($insumos, $informatico);
-            }
-
-            //var_dump($insumos);
             require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
-            for ($i=0; $i < count($insumos); $i++) {
-                if(sizeof($insumos[$i])!=0){
-                    $insumos[$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$i]['codInsumo'], $insumos[$i]['codSector']);
+            foreach ($_SESSION['sectores'] as $sector) {
+                $i=0;
+                $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'material');
+                foreach ($insumos[$sector] as $material) {
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
+                }
+                $herramientas = $insumoModel->getInsumoPorCategoria($sector, 'herramienta');
+                foreach ($herramientas as $herramienta) {
+                    array_push($insumos[$sector], $herramienta);
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
+                }
+                $maquinarias = $insumoModel->getInsumoPorCategoria($sector, 'maquinaria');
+                foreach ($maquinarias as $maquinaria) {
+                    array_push($insumos[$sector], $maquinaria);
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
+                }
+                $informaticos = $insumoModel->getInsumoPorCategoria($sector, 'informatico');
+                foreach ($informaticos as $informatico) {
+                    array_push($insumos[$sector], $informatico);
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
                 }
             }
+            //var_dump($insumos);
+            
+            //  ANTES AGARRABA LAS INSTANCIAS AS[I, PERO CAMBI[E PARA QUE SE AGARREN MIENTRAS SE CARGAN LOS INSUMOS AS[I ES M[AS R[APIDO
+            // for ($i=0; $i < count($_SESSION['sectores']); $i++) {
+            //     for ($j=0; $j < ; $j++) { 
+
+            //     }
+            //     if(sizeof($insumos[$i])!=0){
+            //         $insumos[$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$i]['codInsumo'], $insumos[$i]['codSector']);
+            //     }
+            // }
 
             require_once APPROOT . '/models/Prestamo.php';
             $prestamoModel = new PrestamoModel();
-            $prestamos=$prestamoModel->getPrestamosPaniol('p');
+            $prestamos=[];
+            foreach ($_SESSION['sectores'] as $sector) {
+                $prestamos[$sector]=$prestamoModel->getPrestamosPorSector('p', $sector);
+            }
 
             $permisos=[
                 'admin' => true,
@@ -52,32 +72,41 @@
         {
             require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
-            $insumos = $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'material');
-            $herramientas = $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'herramienta');
-            foreach ($herramientas as $herramienta) {
-                array_push($insumos, $herramienta);
-            }
-            $maquinarias = $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'maquinaria');
-            foreach ($maquinarias as $maquinaria) {
-                array_push($insumos, $maquinaria);
-            }
-            $informaticos = $insumoModel->getInsumoPorCategoria($_SESSION['sectores'][0], 'informatico');
-            foreach ($informaticos as $informatico) {
-                array_push($insumos, $informatico);
-            }
-
-            //var_dump($insumos);
             require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
-            for ($i = 0; $i < count($insumos); $i++) {
-                if (sizeof($insumos[$i]) != 0) {
-                    $insumos[$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$i]['codInsumo'], $insumos[$i]['codSector']);
+            foreach ($_SESSION['sectores'] as $sector) {
+                $i = 0;
+                $insumos[$sector] = $insumoModel->getInsumoPorCategoria($sector, 'material');
+                foreach ($insumos[$sector] as $material) {
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
+                }
+                $herramientas = $insumoModel->getInsumoPorCategoria($sector, 'herramienta');
+                foreach ($herramientas as $herramienta) {
+                    array_push($insumos[$sector], $herramienta);
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
+                }
+                $maquinarias = $insumoModel->getInsumoPorCategoria($sector, 'maquinaria');
+                foreach ($maquinarias as $maquinaria) {
+                    array_push($insumos[$sector], $maquinaria);
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
+                }
+                $informaticos = $insumoModel->getInsumoPorCategoria($sector, 'informatico');
+                foreach ($informaticos as $informatico) {
+                    array_push($insumos[$sector], $informatico);
+                    $insumos[$sector][$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$sector][$i]['codInsumo'], $insumos[$sector][$i]['codSector']);
+                    $i++;
                 }
             }
 
             require_once APPROOT . '/models/Prestamo.php';
             $prestamoModel = new PrestamoModel();
-            $prestamos=$prestamoModel->getPrestamosPaniol('c');
+            $prestamos = [];
+            foreach ($_SESSION['sectores'] as $sector) {
+                $prestamos[$sector] = $prestamoModel->getPrestamosPorSector('c', $sector);
+            }
 
             $permisos = [
                 'admin' => true,

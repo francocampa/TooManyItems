@@ -1,6 +1,8 @@
-var itemTabla=document.getElementsByClassName("item marcas")[0].cloneNode(true);
+$('.tabla.max').height($('.item').height()*10);
+
+var itemTabla=document.getElementsByClassName("item mar")[0].cloneNode(true);
 var tabla = document.getElementsByClassName("items")[0];
-tabla.removeChild(document.getElementsByClassName("item marcas")[0]);
+tabla.removeChild(document.getElementsByClassName("item mar")[0]);
 
 var itemInformacionSubTabla=document.getElementsByClassName('item fallaSubinventario')[0].cloneNode(true);
 $('.items.subSubInventario').empty();
@@ -20,14 +22,19 @@ let contador=0;
 function llenarTabla(){
     marcas.forEach(marca => {
         const marcaTabla=itemTabla.cloneNode(true);
+        const marcaInfo=marcaTabla.childNodes[1];
+        const botonEliminar=marcaTabla.childNodes[3];
         //insumoTabla.href=insumoTabla.href+"/Inventario/instancias/"+insumo.codInsumo;
-        marcaTabla.childNodes[1].innerHTML=marca.nombre;
-        marcaTabla.childNodes[3].innerHTML=10;
-        marcaTabla.id=marca.codMarca;
+        marcaInfo.childNodes[1].innerHTML=marca.nombre;
+        marcaInfo.childNodes[3].innerHTML=10;
+        marcaInfo.id=marca.codMarca;
+
+        botonEliminar.value='eliminarMarca/'+marca.codMarca;
+
         tabla.appendChild(marcaTabla);
     });
-    $('div.item.marcas').on('click',function(e){
-        const codMarca=$(this).prop('id');
+    $('div.item.mar').on('click',function(e){
+        const codMarca=$(this).children()[0].id;
         const marcaPresionada=marcas.filter(marca => marca.codMarca == codMarca)[0];
         $('.informacion').remove();
         const informacion=informacionBase.cloneNode(true);
@@ -61,6 +68,15 @@ function llenarTabla(){
             contador++;
         }); 
         contador=0;
+    });
+    $('.btnEliminar').on('click', function(e){
+        let texto='<h2>Está seguro de que desea eliminar este item?</h2>';
+        $('.popup').find('h1').html('Eliminar');
+        $('.popup').prop('action', $('.popup').prop('action')+e.target.value);
+        $('.popupInputs').append(texto);
+
+        $('.blurr').fadeIn();
+        $('.popup').fadeIn(); 
     });
     $('#scriptFeo').remove();
 }

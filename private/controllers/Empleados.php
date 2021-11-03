@@ -5,7 +5,18 @@ class Empleados extends Controller
     {
         require_once APPROOT . '/models/Cuenta.php';
         $cuentaModel = new Usuario();
-        $empleados = $cuentaModel->getEmpleadosPorSector('IN');  
+        $empleados= $cuentaModel->getEmpleados();
+        for ($i=0; $i < count($empleados); $i++) { 
+            $sectoresCompartidos=array_intersect($empleados[$i]['sectores'],$_SESSION['sectores']);
+            if($sectoresCompartidos == []){
+                array_splice($empleados, $i, $i);
+                $i--;
+            }
+        }
+        
+        // foreach ($_SESSION['sectores'] as $sector) {
+        //     $empleados[$sector]= $cuentaModel->getEmpleadosPorSector('IN');  
+        // }
 
         $permisos = [
             'admin' => true

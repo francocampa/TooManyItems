@@ -56,6 +56,9 @@ if (!isLoggedIn() && $data['titulo'] != "login") { //comprueba si estamos logead
     if (isset($css['error'])) {
         echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/error.css\">";
     }
+    if (isset($css['cuenta'])) {
+        echo "<link rel=\"stylesheet\" href=\"" . URLROOT . "/public/css/miCuenta.css\">";
+    }
     // if($css['']){
     // }
     ?>

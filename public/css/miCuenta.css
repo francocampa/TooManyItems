@@ -1,0 +1,68 @@
+.logout{
+    grid-area: logout;
+    margin: 10rem auto;
+    background-color: var(--color-red);
+    color: var(--color-bg);
+    font-weight: bold;
+    width: 15%;
+    height: 3rem;
+    /* border: 0.3rem solid var(--color-mediumbg); */
+    outline: none;
+    font-size: 2rem;
+    padding: 0.2rem;
+    border-radius: 1.5rem;
+    transition: all 0.2s ease;
+    text-align: center;
+    justify-content: center;
+}
+.logout:hover{
+    background-color: #ff4b3748;
+    border: 0.3rem solid var(--color-red);
+    color: var(--color-red);
+}
+.miCuenta{
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-areas: 'seccion1 seccion2'
+                          'logout logout';
+}
+.updateCuentaForm,.accionesRecientes{
+    margin: auto;
+    padding: 2rem;
+    width: 80%;
+    background-color: var(--color-lightbg);
+    border-radius: 3rem;
+    box-shadow: 3px 3px 10px rgb(145, 144, 144);
+}
+.updateCuentaForm{
+    grid-area: seccion1;
+}
+.accionesRecientes{
+    grid-area: seccion2;
+}
+.btnChangePass{
+    /* background-color: var(--color-gray); */
+    color: var(--color-mediumbg);
+    font-weight: bold;
+    width: 50%;
+    border: 0.3rem solid var(--color-mediumbg);
+    outline: none;
+    font-size: 20px;
+    padding: 0.2rem;
+    border-radius: 1.5rem;
+    transition: all 0.2s ease;
+}
+.btnChangePass:hover{
+    background-color: #54545441;
+}
+.tabla{
+    overflow-y: scroll;
+}
+.auditorias{
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr
+}
+.auditorias p{
+    font-size: 1rem;
+    font-family: 'Roboto';
+}

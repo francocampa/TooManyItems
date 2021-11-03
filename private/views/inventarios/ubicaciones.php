@@ -17,21 +17,27 @@ require_once APPROOT . '/views/includes/head.php';
     <div class="contenido">
         <div class="division5050">
             <div class="tabla">
-                <div class="cabecera marcas">
-                    <p>Nombre</p>
-                    <p>Tipo</p>
+                <div class="unBoton">
+                    <div class="cabecera marcas">
+                        <p>Nombre</p>
+                        <p>Tipo</p>
+                    </div>
+                    <div class="existo"></div>
                 </div>
                 <div class="items">
-                    <div class="item marcas headerItem">
-                        <p>Nombre</p>
-                        <p>Nro Insumos</p>
+                    <div class="item unBoton mar">
+                        <div class="marcas headerItem">
+                            <p>Nombre</p>
+                            <p>Nro Insumos</p>
+                        </div>
+                        <button class="btnEliminar">X</button>
                     </div>
                 </div>
             </div>
             <div class="informacion">
                 <h1>Nombre marca</h1>
                 <hr>
-                <div class="tabla">
+                <div class="tabla max">
                     <div class="cabecera insumosEnSubinventarios">
                         <p>Identificador</p>
                         <p>Nombre Insumo</p>

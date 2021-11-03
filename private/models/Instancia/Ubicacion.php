@@ -8,6 +8,12 @@
             $callString = 'CALL insertUbicacion(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","' . $ubicacion['nombre'] . '","' . $ubicacion['tipo'] . '","' . $codSector . '")';
             $consulta = $db->query($callString);
         }
+        public function deleteUbicacion($codUbicacion)
+        {
+            $db = db::conectar();
+            $callString = 'CALL deleteUbicacion(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codUbicacion . ')';
+            $consulta = $db->query($callString);
+        }
         public function getUbicacionesPorSector($codSector){
             $ubicaciones = [];
             $db = db::conectar();

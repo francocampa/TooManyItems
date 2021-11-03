@@ -12,8 +12,8 @@ $(document).ready(function (){
             $('.popupInputs').empty();
         }, 350);
     });
-    function createPopupInput(titulo, id, name, clase){
-        return '<h2>'+titulo+'</h2> <input type="text" id="'+id+'" name="'+name+'" class="'+clase+'">';
+    function createPopupInput(titulo, id, name, clase, tipo = 'text'){
+        return '<h2>'+titulo+'</h2> <input type="'+tipo+'" id="'+id+'" name="'+name+'" class="'+clase+'">';
     }
 
     var inputSector;
@@ -163,7 +163,50 @@ $(document).ready(function (){
         $('.blurr').fadeIn();
         $('.popup').fadeIn(); 
     });
-    
+    $('#cambiarContrasenia').unbind("click").on('click', function (){
+        console.log('das');
+        let contraInput=createPopupInput('Contraseña', 'contrasenia', 'contrasenia','errorPopupInput', 'password');
+        let seguridadInput=createPopupInput('Ingresela otra vez', 'seguridad', 'seguridad','errorPopupInput', 'password');
+
+        $('.popup').find('h1').html('Cambiar contraseña');
+        $('.popup').prop('action', $('.popup').prop('action')+'/cambiarContrasenia');
+        $('.popupInputs').append(contraInput);
+        $('#popupBtnConfirmar').prop('disabled', true);
+        $('#contrasenia').on('input', function(e){
+            let validaciones;
+            let isCorrecto=true;
+            validaciones=validarLargo(8, 20, '#contrasenia');
+            if(!validaciones[0]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(!validaciones[1]){
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+                isCorrecto=false;
+            }
+            if(isCorrecto){
+                $(this).removeClass('errorPopupInput');
+                validarPopup();      
+            }
+        });
+        $('.popupInputs').append(seguridadInput);
+        $('#seguridad').on('input', function(e){
+            let validaciones;
+            let isCorrecto=true;
+            if($(this).val() == $('#contrasenia').val()){
+                $(this).removeClass('errorPopupInput');
+                validarPopup();      
+            }else{
+                $(this).addClass('errorPopupInput');
+                $('#popupBtnConfirmar').prop('disabled', true);
+            }
+        });
+        $('.blurr').fadeIn();
+        $('.popup').fadeIn(); 
+        return false;
+    });
 });
 function validarLargo(min, max, selector){
     let validacion=[true,true]

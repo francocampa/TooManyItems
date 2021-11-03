@@ -137,6 +137,11 @@ a > p{
     gap: 1rem; 
     justify-items: center;
 }
+.instanciaCard input:disabled{
+    background-color: #5454547e;
+    color: var(--color-bg);
+    border-radius: 0.5rem;
+}
 .compraCard{
     margin-top: 2rem;
     display: grid;
@@ -149,6 +154,9 @@ a > p{
     margin: 0;
     float: right;
     /* grid-area: btn; */
+}
+.btnInstancia:disabled{
+    background-color: #ff4b3744;
 }
 .infoInstancia{
     width: 70%;
@@ -231,6 +239,28 @@ a > p{
     background-color: #ff4b3762;
     border-radius: 50%;
 }
+.btnPrestamo{
+    height: 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1rem;
+   transition: all 0.2s ease;
+}
+.devuelto{
+    color: var(--color-orange);
+    background-color: transparent; 
+    border: 0.2rem solid var(--color-orange); 
+}
+.noDevuelto{
+    color: var(--color-red);
+    background-color: transparent; 
+    border: 0.2rem solid var(--color-red); 
+}
+.noDevuelto:hover{
+    background-color: #ff4b3762;
+    border-radius: 3rem;
+}
 
 
 .clases{
@@ -260,4 +290,14 @@ a > p{
     justify-content: center;
     grid-template-columns: 1fr;
     width: 100%;
+}
+.informacion .item{
+    font-size: 1rem;
+}
+.auditorias{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 2fr;
+}
+.tablaAuditorias,.max{
+    overflow-y: scroll;
 }

@@ -7,7 +7,7 @@
             $db = db::conectar();
             $callString = 'CALL insertInsumo('.$_SESSION['cuenta']['ci'].',"'. $_SESSION['cuenta']['token'].'","'.$insumo['codSector'].'","'.$insumo['nombre']. '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ',' . $insumo['codMarca'] . ', "'.$insumo['rutaImagen'].'")';
             $consulta = $db->query($callString);
-            $consulta = $db->query('SELECT codInsumo FROM insumo order by codInsumo desc limit 1');
+            $consulta = $db->query('SELECT codInsumo FROM insumos order by codInsumo desc limit 1');
             $codInsumo = $consulta->fetch_assoc()['codInsumo'];
             foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
                 $callString = 'CALL insertCaracteristicaT(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codInsumo.',"'.$insumo['codSector'].'","'.$caracteristicaT['nombre'].'","'.$caracteristicaT['valor'].'")';
@@ -17,8 +17,9 @@
         }
         public function updateInsumo($insumo){
             $db= db::conectar();
-            $callString= 'CALL updateInsumo(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","' . $insumo['codSector'] . '", '. $insumo['codInsumo'] .' ,"' . $insumo['nombre'] . '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ', '.$insumo['stockActual'].' ,' . $insumo['codMarca'].')';
+            $callString= 'CALL updateInsumo(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","' . $insumo['codSector'] . '", '. $insumo['codInsumo'] .' ,"' . $insumo['nombre'] . '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ', '.$insumo['stockActual'].' ,' . $insumo['codMarca']. ', "' . $insumo['rutaImagen'] . '")';
             $consulta= $db->query($callString);
+            var_dump($db);
             foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
                 $callString = 'CALL updateCaracteristicaT(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '" , "separaciom", ' . $caracteristicaT['codCaracteristicaT'] . ' ,"' . $caracteristicaT['valor'] . '")';
                 $consulta = $db->query($callString);

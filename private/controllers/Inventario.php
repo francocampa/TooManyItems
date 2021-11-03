@@ -105,6 +105,24 @@
             $this->view("inventarios/insumos", $data);
         }
         public function instancias($codInsumo, $sector){
+            if (!in_array($sector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
+            //Requiero el modelo de insumo, se parsean a json los insumos, y se busca el insumo seleccionado del que se va a mostrar el inventario de instancias
+            require_once APPROOT . '/models/Instancia.php';
+            $instanciasModel = new Instancia();
+
+            //Requiero el modelo de insumo, se parsean a json los insumos, y se busca el insumo seleccionado del que se va a mostrar el inventario de instancias
+            require_once APPROOT . '/models/Insumo.php';
+            $insumoModel = new Insumo();
+            $insumo = $insumoModel->getInsumo($codInsumo, $sector);
+            $insumo_json = json_encode($insumo);
+            if($insumo_json == '{"foto":null,"marca":null,"caracteristicasT":[]}'){
+                header('location:' . URLROOT . '/error/');
+            }
+            //Cargo las instancias del insumo y las parseo a json
+            $compras = $instanciasModel->getComprasPorInsumo($codInsumo, $sector);
+            $compras_json = json_encode($compras);
             //Cargo los proveedores, se necesitan para la modificaci[on de las instancias
             require_once APPROOT . '/models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
@@ -124,20 +142,6 @@
             require_once APPROOT . '/models/Marca.php';
             $marcaModel = new Marca();
             $marcas = $marcaModel->getMarcasPorSector($sector);    
-
-            //Requiero el modelo de insumo, se parsean a json los insumos, y se busca el insumo seleccionado del que se va a mostrar el inventario de instancias
-            require_once APPROOT . '/models/Instancia.php';
-            $instanciasModel = new Instancia();
-
-            //Requiero el modelo de insumo, se parsean a json los insumos, y se busca el insumo seleccionado del que se va a mostrar el inventario de instancias
-            require_once APPROOT . '/models/Insumo.php';
-            $insumoModel = new Insumo();
-            $insumo=$insumoModel->getInsumo($codInsumo, $sector);
-            $insumo_json=json_encode($insumo);
-
-            //Cargo las instancias del insumo y las parseo a json
-            $compras= $instanciasModel->getComprasPorInsumo($codInsumo, $sector);
-            $compras_json = json_encode($compras);
 
             $permisos = [
                 'admin' => true,
@@ -183,6 +187,9 @@
         }
 
         public function marcas($sector){
+            if (!in_array($sector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
 
             require_once APPROOT . '/models/Insumo.php';
@@ -217,6 +224,9 @@
         }
         public function proveedores($sector)
         {
+            if (!in_array($sector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
 
             require_once APPROOT . '/models/Instancia/Proveedor.php';
@@ -250,6 +260,9 @@
         }
         public function ubicaciones($sector)
         {
+            if (!in_array($sector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
             $rutaAnterior = '/' . rtrim($_GET['url'], '/');
 
             require_once APPROOT . '/models/Instancia/Ubicacion.php';
@@ -283,6 +296,9 @@
             $this->view('inventarios/ubicaciones', $data);
         }
         public function stockBajo($codSector){
+            if (!in_array($codSector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
             require_once APPROOT . '/models/Insumo.php';
             $insumoModel = new Insumo();
             $insumos = $insumoModel->getInsumoStockBajo($codSector);
@@ -302,6 +318,9 @@
             $this->view("inventarios/insumosStockBajo", $data);
         }
         public function instanciasFalladas($codSector){
+            if (!in_array($codSector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
             require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
             $instancias = $instanciaModel->getInstanciasConFalla($codSector);
@@ -319,6 +338,28 @@
                 'rutaAnterior' => $rutaAnterior
             ];
             $this->view("inventarios/instanciasFalladas", $data);
+        }
+        public function prestamosActivos($codSector){
+            if (!in_array($codSector, $_SESSION['sectores'])) {
+                header('location:' . URLROOT . '/error/');
+            }
+            require_once APPROOT . '/models/Prestamo.php';
+            $prestamoModel = new PrestamoModel();
+            $prestamos = $prestamoModel->getPrestamosActivos($codSector);
+            $permisos = [
+                'admin' => true,
+                'coord' => true,
+                'panio' => true,
+                'docente' => false
+            ];
+            $rutaAnterior = '/' . rtrim($_GET['url'], '/');
+            $data = [
+                'titulo' => 'Prestamos activas',
+                'permisos' => $permisos,
+                'prestamos' => $prestamos,
+                'rutaAnterior' => $rutaAnterior
+            ];
+            $this->view("inventarios/prestamosActivos", $data);
         }
     }
    

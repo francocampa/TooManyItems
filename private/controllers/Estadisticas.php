@@ -2,6 +2,9 @@
     class Estadisticas extends Controller {
         public function es($sector)
         {
+            if(!in_array($sector, $_SESSION['sectores'])){
+                header('location:' . URLROOT . '/error/');
+            }
             require_once APPROOT . '/models/Marca.php';
             $marcaModel = new Marca();
             $cantidadMarcas = $marcaModel->countMarcasPorSector($sector);  
@@ -13,6 +16,10 @@
             require_once APPROOT . '/models/Instancia/Proveedor.php';
             $proveedorModel = new Proveedor();
             $cantidadProveedores = $proveedorModel->countProveedoresPorSector($sector);
+            $proveedores = $proveedorModel->getProveedoresPorSector($sector);
+            for ($i = 0; $i < count($proveedores); $i++) {
+                $proveedores[$i]['fallas'] = $proveedorModel->countFallasPorProveedor($proveedores[$i]['codProveedor']);
+            }
 
             require_once APPROOT . '/models/Instancia/Ubicacion.php';
             $ubicacionModel = new Ubicacion();
@@ -36,7 +43,12 @@
 
             require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
-            $instanciasFalladas = $instanciaModel->countInstanciasConFallasPorSector($sector); 
+            $instanciasFalladas = $instanciaModel->countInstanciasConFallasPorSector($sector);
+            $compras = $instanciaModel->getComprasPorMes($sector);
+
+            require_once APPROOT . '/models/Prestamo.php';
+            $prestamoModel = new PrestamoModel();
+            $cantidadPrestamos = $prestamoModel->countPrestamos($sector);
 
             $infoInventarios=[
                 'herramientas' => $cantidadHerramientas,
@@ -44,7 +56,8 @@
                 'informaticos' => $cantidadInformaticos,
                 'materiales' => $cantidadMateriales,
                 'instanciasFalladas' => $instanciasFalladas,
-                'insumosBajoStock'=> $insumosStockBajo
+                'insumosBajoStock'=> $insumosStockBajo,
+                'prestamosActivos'=> $cantidadPrestamos
             ];
             $permisos = [
                 'admin' => true,
@@ -58,7 +71,9 @@
                 'infoSector' => $infoSector,
                 'infoInventarios' => $infoInventarios,
                 'sector' => $sector,
-                'marcas' => $marcas
+                'marcas' => $marcas,
+                'proveedores' => $proveedores,
+                'compras' => $compras
             ];
             $this->view("usuarios/coordinador/estadisticas", $data);
            

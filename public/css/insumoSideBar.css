@@ -16,6 +16,9 @@
    display: grid;
    grid-template-rows: 1fr 1fr 1fr;
 }
+.insumoSidebar a{
+    width: 3rem;
+}
 .insumoSidebar input, .insumoSidebar select{
     color: var(--color-lightbg);
     width: 100%;
@@ -76,7 +79,6 @@ h1 + .filtros{
     margin:auto;
     width: 250px;
     height: 250px;
-    background-color: gray;
     border-radius: 1rem;
 }
 .btnModificar{
@@ -110,4 +112,13 @@ h1 + .filtros{
 }
 .stockMinActual input:last-of-type{
     grid-area: input2;
+}
+
+.btnInsumo:disabled{
+    background-color: #ff4b3744;
+}
+.errorInputInsumo,.errorInputInstancia{
+    background-color: #ff4b3725 !important;
+    border-color: var(--color-red) !important;
+    border-radius: 0.4rem 0.4rem 0 0 ;
 }

@@ -45,7 +45,6 @@ function llenarTabla(sectores,tiposSeleccionados) {
     });
     $('.btnEliminar').on('click', function(e){
         let texto='<h2>Está seguro de que desea eliminar este item?</h2>';
-        console.log(e.target);
         $('.popup').find('h1').html('Eliminar');
         $('.popup').prop('action', $('.popup').prop('action')+e.target.value);
         $('.popupInputs').append(texto);
