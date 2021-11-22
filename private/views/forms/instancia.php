@@ -20,7 +20,7 @@ require_once APPROOT . '/views/includes/head.php';
                     </div>
                     <hr>
                     <h3>Costo</h3>
-                    <input type="text" name="costo" id="costo" class="errorInput">
+                    <input type="text" autocomplete="off" name="costo" id="costo" class="errorInput">
                     <h3>Tipo</h3>
                     <select name="tipo" id="tipo">
                         <option value="ordenDeCompra">Orden de compra</option>
@@ -49,7 +49,7 @@ require_once APPROOT . '/views/includes/head.php';
                     </div>
                     <hr>
                     <h3>Tipo</h3>
-                    <input type="text" name="tipoGarantia" id="tipoGarantia" class="errorInput">
+                    <input type="text" autocomplete="off" name="tipoGarantia" id="tipoGarantia" class="errorInput">
                     <h3>Fecha de inicio</h3>
                     <input type="date" name="fechaInicioGarantia" id="fechaInicioGarantia" class="errorInput">
                     <h3>Fecha límite</h3>
@@ -68,7 +68,7 @@ require_once APPROOT . '/views/includes/head.php';
                     </div>
                     <hr>
                     <div class="instancia" id="containerInstancias">
-                        <input type="text" name="identificador0" id="identificador0" class="errorInput">
+                        <input type="text" autocomplete="off" name="identificador0" id="identificador0" class="errorInput">
                         <select name="estado0" id="estado0">
                             <option value="stock">Stock</option>
                             <option value="mantenimiento">Mantenimiento</option>

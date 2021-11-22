@@ -29,17 +29,21 @@
                 ];
                 array_push($caracteristicas, $caracteristica);
             }
-            var_dump($_FILES);
-            $imagen = $_FILES['imagenInsumo'];
-            if ($imagen['name'] == '') {
-                $rutaImagenDB = -1;
-            } else {
-                $extension = explode('.', $imagen['name'])[1];
-                $nombreArchivo = uniqid('', true);
-                $rutaImagen = PUBLICROOT . '/public/img/insumosUploads/' . $nombreArchivo . '.' . $extension;
-                move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-                $rutaImagenDB = $nombreArchivo . '.' . $extension;
+            //var_dump($_POST);
+            $rutaImagenDB = 'no_cambiar';
+            if($_POST['isCambiadaImagen'] == 'cambiar'){
+                $imagen = $_FILES['imagenInsumo'];
+                if ($imagen['name'] == '') {
+                    $rutaImagenDB = -1;
+                } else {
+                    $extension = explode('.', $imagen['name'])[1];
+                    $nombreArchivo = uniqid('', true);
+                    $rutaImagen = PUBLICROOT . '/public/img/insumosUploads/' . $nombreArchivo . '.' . $extension;
+                    move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+                    $rutaImagenDB = $nombreArchivo . '.' . $extension;
+                }
             }
+            
             $insumo = [
                 'codInsumo' => $codInsumo,
                 'codSector' => $sector,
@@ -53,7 +57,7 @@
                 'caraceristicasT' => $caracteristicas,
                 'rutaImagen' => $rutaImagenDB
             ];
-            var_dump($insumo);
+            //var_dump($insumo);
             $insumoModel->updateInsumo($insumo);
             header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $sector);
 
@@ -65,7 +69,7 @@
             require_once APPROOT . '/models/Instancia.php';
             $instanciaModel = new Instancia();
 
-            var_dump($_POST);
+            // var_dump($_POST);
             $compra=[
                 'codCompra' => $codCompra,
                 'codInsumo' => $codInsumo,
@@ -102,7 +106,7 @@
             }
             
             $instanciaModel->updateCompra($compra,$instancia,$infoCompra,$garantia);
-            var_dump($compra);
+            // var_dump($compra);
             header('location:' . URLROOT . '/Inventario/instancias/' . $codInsumo . '/' . $codSector);
         }
         public function cuenta(){

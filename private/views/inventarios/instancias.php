@@ -214,11 +214,11 @@ require_once APPROOT . '/views/includes/head.php';
     let estadosr = <?= json_encode($data['estados']) ?>;
     let proveedoresr = <?= json_encode($data['proveedores']) ?>;
     let ubicacionesr = <?= json_encode($data['ubicaciones']) ?>;
-
+    let permisosr = <?= json_encode($_SESSION['permisos']) ?>;
     var routeAddImage = "<?= URLROOT ?>/public/img/iconos/AddImage.svg";
 
     llenarInfoInsumo(insumo);
-    inicializar(comprasIn, estadosr, proveedoresr, ubicacionesr);
+    inicializar(comprasIn, estadosr, proveedoresr, ubicacionesr, permisosr);
 </script>
 <?php
 require_once APPROOT . '/views/includes/footer.php';

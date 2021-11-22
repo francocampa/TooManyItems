@@ -13,7 +13,7 @@ $(document).ready(function (){
         }, 350);
     });
     function createPopupInput(titulo, id, name, clase, tipo = 'text'){
-        return '<h2>'+titulo+'</h2> <input type="'+tipo+'" id="'+id+'" name="'+name+'" class="'+clase+'">';
+        return '<h2>'+titulo+'</h2> <input type="'+tipo+'" autocomplete="off" id="'+id+'" name="'+name+'" class="'+clase+'">';
     }
 
     var inputSector;
@@ -164,7 +164,6 @@ $(document).ready(function (){
         $('.popup').fadeIn(); 
     });
     $('#cambiarContrasenia').unbind("click").on('click', function (){
-        console.log('das');
         let contraInput=createPopupInput('Contraseña', 'contrasenia', 'contrasenia','errorPopupInput', 'password');
         let seguridadInput=createPopupInput('Ingresela otra vez', 'seguridad', 'seguridad','errorPopupInput', 'password');
 

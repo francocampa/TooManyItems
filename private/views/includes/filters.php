@@ -60,7 +60,7 @@
                 } else if (isset($data['tipo'])) {
                     echo URLROOT . '/Formulario/insumo/' . $data['origen'];
                 }
-                echo '" class="btnOrange">+ Agregar</a>';
+                echo '" class="btnOrange" id="agregarInstancia">+ Agregar</a>';
             } else {
                 switch ($data['titulo']) {
                     case 'Inventario de Marcas':

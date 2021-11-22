@@ -26,7 +26,7 @@ function llenarTabla(){
         const botonEliminar=marcaTabla.childNodes[3];
         //insumoTabla.href=insumoTabla.href+"/Inventario/instancias/"+insumo.codInsumo;
         marcaInfo.childNodes[1].innerHTML=marca.nombre;
-        marcaInfo.childNodes[3].innerHTML=10;
+        marcaInfo.childNodes[3].innerHTML=marca.insumos.length;
         marcaInfo.id=marca.codMarca;
 
         botonEliminar.value='eliminarMarca/'+marca.codMarca;

@@ -5,7 +5,7 @@
         require_once '../private/models/Cuenta.php';
         $cuentaModelToken= new Usuario();
         $validacionCuenta= isset($_SESSION['cuenta']) ? $cuentaModelToken->validarToken() : false;
-        //echo($validacionCuenta['@output']);
+        //echo('validacion: '.$validacionCuenta['@output']);
         if($validacionCuenta['@output']){
             return true;
         }

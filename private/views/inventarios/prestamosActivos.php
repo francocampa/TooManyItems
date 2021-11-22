@@ -65,7 +65,8 @@ require_once APPROOT . '/views/includes/head.php';
     <script>
         prestamosn = <?= json_encode($data['prestamos']) ?>;
        // let tipon = "<?= $data['titulo'] ?>";
-        cargarInfo(prestamosn);
+        let sectoresn= <?= json_encode($_SESSION['sectores']) ?>;
+        cargarInfo(prestamosn,'','',sectoresn);
     </script>
 </div>
 <?php

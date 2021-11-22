@@ -8,7 +8,7 @@
             $db=db::conectar();
             $callString= 'CALL insertPrestamo(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$prestamo['ciPrestatario'].', "'.$prestamo['codSector'].'","'.$prestamo['clase'].'","'.$prestamo['fecha'].'","'.$prestamo['hora'].'","'.$prestamo['razon'].'","'.$prestamo['tipo'].'")';
             $consulta=$db->query($callString);
-            var_dump($db);
+            //var_dump($db);
             $consulta=$db->query('SELECT max(codPrestamo) FROM prestamos');
             $codPrestamo=$consulta->fetch_assoc()['max(codPrestamo)'];
             foreach ($prestamo['insumos'] as $insumo) {
@@ -28,7 +28,7 @@
             $callString = 'SELECT * FROM prestamos WHERE tipo="'.$tipo. '" AND codSector="'.$sector.'" ORDER BY fechaDevuelto ASC';
             // echo $callString;
             $consulta = $db->query($callString);
-            // var_dump($db);
+            // //var_dump($db);
             while ($filas = $consulta->fetch_assoc()) {
                 $prestamos[] = $filas;
             }
@@ -50,13 +50,15 @@
                         $callString = 'SELECT codInsumo, codSector, identificador FROM instanciasPorInsumo WHERE codInstancia='. $prestamos[$i]['insumos'][$j]['codInstancia'];
                         $consulta = $db->query($callString);
                         $resultado=$consulta->fetch_assoc();
+                        //echo $callString;
+                        ////var_dump($resultado);
                         $prestamos[$i]['insumos'][$j]['codInsumo']=$resultado['codInsumo'];
                         $prestamos[$i]['insumos'][$j]['codSector'] = $resultado['codSector'];
                         $prestamos[$i]['insumos'][$j]['identificador'] = $resultado['identificador'];
                     }
                     $callString = 'SELECT mi.nombre AS nombreMarca, i.modelo, i.categoria, i.nombre FROM marcaPorInsumo mi right join insumos i ON i.codInsumo=mi.codInsumo AND i.codSector=mi.codSector WHERE i.codInsumo=' . $prestamos[$i]['insumos'][$j]['codInsumo'] . ' AND i.codSector="' . $prestamos[$i]['insumos'][$j]['codSector'] . '"';
                     $consulta = $db->query($callString);
-                    //var_dump($db);
+                    // var_dump($db);
                     $resultado = $consulta->fetch_assoc();
                     $prestamos[$i]['insumos'][$j]['nombreMarca'] = $resultado['nombreMarca'];
                     $prestamos[$i]['insumos'][$j]['nombre'] = $resultado['nombre'];
@@ -72,7 +74,7 @@
             $db = db::conectar();
             $callString = 'SELECT * FROM prestamos WHERE tipo="p" AND fechaDevuelto IS NULL';
             $consulta = $db->query($callString);
-            // var_dump($db);
+            // //var_dump($db);
             while ($filas = $consulta->fetch_assoc()) {
                 $prestamos[] = $filas;
             }
@@ -100,7 +102,7 @@
                     }
                     $callString = 'SELECT mi.nombre AS nombreMarca, i.modelo, i.categoria, i.nombre FROM marcaPorInsumo mi right join insumos i ON i.codInsumo=mi.codInsumo AND i.codSector=mi.codSector WHERE i.codInsumo=' . $prestamos[$i]['insumos'][$j]['codInsumo'] . ' AND i.codSector="' . $prestamos[$i]['insumos'][$j]['codSector'] . '"';
                     $consulta = $db->query($callString);
-                    //var_dump($db);
+                    ////var_dump($db);
                     $resultado = $consulta->fetch_assoc();
                     $prestamos[$i]['insumos'][$j]['nombreMarca'] = $resultado['nombreMarca'];
                     $prestamos[$i]['insumos'][$j]['nombre'] = $resultado['nombre'];

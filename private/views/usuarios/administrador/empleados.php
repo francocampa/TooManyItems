@@ -30,7 +30,7 @@ require_once APPROOT . '/views/includes/head.php';
                             <p>Nombre Completo</p>
                             <p>Cargo</p>
                         </div>
-                        <button class="btnEliminar">X</button>
+                        <!-- <button class="btnEliminar">X</button> -->
                     </a>
                 </div>
             </div>

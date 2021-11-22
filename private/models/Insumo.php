@@ -12,14 +12,14 @@
             foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
                 $callString = 'CALL insertCaracteristicaT(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",'.$codInsumo.',"'.$insumo['codSector'].'","'.$caracteristicaT['nombre'].'","'.$caracteristicaT['valor'].'")';
                 $consulta = $db->query($callString);
-                var_dump($db);
+                ////var_dump($db);
             }
         }
         public function updateInsumo($insumo){
             $db= db::conectar();
             $callString= 'CALL updateInsumo(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '","' . $insumo['codSector'] . '", '. $insumo['codInsumo'] .' ,"' . $insumo['nombre'] . '","' . $insumo['modelo'] . '","' . $insumo['categoria'] . '","' . $insumo['tipo'] . '",' . $insumo['stockMinimo'] . ', '.$insumo['stockActual'].' ,' . $insumo['codMarca']. ', "' . $insumo['rutaImagen'] . '")';
             $consulta= $db->query($callString);
-            var_dump($db);
+            //var_dump($db);
             foreach ($insumo['caraceristicasT'] as $caracteristicaT) {
                 $callString = 'CALL updateCaracteristicaT(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '" , "separaciom", ' . $caracteristicaT['codCaracteristicaT'] . ' ,"' . $caracteristicaT['valor'] . '")';
                 $consulta = $db->query($callString);

@@ -4,7 +4,7 @@
     //Agregar una nueva caracteristica tecnica
     var contador = 0;
     $('#agregarCaracteristica').on('click', function(e) {
-        let caracteristica='<input type="text" name="caracteristicaNombre'+contador+'" id="caracteristicaNombre'+contador+'" class="errorInput"> <input type="text" name="caracteristicaValor'+contador+'" id="caracteristicaValor'+contador+'" class="errorInput">';
+        let caracteristica='<input type="text" autocomplete="off" name="caracteristicaNombre'+contador+'" id="caracteristicaNombre'+contador+'" class="errorInput"> <input type="text" autocomplete="off" name="caracteristicaValor'+contador+'" id="caracteristicaValor'+contador+'" class="errorInput">';
         $('#btnSubmit').prop('disabled', true);
         $('.caracteristicasT').append(caracteristica);
         $('#caracteristicaNombre'+contador).on('input', function(e){

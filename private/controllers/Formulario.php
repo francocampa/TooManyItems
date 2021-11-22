@@ -44,7 +44,7 @@
                     $nombreCaracteristicaT = 'caracteristicaNombre' . $i;
                     $valorCaracteristicaT = 'caracteristicaValor' . $i;
                 }
-                var_dump($_POST);
+                // var_dump($_POST);
                 $imagen = $_FILES['imagenInsumo'];
                 if($imagen['name'] == ''){
                     $rutaImagenDB=-1;
@@ -68,7 +68,6 @@
                 ];
                 $insumoModel->insertInsumo($insumo);
                 header('location:' . URLROOT . '/Inventario/'.$origen);
-                echo "se pas[o por los huevos el header";
             }
 
             $this->view("forms/insumo", $data);

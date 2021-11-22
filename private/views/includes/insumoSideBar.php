@@ -13,6 +13,7 @@
                                                                             }
 
                                                                             ?>">
+                <input type="text" id="isCambiadaImagen" name="isCambiadaImagen" style="display:none;" value='no_cambiar'>
                 <input type="file" id="inputImagen" name="imagenInsumo" style="display:none;">
             </div>
             <div>
@@ -31,8 +32,14 @@
                     ?>
                     <div class="input stockMinActual">
                         <h4>Stock</h4>
-                        <input type="number" name="stockActual" id="stockActual" min=<?= $sumaInstancias ?>>
-                        <input type="number" name="stockMinimo" id="stockMinimo" min="0">
+                        <div>
+                            <p>Actual</p>
+                            <input type="number" name="stockActual" id="stockActual" min=<?= $sumaInstancias ?>>
+                        </div>
+                        <div>
+                            <p>Minimo</p>
+                            <input type="number" name="stockMinimo" id="stockMinimo" min="0">
+                        </div>
                     </div>
                     <div class="input">
                         <h4>Categoría</h4>

@@ -27,6 +27,6 @@
                 }
             }  
             $this->view("forms/login", $data);
-            var_dump($_SESSION); 
+            //var_dump($_SESSION); 
         }
-    }   //TODO: tengo que mover las cosas de base de datos al model de cuenta
+    }   

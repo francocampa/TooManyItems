@@ -40,7 +40,7 @@ require_once APPROOT . '/views/includes/head.php';
                     <p>Características generales</p>
                     <hr>
                     <h3>Nombre</h3>
-                    <input type="text" name="nombre" id="nombreInsumo" class="errorInput">
+                    <input type="text" autocomplete="off" name="nombre" id="nombreInsumo" class="errorInput">
                     <h3>Tipo</h3>
                     <select name="tipo" id="tipo">
                     </select>
@@ -54,9 +54,9 @@ require_once APPROOT . '/views/includes/head.php';
                         ?>
                     </select>
                     <h3>Modelo</h3>
-                    <input type="text" name="modelo" id="modeloInsumo">
+                    <input type="text" autocomplete="off" name="modelo" id="modeloInsumo">
                     <h3>Stock Mínimo</h3>
-                    <input type="text" name="stockMinimo" id="stockMinimo" class="errorInput">
+                    <input type="text" autocomplete="off" name="stockMinimo" id="stockMinimo" class="errorInput">
                 </div>
                 <div class="col overflow">
                     <p>Características técnicas</p>
@@ -67,8 +67,8 @@ require_once APPROOT . '/views/includes/head.php';
                     </div>
                     <hr>
                     <div class="caracteristicasT">
-                        <!-- <input type="text" name="caracteristicaNombre0">
-                        <input type="text" name="caracteristicaValor0"> -->
+                        <!-- <input type="text" autocomplete="off" name="caracteristicaNombre0">
+                        <input type="text" autocomplete="off" name="caracteristicaValor0"> -->
                     </div>
                     <button id="agregarCaracteristica" class="btnCaracteristicaT" type="button">+</button>
                     <button id="quitarCaracteristica" class="btnCaracteristicaT" type="button">-</button>

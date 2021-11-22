@@ -3,12 +3,14 @@ var compras=[];
 var ubicaciones=[];
 var estados=[];
 var proveedores=[];
-function inicializar(comprasIn, estadosr, proveedoresr, ubicacionesr){
+var permisos=[];
+function inicializar(comprasIn, estadosr, proveedoresr, ubicacionesr, permisosr){
     compras=comprasIn;
     console.log(comprasIn);
     estados=estadosr;
     proveedores=proveedoresr;
     ubicaciones=ubicacionesr;
+    permisos=permisosr;
     agregarFiltros();
     llenarTabla();
 }
@@ -19,15 +21,22 @@ var compraTablaBase=document.getElementsByClassName("item com")[0].cloneNode(tru
 var headerInstancia= document.getElementsByClassName("cabecera instancias")[0].cloneNode(true);
 var headerCompra= document.getElementsByClassName("cabecera compras")[0].cloneNode(true);
 document.getElementsByClassName('tabla')[0].removeChild(document.getElementsByClassName("cabecera")[0]);
-
+var botonAgregar=0;
+if($('#agregarInstancia').length){
+    botonAgregar=document.getElementById('agregarInstancia').cloneNode(true);
+}
 
 var tabla = document.getElementsByClassName("items")[0];
 tabla.removeChild(document.getElementsByClassName("item")[0]);
 
 //Cambia los filtros disponibles seg[un el inventario seleccionado
 function agregarFiltros(){
+    if($('#agregarInstancia').length){
+        $('#agregarInstancia').remove();
+    }
     if($('#inventario').val() == 'instancias'){
         $('#buscador').prop('disabled',false);
+        
         if($('#tipoCompra').length){    //Elimino los filtros del otro inventario si estaban colocados
             $('#tipoCompra').remove();
             $('#garantiaActiva').remove();
@@ -53,9 +62,10 @@ function agregarFiltros(){
             selectUbicaciones+='<option value='+ubicacion.codUbicacion+'>'+ubicacion.nombre+'</option>'
         });
         selectUbicaciones+='</select>';
-        $(selectEstado).insertBefore('.btnOrange');
-        $(selectProveedor).insertBefore('.btnOrange');
-        $(selectUbicaciones).insertBefore('.btnOrange');
+        $('.filtros').append(selectEstado);
+        $('.filtros').append(selectProveedor);
+        $('.filtros').append(selectUbicaciones);
+
         $('#estado').on('change', function (e){
             filtrar('filtro');
         });
@@ -91,14 +101,18 @@ function agregarFiltros(){
         selectGarantia+='<option value="terminada">terminada</option>';
         selectGarantia+='<option value="sin">sin garantia</option>'
         selectGarantia+='</select>'
-        $(selectTipo).insertBefore('.btnOrange');
-        $(selectGarantia).insertBefore('.btnOrange');
+        $('.filtros').append(selectTipo);
+        $('.filtros').append(selectGarantia);
+
         $('#tipoCompra').on('change', function (e){
             filtrar('filtro');
         });
         $('#garantiaActiva').on('change', function (e){
             filtrar('filtro');
         });
+    }
+    if(botonAgregar!=0){
+        $('.filtros').append(botonAgregar);
     }
 }
 
@@ -546,6 +560,7 @@ function llenarTabla() {
                 i++
             }
         }
+        quitarModificacion();
      });
     $('.btnEliminar').on('click', function(e){
         let texto='<h2>Está seguro de que desea eliminar este item?</h2>';
@@ -622,7 +637,13 @@ function llenarTabla() {
     });
 }
 
-
+function quitarModificacion(){
+    if(permisos.admin== false && permisos.coord == false){
+        $('.btnModificar').remove();
+        $('input').prop('disabled', true);
+        $('.contenido select, .insumoSidebar select').prop('disabled', true);
+    }
+}
 
 $('#buscador').on('input',function(){
     const busqueda= $(this).val().toLowerCase();

@@ -130,13 +130,13 @@
             $db = db::conectar();
             $callString= 'CALL deleteInstancia(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '", '. $codInstancia . ', ' .$codInsumo.' ,"' . $codSector . '")';
             $consulta=$db->query($callString);
-            var_dump($db);
+            //var_dump($db);
         }
         public function deleteCompra($codCompra, $codInsumo, $codSector){
             $db = db::conectar();
             $callString = 'CALL deleteCompra(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '", "' . $codSector . '",' . $codInsumo . ',' . $codCompra . ' )';
             $consulta = $db->query($callString);
-            var_dump($db);
+            //var_dump($db);
         }
 
         public function insertFalla($codInstancia, $falla){
@@ -144,14 +144,14 @@
             $callString = 'CALL insertFalla(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codInstancia . ',"' . $falla['nombre'] . '","' . $falla['observaciones'] . '", "'.$falla['diagnostico'].'" )';
             echo $callString;
             $consulta = $db->query($callString);
-            var_dump($db);
+            //var_dump($db);
         }
         public function solucionarFalla($codInstancia, $codFalla){
             $db = db::conectar();
             $callString = 'CALL solucionarFalla(' . $_SESSION['cuenta']['ci'] . ',"' . $_SESSION['cuenta']['token'] . '",' . $codInstancia . ',' . $codFalla . ')';
             echo $callString;
             $consulta = $db->query($callString);
-            var_dump($db);
+            //var_dump($db);
         }
 
         public function countInstanciasConFallasPorSector($codSector){

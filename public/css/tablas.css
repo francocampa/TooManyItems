@@ -42,7 +42,7 @@ hr{
 .imagenInsumoTabla{
     width: 4rem;
     height: 4rem;
-    background-color: var(--color-mediumbg);
+    background-color: transparent;
     border-radius: 1rem;
     background-position: center;
 }
@@ -137,7 +137,7 @@ a > p{
     gap: 1rem; 
     justify-items: center;
 }
-.instanciaCard input:disabled{
+.instanciaCard input:disabled, .compraCard input:disabled {
     background-color: #5454547e;
     color: var(--color-bg);
     border-radius: 0.5rem;
@@ -211,6 +211,9 @@ a > p{
     border: none;
     outline: none;
     resize: none;
+    font-size: 1.2rem;
+    color:var(--color-mediumbg);
+    padding: 0.5rem;
 }
 .btnFalla{
     width: 2rem;

@@ -150,6 +150,7 @@ function actualizarTipo() {
         }
         if(isCorrecto){
             $('#frontInputImagen').removeClass('errorInputInsumo');
+            $('#isCambiadaImagen').val('cambiar');
             validarFormInsumo();
         }else{
             document.getElementById('frontInputImagen').src=routeAddImage;

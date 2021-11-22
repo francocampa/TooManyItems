@@ -33,7 +33,11 @@ function llenarTabla(sector) {
         prestamoInfo.childNodes[7].innerHTML=prestamo.horaPrestamo;
         prestamoInfo.childNodes[9].innerHTML=prestamo.insumos != undefined ? prestamo.insumos.length : '-';
         if(prestamo.fechaDevuelto == null){
-            prestamoInfo.childNodes[11].innerHTML='Marcar como devuelto';
+            if(tipo == 'Clases'){
+                prestamoInfo.childNodes[11].innerHTML='Marcar como dictada';
+            }else{
+                prestamoInfo.childNodes[11].innerHTML='Marcar como devuelto';
+            }
             prestamoInfo.childNodes[11].value='devolverPrestamo/'+prestamo.codPrestamo;
             prestamoInfo.childNodes[11].id='devolverPrestamo'+prestamo.codPrestamo;
             prestamoInfo.childNodes[11].className='btnPrestamo noDevuelto';
@@ -56,7 +60,12 @@ function llenarTabla(sector) {
         //Boton de devolver prestamo
         if($('#devolverPrestamo'+prestamo.codPrestamo).length){
             $('#devolverPrestamo'+prestamo.codPrestamo).on('click', function(e){
-                $('.popup').find('h1').html("Marcar prestamo como devuelto?");
+                if(tipo == 'Clases'){
+                    $('.popup').find('h1').html("Marcar clase como dictada?");
+                }else{
+                    $('.popup').find('h1').html("Marcar prestamo como devuelto?");
+
+                }
                 $('.popup').prop('action', $('.popup').prop('action')+e.target.value);
 
                 $('.blurr').fadeIn();
@@ -91,8 +100,9 @@ $('#selectorSectores').on('change', function(){
 $('#buscador').on('input', function(){
     const busqueda= $('#buscador').val().toLowerCase();
     showItems();
-    for (let i = 0; i < $('.item').length; i++) {
-        const nombreItem=$('.item')[i].childNodes[1].childNodes[1].innerHTML.toLowerCase();
+    for (let i = 0; i < $('.item.p').length; i++) {
+        console.log(document.getElementsByClassName('item p')[i].childNodes[1].childNodes[1]);
+        const nombreItem=document.getElementsByClassName('item p')[i].childNodes[1].childNodes[3].innerHTML.toLowerCase();
         if(!(nombreItem.includes(busqueda))){
             $('.item')[i].style.display='none';
         } 

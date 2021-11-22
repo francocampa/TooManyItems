@@ -20,3 +20,18 @@ function llenarTabla(){
         document.getElementsByClassName('items')[0].appendChild(insumoTabla);
     });
 }
+
+$('#buscador').on('input',function(){
+    const busqueda = $('#buscador').val().toLowerCase();
+    showItems();
+    for (let i = 0; i < $('.item').length; i++) {
+        const nombreItem = $('.item')[i].childNodes[3].innerHTML.toLowerCase();
+        if (!(nombreItem.includes(busqueda))) {
+            $('.item')[i].style.display = 'none';
+        }
+    }
+})
+
+function showItems() {
+    $('.item').css('display', 'grid');
+}

@@ -35,17 +35,6 @@
                     $i++;
                 }
             }
-            //var_dump($insumos);
-            
-            //  ANTES AGARRABA LAS INSTANCIAS AS[I, PERO CAMBI[E PARA QUE SE AGARREN MIENTRAS SE CARGAN LOS INSUMOS AS[I ES M[AS R[APIDO
-            // for ($i=0; $i < count($_SESSION['sectores']); $i++) {
-            //     for ($j=0; $j < ; $j++) { 
-
-            //     }
-            //     if(sizeof($insumos[$i])!=0){
-            //         $insumos[$i]['instancias'] = $instanciaModel->getInstanciasPorInsumo($insumos[$i]['codInsumo'], $insumos[$i]['codSector']);
-            //     }
-            // }
 
             require_once APPROOT . '/models/Prestamo.php';
             $prestamoModel = new PrestamoModel();

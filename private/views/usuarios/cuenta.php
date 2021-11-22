@@ -7,6 +7,8 @@ $css = [
     'tablas' => true
 ];
 require_once APPROOT . '/views/includes/head.php';
+// var_dump($_POST);
+// var_dump($data);
 ?>
 <div class="estructura">
     <?php require_once APPROOT . '/views/includes/navbar.php'; ?>
@@ -15,24 +17,51 @@ require_once APPROOT . '/views/includes/head.php';
             ?> -->
 
     <div class="contenido miCuenta">
-        <form class='updateCuentaForm' method="POST" action="<?= URLROOT ?>/Modificacion/cuenta">
-            <h2>Información personal</h2>
-            <hr>
-            <h2>Nombre</h2>
-            <input type="text" id="nombre" name="nombre" class="d">
-            <h2>Apellido</h2>
-            <input type="text" id="apellido" name="apellido" class="d">
-            <h2>Telefono</h2>
-            <input type="text" id="telefono" name="telefono" class="d">
-            <h2>Email</h2>
-            <input type="text" id="email" name="email" class="d">
-            <br>
-            <button class="btnConfirmar">Confirmar</button>
+        <div class="updateCuentaForm">
+            <form method="POST" action="<?= URLROOT ?>/Modificacion/cuenta">
+                <h2>Información personal</h2>
+                <hr>
+                <h2>Nombre</h2>
+                <input type="text" id="nombre" name="nombre" class="d">
+                <h2>Apellido</h2>
+                <input type="text" id="apellido" name="apellido" class="d">
+                <h2>Telefono</h2>
+                <input type="text" id="telefono" name="telefono" class="d">
+                <h2>Email</h2>
+                <input type="text" id="email" name="email" class="d">
+                <br>
+                <button class="btnConfirmar">Confirmar</button>
+            </form>    
             <br>
             <h2>Contraseña</h2>
             <hr>
-            <button class="btnChangePass" id='cambiarContrasenia' type="button">Cambiar contraseña</button>
-        </form>
+            <form class="inputOldPass" action="" method="post">
+                <p><?php
+                if(!$data['currentPass']){
+                    echo 'Ingrese su contraseña';
+                }
+                ?></p>
+                <input name="currentPass" id="currentPass" <?php
+                if($data['currentPass']){
+                    echo "disabled value='Se confirmó la contraseña' type='input'";
+                }else{
+                    echo 'type="password"';
+                }
+            ?>>
+            <?php
+                if(!$data['currentPass']){
+                    echo '<button type="submit" class="btnConfirmar">Verificar</button>';
+                }
+            ?>
+            </form>
+            <button class="btnChangePass" id='cambiarContrasenia' type="button"
+            <?php
+                if(!$data['currentPass']){
+                    echo "disabled";
+                }
+            ?>>Cambiar contraseña</button>
+        </div>
+        
         <div class="accionesRecientes">
             <h2>Acciones recientes</h2>
             <hr>

@@ -14,16 +14,23 @@
             $db = db::conectar();
             $callString = 'CALL logout(' . $_SESSION['cuenta']['ci'] . ', "' . $_SESSION['cuenta']['token'] . '")';
             echo $callString."<br>";
-            var_dump($db);
+            //var_dump($db);
             $consulta = $db->query($callString);
         }
         public function validarToken(){
             $db=db::conectar();
             $callString= 'CALL decriptar('.$_SESSION['cuenta']['ci'].', "'. $_SESSION['cuenta']['token'].'", @output)';
             $consulta=$db->query($callString);
-            //var_dump($db);
+            ////var_dump($db);
             $consulta=$db->query('SELECT @output');
             $resultado=$consulta->fetch_assoc();
+            return $resultado;
+        }
+        public function validarPass($pass){
+            $db=db::conectar();
+            $callString='SELECT count(ciEmpleado) FROM empleados WHERE ciEmpleado='.$_SESSION['cuenta']['ci'].' AND contrasenia="'.$pass.'"';
+            $consulta=$db->query($callString);
+            $resultado=$consulta->fetch_assoc()['count(ciEmpleado)'];
             return $resultado;
         }
         public function getCuentaPorCi($ci){
@@ -107,7 +114,7 @@
                 $empleados[$i]['sectores']=[];
                 $callString= 'SELECT codSector FROM sectorDeEmpleado WHERE ciEmpleado='. $empleados[$i]['ciEmpleado'];
                 $consulta = $db->query($callString);
-                // var_dump($empleados);
+                // //var_dump($empleados);
                 while ($filas = $consulta->fetch_assoc()) {
                     array_push($empleados[$i]['sectores'], $filas['codSector']);
                 }

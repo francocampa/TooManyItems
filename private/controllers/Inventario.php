@@ -345,7 +345,7 @@
             }
             require_once APPROOT . '/models/Prestamo.php';
             $prestamoModel = new PrestamoModel();
-            $prestamos = $prestamoModel->getPrestamosActivos($codSector);
+            $prestamos[$codSector] = $prestamoModel->getPrestamosActivos($codSector);
             $permisos = [
                 'admin' => true,
                 'coord' => true,
@@ -357,7 +357,8 @@
                 'titulo' => 'Prestamos activas',
                 'permisos' => $permisos,
                 'prestamos' => $prestamos,
-                'rutaAnterior' => $rutaAnterior
+                'rutaAnterior' => $rutaAnterior,
+                'sectores' => [$codSector]
             ];
             $this->view("inventarios/prestamosActivos", $data);
         }

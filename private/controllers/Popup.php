@@ -105,7 +105,7 @@
             header('location:' . URLROOT . $_POST['origen']);
         }
         public function agregarFalla($codInstancia){
-            var_dump($_POST);
+            // var_dump($_POST);
             $falla=[
                 'nombre'=>$_POST['inputNombre'],
                 'observaciones' => $_POST['inputObservaciones'],
@@ -156,7 +156,7 @@
                 'insumos' => $insumosSeleccionados,
                 'tipo' => $_POST['tipo']
             ];
-            var_dump($prestamo);
+            // var_dump($prestamo);
             require_once APPROOT . '/models/Prestamo.php';
             $prestamoModel = new PrestamoModel();
             $prestamoModel->insertPrestamo($prestamo);

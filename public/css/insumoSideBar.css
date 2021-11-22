@@ -36,6 +36,7 @@
     gap: 1rem;
 }
 h3, h4{
+    font-family: 'Exo';
     color: var(--color-gray);
 }
 h3{
@@ -100,6 +101,10 @@ h1 + .filtros{
     display: grid;
     grid-template-areas: 'titulo titulo'
                          'input1 input2';
+}
+.stockMinActual p{
+    color: var(--color-gray);
+    font-family: 'Exo';
 }
 .stockMinActual h4{
     grid-area: titulo;
